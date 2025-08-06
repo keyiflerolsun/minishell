@@ -1,0 +1,62 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mini.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/06 13:47:03 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/06 13:55:17 by osancak          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef FT_MINI_H
+# define FT_MINI_H
+
+// 🧠 GNU Readline
+# include <readline/history.h>  // add_history
+# include <readline/readline.h> // readline, rl_*
+
+// 🖨️ Standart IO
+# include <stdio.h>  // printf, perror
+# include <string.h> // strerror
+
+// 🧠 Memory
+# include <stdlib.h> // malloc, free, exit, getenv
+
+// 🔧 Sys Calls
+# include <fcntl.h>     // open
+# include <sys/stat.h>  // stat, lstat, fstat, unlink
+# include <sys/types.h> // stat yapıları
+// write, access, read, close, fork, execve, dup*, pipe, isatty, tty*
+# include <unistd.h>
+
+// 🧒 Processes
+# include <signal.h>   // signal, sigaction, sigemptyset, sigaddset, kill
+# include <sys/wait.h> // wait, waitpid, wait3, wait4
+
+// 📂 *dir
+# include <dirent.h> // opendir, readdir, closedir
+
+// 🧭 Cwd
+# include <unistd.h> // getcwd, chdir
+
+// 🖥️ Terminal Control
+# include <sys/ioctl.h> // ioctl
+# include <unistd.h>    // isatty, ttyname, ttyslot
+
+// 🧵 Terminal Attr
+# include <termios.h> // tcgetattr, tcsetattr
+
+// 🧾 Termcap
+# include <termcap.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
+
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;36m"
+# define RED "\033[0;31m"
+# define MAGENTA "\033[0;35m"
+# define CYAN "\033[0;36m"
+# define RESET "\033[0m"
+
+#endif

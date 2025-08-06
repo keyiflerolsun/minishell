@@ -1,0 +1,5 @@
+**/.vscode/
+**/obj/
+**/*.a
+**/a.out
+kurek*
