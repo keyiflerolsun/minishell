@@ -6,11 +6,11 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 16:24:09 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/08 16:50:19 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/08 18:26:18 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "parser.h"
 
 static void	sigint_handler(int signum)
 {
@@ -50,11 +50,15 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			break ;
 		if (*line)
+		{
 			add_history(line);
-		waitpid(ft_cmd(vars, line, envp), NULL, 0);
+			ft_parse();
+			waitpid(ft_execute(vars, line, envp), NULL, 0);
+		}
 		free(line);
 	}
 	rl_clear_history();
+	free_path(vars.path);
 	printf("\n\n" RED "exit" RESET "\n\n");
 	return (EXIT_SUCCESS);
 }

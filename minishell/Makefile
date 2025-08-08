@@ -5,7 +5,7 @@ OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 NAME      = minismet
 CC        = cc
-CFLAGS    = -Wall -Wextra -Werror -Ilibs/libft -Ilibs/ft_printf -Ilibs/get_next_line -Ilibs/pipex
+CFLAGS    = -Wall -Wextra -Werror -Ilibs/libft -Ilibs/ft_printf -Ilibs/get_next_line -Ilibs/pipex -Iexecuter -Iparser
 LDFLAGS   = -lreadline
 
 MAKEFLAGS += --no-print-directory --silent
@@ -13,6 +13,8 @@ LIBFT      = libs/libft/libft.a
 PRINTF     = libs/ft_printf/libftprintf.a
 GNL        = libs/get_next_line/get_next_line.a
 PPX        = libs/pipex/pipex.a
+EXC        = executer/executer.a
+PRS        = parser/parser.a
 
 GREEN   = \033[0;32m
 YELLOW  = \033[0;33m
@@ -24,14 +26,20 @@ RESET   = \033[0m
 
 all: $(NAME)
 
-$(NAME): $(OFILES) $(PPX) $(GNL) $(PRINTF) $(LIBFT)
+$(NAME): $(OFILES) $(PRS) $(EXC) $(PPX) $(GNL) $(PRINTF) $(LIBFT)
 	@printf "$(GREEN)» 📦 Linking   $(RESET)» $(MAGENTA)./$(NAME)$(RESET)\n"
-	@$(CC) $(CFLAGS) $(OFILES) $(PPX) $(GNL) $(PRINTF) $(LIBFT) -o $(NAME) $(LDFLAGS)
+	@$(CC) $(CFLAGS) $(OFILES) $(PRS) $(EXC) $(PPX) $(GNL) $(PRINTF) $(LIBFT) -o $(NAME) $(LDFLAGS)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(OBJDIR)
 	@printf "$(BLUE)» ⚙️  Compiling $(RESET)» $(YELLOW)%14s$(RESET) | $(GREEN)%s$(RESET)\n" "$<" "$@"
 	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(PRS): FORCE
+	@$(MAKE) -C $(dir $@)
+
+$(EXC): FORCE
+	@$(MAKE) -C $(dir $@)
 
 $(PPX): FORCE
 	@$(MAKE) -C $(dir $@)
@@ -48,6 +56,8 @@ $(LIBFT): FORCE
 clean:
 	@printf "$(RED)» 🧹 Cleaning  $(RESET)» $(CYAN)./$(OBJDIR) $(RESET)\n"
 	@rm -rf $(OBJDIR)
+	@$(MAKE) -C $(dir $(PRS)) clean
+	@$(MAKE) -C $(dir $(EXC)) clean
 	@$(MAKE) -C $(dir $(PPX)) clean
 	@$(MAKE) -C $(dir $(GNL)) clean
 	@$(MAKE) -C $(dir $(PRINTF)) clean
@@ -56,6 +66,8 @@ clean:
 fclean: clean
 	@printf "$(RED)» 🔥 Removing  $(RESET)» $(MAGENTA)./$(NAME)$(RESET)\n"
 	@rm -f $(NAME)
+	@$(MAKE) -C $(dir $(PRS)) fclean
+	@$(MAKE) -C $(dir $(EXC)) fclean
 	@$(MAKE) -C $(dir $(PPX)) fclean
 	@$(MAKE) -C $(dir $(GNL)) fclean
 	@$(MAKE) -C $(dir $(PRINTF)) fclean
