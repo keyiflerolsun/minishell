@@ -10,7 +10,20 @@
 /*                                                                                        */
 /* ************************************************************************************** */
 
-#include "mini.h"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;36m"
+# define RED "\033[0;31m"
+# define MAGENTA "\033[0;35m"
+# define CYAN "\033[0;36m"
+# define BOLD "\033[1m"
+# define RESET "\033[0m"
+#include <readline/history.h>
+#include <readline/readline.h>
+#include <unistd.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <sys/wait.h>
 
 static void	sigint_handler(int signum)
 {

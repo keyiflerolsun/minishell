@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   00_readline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
+/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:51:46 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/06 18:27:36 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/08 17:26:04 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini.h"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;36m"
+# define RED "\033[0;31m"
+# define MAGENTA "\033[0;35m"
+# define CYAN "\033[0;36m"
+# define BOLD "\033[1m"
+# define RESET "\033[0m"
+#include <readline/history.h>
+#include <readline/readline.h>
+#include <stdlib.h>
 
 int	main(void)
 {
