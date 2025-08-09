@@ -1,11 +1,17 @@
-CFILES = get_next_line.c get_next_line_utils.c
+CFILES = ft_strlen.c \
+		 ft_calloc.c \
+		 ft_substr.c \
+		 ft_split.c \
+		 ft_strstr.c \
+		 ft_strchr.c \
+		 ft_strjoin.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
-NAME   = get_next_line.a
+NAME   = utils.a
 CC     = cc
-CFLAGS = -Wall -Wextra -Werror -I../libft -I../ft_printf
+CFLAGS = -Wall -Wextra -Werror
 
 GREEN   = \033[0;32m
 YELLOW  = \033[0;33m
@@ -23,7 +29,7 @@ $(NAME): $(OFILES)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(OBJDIR)
-	@printf "$(BLUE)» ⚙️  Compiling $(RESET)» $(YELLOW)%22s$(RESET) | $(GREEN)%s$(RESET)\n" "$<" "$@"
+	@printf "$(BLUE)» ⚙️  Compiling $(RESET)» $(YELLOW)%12s$(RESET) | $(GREEN)%s$(RESET)\n" "$<" "$@"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

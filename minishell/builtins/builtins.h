@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
+/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/03 13:29:04 by osancak           #+#    #+#             */
-/*   Updated: 2025/07/03 13:30:03 by osancak          ###   ########.fr       */
+/*   Created: 2025/08/09 13:08:12 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/09 14:32:27 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
+# include "core.h"
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
+#endif

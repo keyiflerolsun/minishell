@@ -5,17 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 11:02:35 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/08 16:26:50 by osancak          ###   ########.fr       */
+/*   Created: 2025/08/09 13:34:53 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/09 14:51:35 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "core.h"
 
-void	set_path(t_pipe *vars, char **envp)
+void	set_path(t_vars *vars)
 {
 	char	*path;
+	char	**envp;
 
+	envp = vars->ep;
 	path = NULL;
 	vars->path = NULL;
 	while (*envp)

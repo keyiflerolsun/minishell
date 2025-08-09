@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_char.c                                          :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
+/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/15 19:17:37 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/16 00:11:23 by osancak          ###   ########.fr       */
+/*   Created: 2025/05/27 13:34:30 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/09 13:06:39 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "utils.h"
 
-int	ft_putchr(char c)
+char	*ft_strchr(const char *s, int c)
 {
-	write(1, &c, 1);
-	return (1);
-}
-
-int	ft_putstr(char *str)
-{
-	int	i;
-
-	if (!str)
-		return (ft_putstr("(null)"));
-	i = 0;
-	while (str[i])
-		i += ft_putchr(str[i]);
-	return (i);
+	while (*s && *s != (unsigned char)c)
+		s++;
+	if (*s == (unsigned char)c)
+		return ((char *)s);
+	return (NULL);
 }

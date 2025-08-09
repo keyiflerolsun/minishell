@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   err_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/20 06:40:41 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/08 16:26:50 by osancak          ###   ########.fr       */
+/*   Created: 2025/08/09 14:41:18 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/09 14:51:32 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "executor.h"
 
 static void	exit_with_code(int exit_code)
 {
@@ -43,21 +43,4 @@ void	error_exit(const char *msg, int exit_code)
 		exit(EXIT_FAILURE);
 	}
 	exit_with_code(exit_code);
-}
-
-void	close_fd(t_pipe vars)
-{
-	close(vars.curr_pipe[0]);
-	close(vars.curr_pipe[1]);
-	close(vars.last_read);
-	close(vars.infile);
-	close(vars.outfile);
-}
-
-int	check_args(char **argv)
-{
-	while (*argv)
-		if (!**argv++)
-			return (0);
-	return (1);
 }

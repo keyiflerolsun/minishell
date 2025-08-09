@@ -1,11 +1,13 @@
-CFILES = ft_exec.c
+CFILES = signals.c \
+		 init.c \
+		 path.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
-NAME   = executer.a
+NAME   = core.a
 CC     = cc
-CFLAGS =  -Wall -Wextra -Werror -I../libs/libft -I../libs/ft_printf -I../libs/get_next_line -I../libs/pipex
+CFLAGS = -Wall -Wextra -Werror -I../utils -I../core -I../executor
 
 GREEN   = \033[0;32m
 YELLOW  = \033[0;33m
@@ -23,7 +25,7 @@ $(NAME): $(OFILES)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(OBJDIR)
-	@printf "$(BLUE)» ⚙️  Compiling $(RESET)» $(YELLOW)%14s$(RESET) | $(GREEN)%s$(RESET)\n" "$<" "$@"
+	@printf "$(BLUE)» ⚙️  Compiling $(RESET)» $(YELLOW)%12s$(RESET) | $(GREEN)%s$(RESET)\n" "$<" "$@"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

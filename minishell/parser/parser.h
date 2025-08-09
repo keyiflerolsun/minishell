@@ -5,16 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/08 18:01:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/08 18:18:40 by osancak          ###   ########.fr       */
+/*   Created: 2025/08/09 13:08:26 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/09 14:32:34 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PARSER_H
-# define FT_PARSER_H
+#ifndef PARSER_H
+# define PARSER_H
 
-# include "executer.h"
-
-void ft_parse(void);
+# include "core.h"
 
 #endif

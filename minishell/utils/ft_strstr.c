@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/29 16:50:14 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/30 11:04:17 by osancak          ###   ########.fr       */
+/*   Created: 2025/04/20 22:45:56 by osancak           #+#    #+#             */
+/*   Updated: 2025/07/07 11:18:40 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "utils.h"
 
-static void	ft_bzero(void *s, size_t n)
+char	*ft_strstr(const char *big, const char *little)
 {
-	while (n--)
-		*(char *)s++ = 0;
-}
+	size_t	b;
+	size_t	l;
+	size_t	len;
 
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*res;
-
-	if (!nmemb || !size)
-		return (malloc(0));
-	res = malloc(nmemb * size);
-	if (!res)
-		return (NULL);
-	ft_bzero(res, nmemb * size);
-	return (res);
+	if (!*little)
+		return ((char *)big);
+	b = -1;
+	len = ft_strlen(big);
+	while (big[++b] && b < len)
+	{
+		l = 0;
+		while (big[b + l] == little[l] && b + l < len)
+			if (!little[l++ + 1])
+				return ((char *)&big[b]);
+	}
+	return (NULL);
 }

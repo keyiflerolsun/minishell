@@ -1,13 +1,11 @@
-CFILES = ft_printf.c \
-		 ft_char.c \
-		 ft_num.c
+CFILES =
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
-NAME   = libftprintf.a
+NAME   = builtins.a
 CC     = cc
-CFLAGS = -Wall -Wextra -Werror -I../libft
+CFLAGS = -Wall -Wextra -Werror -I../utils -I../core -I../executor
 
 GREEN   = \033[0;32m
 YELLOW  = \033[0;33m

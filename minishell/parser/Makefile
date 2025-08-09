@@ -1,11 +1,11 @@
-CFILES = ft_parser.c
+CFILES =
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 NAME   = parser.a
 CC     = cc
-CFLAGS =  -Wall -Wextra -Werror -I../libs/libft -I../libs/ft_printf -I../libs/get_next_line -I../libs/pipex -I../executer
+CFLAGS = -Wall -Wextra -Werror -I../core
 
 GREEN   = \033[0;32m
 YELLOW  = \033[0;33m
@@ -23,7 +23,7 @@ $(NAME): $(OFILES)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(OBJDIR)
-	@printf "$(BLUE)» ⚙️  Compiling $(RESET)» $(YELLOW)%14s$(RESET) | $(GREEN)%s$(RESET)\n" "$<" "$@"
+	@printf "$(BLUE)» ⚙️  Compiling $(RESET)» $(YELLOW)%12s$(RESET) | $(GREEN)%s$(RESET)\n" "$<" "$@"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

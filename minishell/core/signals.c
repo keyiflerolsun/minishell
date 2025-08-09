@@ -1,18 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parser.c                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/08 17:58:15 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/08 18:20:03 by osancak          ###   ########.fr       */
+/*   Created: 2025/08/09 13:12:48 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/09 14:51:34 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "core.h"
 
-void	ft_parse(void)
+static void	sigint_handler(int signum)
 {
-	ft_printf("parser is here\n");
+	(void)signum;
+	write(STDOUT_FILENO, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
+void	setup_signals(void)
+{
+	struct sigaction	sa;
+
+	sa.sa_handler = sigint_handler;
+	sa.sa_flags = SA_RESTART;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
 }

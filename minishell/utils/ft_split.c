@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osancak <osancak@student.42istanbul.com.tr +#+  +:+       +#+        */
+/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 08:17:20 by osancak           #+#    #+#             */
-/*   Updated: 2025/06/15 18:24:59 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/09 13:06:37 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "utils.h"
 
 static int	ft_count(char const *s, char c)
 {

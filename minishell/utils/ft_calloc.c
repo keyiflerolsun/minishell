@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/08 16:24:09 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/09 14:51:53 by osancak          ###   ########.fr       */
+/*   Created: 2025/05/29 16:50:14 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/09 13:06:34 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "core.h"
+#include "utils.h"
 
-int	main(int ac, char **av, char **ep)
+static void	ft_bzero(void *s, size_t n)
 {
-	t_vars	vars;
+	while (n--)
+		*(char *)s++ = 0;
+}
 
-	(void)ac, (void)av;
-	init_shell(&vars, ep);
-	return (EXIT_SUCCESS);
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*res;
+
+	if (!nmemb || !size)
+		return (malloc(0));
+	res = malloc(nmemb * size);
+	if (!res)
+		return (NULL);
+	ft_bzero(res, nmemb * size);
+	return (res);
 }
