@@ -6,7 +6,7 @@
 /*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:26 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/11 16:05:21 by hyakici          ###   ########.fr       */
+/*   Updated: 2025/08/11 16:33:38 by hyakici          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define PARSER_H
 
 # include "core.h"
+
+typedef struct s_command
+{
+	char		**cmd_args;
+}				t_command;
 
 typedef struct s_token_array
 {

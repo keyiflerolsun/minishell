@@ -6,7 +6,7 @@
 /*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:51:35 by hyakici           #+#    #+#             */
-/*   Updated: 2025/08/11 16:05:36 by hyakici          ###   ########.fr       */
+/*   Updated: 2025/08/11 16:23:02 by hyakici          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*quote_with_space_inside(char *first, char *token)
 		return (remove_quotes(token));
 	if (*first == '\'' && ft_strchr(token + 1, '"'))
 		return (remove_quotes(token));
-	return (ft_strdup(token));
+	return (remove_quotes(token));
 }
 
 char	*process_token(char *token)

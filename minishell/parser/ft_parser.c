@@ -6,7 +6,7 @@
 /*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/11 16:08:07 by hyakici          ###   ########.fr       */
+/*   Updated: 2025/08/11 16:50:11 by hyakici          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,28 @@
 void	ft_parser(t_vars *vars, char *line)
 {
 	char	**tokens;
-	char	*proc;
 	int		i;
+	char	*temp;
+	char	*name;
 
 	tokens = quote_aware_split(line);
 	if (!tokens)
 		return ;
-	i = 0;
-	while (tokens[i])
+	i = -1;
+	while (tokens[++i])
 	{
-		proc = process_token(tokens[i]);
-		printf("Original: %s : TOKEN [%i]: %s\n", tokens[i], i, proc);
-		free(proc);
-		free(tokens[i]);
-		i++;
+		temp = tokens[i];
+		tokens[i] = process_token(tokens[i]);
+		printf("TOKEN [%i]: %s\n", i, tokens[i]);
+		free(temp);
 	}
-	free(tokens);
-	if (!ft_strncmp(line, "pwd", 3))
-		ft_pwd(line);
-	else if (!ft_strncmp(line, "env", 3))
-		ft_env(line, *vars);
+	name = ft_strdup(tokens[0]);
+	if (!ft_strncmp(*tokens, "pwd", 3))
+		ft_pwd(*tokens);
+	else if (!ft_strncmp(*tokens, "env", 3))
+		ft_env(*tokens, *vars);
 	else
-		waitpid(ft_execute(*vars, line), NULL, 0);
+		waitpid(ft_execute(*vars, tokens, name), NULL, 0);
+	free(tokens);
+	free(name);
 }
