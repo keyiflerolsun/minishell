@@ -1,11 +1,11 @@
-CFILES =
+CFILES = ft_parser.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 NAME   = parser.a
 CC     = cc
-CFLAGS = -Wall -Wextra -Werror -I../core
+CFLAGS = -Wall -Wextra -Werror -I../utils -I../core -I../executor -I../builtins
 
 GREEN   = \033[0;32m
 YELLOW  = \033[0;33m

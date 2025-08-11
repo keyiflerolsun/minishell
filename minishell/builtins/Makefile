@@ -1,4 +1,5 @@
-CFILES =
+CFILES = pwd.c \
+		 env.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))

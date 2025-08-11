@@ -5,13 +5,15 @@ OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 NAME    = minismet
 CC      = cc
-CFLAGS  = -Wall -Wextra -Werror -Iutils -Icore -Iexecutor
+CFLAGS  = -Wall -Wextra -Werror -Iutils -Icore -Iexecutor -Iparser -Ibuiltins
 LDFLAGS = -lreadline
 
 MAKEFLAGS += --no-print-directory --silent
 CORE      = core/core.a
 UTLS      = utils/utils.a
 EXCT      = executor/executor.a
+PARS      = parser/parser.a
+BLTN      = builtins/builtins.a
 
 GREEN   = \033[0;32m
 YELLOW  = \033[0;33m
@@ -23,9 +25,9 @@ RESET   = \033[0m
 
 all: $(NAME)
 
-$(NAME): $(OFILES) $(CORE) $(UTLS) $(EXCT)
+$(NAME): $(OFILES) $(CORE) $(PARS) $(BLTN) $(EXCT) $(UTLS)
 	@printf "$(GREEN)» 📦 Linking   $(RESET)» $(MAGENTA)./$(NAME)$(RESET)\n"
-	@$(CC) $(CFLAGS) $(OFILES) $(CORE) $(UTLS) $(EXCT) -o $(NAME) $(LDFLAGS)
+	@$(CC) $(CFLAGS) $(OFILES) $(CORE) $(PARS) $(BLTN) $(EXCT) $(UTLS) -o $(NAME) $(LDFLAGS)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(OBJDIR)
@@ -41,12 +43,20 @@ $(UTLS): FORCE
 $(EXCT): FORCE
 	@$(MAKE) -C $(dir $@)
 
+$(PARS): FORCE
+	@$(MAKE) -C $(dir $@)
+
+$(BLTN): FORCE
+	@$(MAKE) -C $(dir $@)
+
 clean:
 	@printf "$(RED)» 🧹 Cleaning  $(RESET)» $(CYAN)./$(OBJDIR) $(RESET)\n"
 	@rm -rf $(OBJDIR)
 	@$(MAKE) -C $(dir $(CORE)) clean
 	@$(MAKE) -C $(dir $(UTLS)) clean
 	@$(MAKE) -C $(dir $(EXCT)) clean
+	@$(MAKE) -C $(dir $(PARS)) clean
+	@$(MAKE) -C $(dir $(BLTN)) clean
 
 fclean: clean
 	@printf "$(RED)» 🔥 Removing  $(RESET)» $(MAGENTA)./$(NAME)$(RESET)\n"
@@ -54,6 +64,8 @@ fclean: clean
 	@$(MAKE) -C $(dir $(CORE)) fclean
 	@$(MAKE) -C $(dir $(UTLS)) fclean
 	@$(MAKE) -C $(dir $(EXCT)) fclean
+	@$(MAKE) -C $(dir $(PARS)) fclean
+	@$(MAKE) -C $(dir $(BLTN)) fclean
 
 re: fclean all
 

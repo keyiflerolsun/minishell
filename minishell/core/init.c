@@ -6,12 +6,13 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:43:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/09 14:51:41 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/11 12:25:24 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "core.h"
 #include "executor.h"
+#include "parser.h"
 
 static void	run_prog(t_vars *vars)
 {
@@ -25,7 +26,7 @@ static void	run_prog(t_vars *vars)
 		if (*line)
 		{
 			add_history(line);
-			waitpid(ft_execute(*vars, line), NULL, 0);
+			ft_parser(vars, line);
 		}
 		free(line);
 	}

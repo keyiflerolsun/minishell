@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 13:08:12 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/11 14:49:57 by osancak          ###   ########.fr       */
+/*   Created: 2025/08/11 12:20:39 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/11 12:42:35 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtins.h"
 
-# include "core.h"
+void	ft_pwd(void)
+{
+	char	buff[PATH_MAX];
 
-void	ft_pwd(void);
-void	ft_env(t_vars vars);
-
-#endif
+	getcwd(buff, sizeof(buff));
+	printf("%s\n", buff);
+}

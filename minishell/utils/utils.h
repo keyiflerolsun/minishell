@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 22:23:46 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/09 13:45:46 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/11 14:40:26 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <string.h> // strerror
 
 // 🧠 Memory
+# include <limits.h> // sys limits
 # include <stdlib.h> // malloc, free, exit, getenv
 
 // 🔧 Sys Calls
@@ -68,5 +69,6 @@ char	**ft_split(char const *s, char c);
 char	*ft_strstr(const char *big, const char *little);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 #endif

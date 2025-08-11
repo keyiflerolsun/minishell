@@ -4,7 +4,8 @@ CFILES = ft_strlen.c \
 		 ft_split.c \
 		 ft_strstr.c \
 		 ft_strchr.c \
-		 ft_strjoin.c
+		 ft_strjoin.c \
+		 ft_strncmp.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))

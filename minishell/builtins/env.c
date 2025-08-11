@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 13:08:12 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/11 14:49:57 by osancak          ###   ########.fr       */
+/*   Created: 2025/08/11 14:48:54 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/11 14:51:26 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtins.h"
 
-# include "core.h"
+void	ft_env(t_vars vars)
+{
+	char **ep;
 
-void	ft_pwd(void);
-void	ft_env(t_vars vars);
-
-#endif
+	ep = vars.ep;
+	while (*ep)
+		printf("%s\n", *ep++);
+}
