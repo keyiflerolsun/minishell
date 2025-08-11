@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 12:20:39 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/11 15:27:29 by osancak          ###   ########.fr       */
+/*   Created: 2025/04/24 14:14:06 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/11 16:10:35 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "utils.h"
 
-void	ft_pwd(char *line)
+char	*ft_strdup(const char *s)
 {
-	char	buff[PATH_MAX];
+	char	*res;
+	int		s_len;
 
-	if (ft_strlen(line) != 3)
+	s_len = ft_strlen(s);
+	res = malloc((s_len + 1) * sizeof(char));
+	if (!res)
+		return (NULL);
+	res[s_len--] = '\0';
+	while (s_len >= 0)
 	{
-		write_err("pwd", "options or arguments are not supported\n");
-		return ;
+		res[s_len] = s[s_len];
+		s_len--;
 	}
-	getcwd(buff, sizeof(buff));
-	printf("%s\n", buff);
+	return (res);
 }

@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 12:20:39 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/11 15:27:29 by osancak          ###   ########.fr       */
+/*   Created: 2025/08/11 15:21:59 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/11 15:24:11 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	ft_pwd(char *line)
+void	write_err(char *left, char *right)
 {
-	char	buff[PATH_MAX];
-
-	if (ft_strlen(line) != 3)
-	{
-		write_err("pwd", "options or arguments are not supported\n");
-		return ;
-	}
-	getcwd(buff, sizeof(buff));
-	printf("%s\n", buff);
+	write(STDERR_FILENO, RED, ft_strlen(RED));
+	write(STDERR_FILENO, BOLD, ft_strlen(BOLD));
+	write(STDERR_FILENO, "[!] ", 4);
+	write(STDERR_FILENO, left, ft_strlen(left));
+	write(STDERR_FILENO, " : ", 3);
+	write(STDERR_FILENO, YELLOW, ft_strlen(YELLOW));
+	write(STDERR_FILENO, right, ft_strlen(right));
 }

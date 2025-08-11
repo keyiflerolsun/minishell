@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 12:20:39 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/11 15:27:29 by osancak          ###   ########.fr       */
+/*   Created: 2025/05/27 10:24:24 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/11 16:09:44 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "utils.h"
 
-void	ft_pwd(char *line)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	char	buff[PATH_MAX];
+	unsigned char	*dst_cpy;
+	unsigned char	*src_cpy;
 
-	if (ft_strlen(line) != 3)
-	{
-		write_err("pwd", "options or arguments are not supported\n");
-		return ;
-	}
-	getcwd(buff, sizeof(buff));
-	printf("%s\n", buff);
+	if (!dest && !src)
+		return (dest);
+	dst_cpy = (unsigned char *)dest;
+	src_cpy = (unsigned char *)src;
+	while (n--)
+		*dst_cpy++ = *src_cpy++;
+	return (dest);
 }

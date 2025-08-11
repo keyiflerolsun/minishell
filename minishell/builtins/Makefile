@@ -1,4 +1,5 @@
-CFILES = pwd.c \
+CFILES = utils.c \
+		 pwd.c \
 		 env.c
 
 OBJDIR = obj

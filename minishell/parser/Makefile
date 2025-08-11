@@ -1,4 +1,7 @@
-CFILES = ft_parser.c
+CFILES = ft_parser.c \
+		 ft_strjoin_three.c \
+		 process_token.c \
+		 quote_aware_split.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))

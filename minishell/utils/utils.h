@@ -6,20 +6,20 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 22:23:46 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/11 14:40:26 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/11 16:10:15 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-// 🧠 GNU Readline
-# include <readline/history.h>  // add_history
-# include <readline/readline.h> // readline, rl_*
-
 // 🖨️ Standart IO
 # include <stdio.h>  // printf, perror
 # include <string.h> // strerror
+
+// 🧠 GNU Readline
+# include <readline/history.h>  // add_history
+# include <readline/readline.h> // readline, rl_*
 
 // 🧠 Memory
 # include <limits.h> // sys limits
@@ -70,5 +70,7 @@ char	*ft_strstr(const char *big, const char *little);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+char	*ft_strdup(const char *s);
 
 #endif
