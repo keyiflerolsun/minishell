@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:51:35 by hyakici           #+#    #+#             */
-/*   Updated: 2025/08/11 16:23:02 by hyakici          ###   ########.fr       */
+/*   Updated: 2025/08/13 20:15:37 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,7 @@ char	*process_token(char *token)
 			if (token[i] == ' ')
 				has_space = 1;
 		if (has_space)
-		{
 			return (quote_with_space_inside(&first, token));
-		}
 		return (remove_quotes(token));
 	}
 	return (ft_strdup(token));

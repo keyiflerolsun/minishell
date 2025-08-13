@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:43:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/11 12:25:24 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/12 14:57:31 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	run_prog(t_vars *vars)
 		free(line);
 	}
 	rl_clear_history();
-	free_path(vars->path);
+	free_split(vars->path);
 	printf("\n\n" RED "exit" RESET "\n\n");
 }
 

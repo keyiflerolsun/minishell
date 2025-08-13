@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:50:08 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/11 16:49:01 by hyakici          ###   ########.fr       */
+/*   Updated: 2025/08/12 14:57:31 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	free_allocs(char **split, char *ex_path, char **path)
 		free(split[i]);
 	free(split);
 	free(ex_path);
-	free_path(path);
+	free_split(path);
 }
 
 pid_t	ft_execute(t_vars vars, char **cmd, char *name)

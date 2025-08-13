@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 13:08:12 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/12 15:02:29 by osancak          ###   ########.fr       */
+/*   Created: 2025/08/12 14:59:18 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/12 17:16:18 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtins.h"
 
-# include "core.h"
+void	ft_echo(char **tokens)
+{
+	char	**token;
 
-void	write_err(char *left, char *right);
-void	ft_pwd(char *line);
-void	ft_env(char *line, t_vars vars);
-void	ft_echo(char **tokens);
-
-#endif
+	token = tokens + 1;
+	while (*token)
+	{
+		write(STDOUT_FILENO, *token, ft_strlen(*token));
+		write(STDOUT_FILENO, " ", 1);
+		token++;
+	}
+	write(STDOUT_FILENO, "\n", 1);
+}

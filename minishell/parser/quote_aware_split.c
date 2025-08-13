@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_aware_split.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:15:43 by hyakici           #+#    #+#             */
-/*   Updated: 2025/08/11 16:05:40 by hyakici          ###   ########.fr       */
+/*   Updated: 2025/08/13 20:14:49 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,14 @@ static void	handle_quoted_token(t_token_array *arr, const char *input, int *i)
 	start = *i;
 	while (input[*i] && input[*i] != quote_char)
 		(*i)++;
+	if (start == *i)
+	{
+		if (*i > 1 && (input[*i] == '\0' || ft_isspace(input[*i - 2])))
+			add_token(arr, ft_strjoin_three(quote_char, "", quote_char));
+		if (input[*i])
+			(*i)++;
+		return ;
+	}
 	token = make_token(input, start, *i);
 	if (input[*i])
 		(*i)++;
@@ -71,8 +79,12 @@ static void	handle_unquoted_token(t_token_array *arr, const char *input, int *i)
 	char	*token;
 
 	start = *i;
-	while (input[*i] && !ft_isspace(input[*i]) && input[*i] != '\''
-		&& input[*i] != '"')
+	while (
+		input[*i]
+		&& !ft_isspace(input[*i])
+		&& input[*i] != '\''
+		&& input[*i] != '"'
+	)
 		(*i)++;
 	token = make_token(input, start, *i);
 	add_token(arr, token);
@@ -92,7 +104,7 @@ char	**quote_aware_split(const char *input)
 		while (i < len && ft_isspace(input[i]))
 			i++;
 		if (i >= len)
-			break ;
+			return (NULL);
 		if (input[i] == '\'' || input[i] == '"')
 			handle_quoted_token(&arr, input, &i);
 		else

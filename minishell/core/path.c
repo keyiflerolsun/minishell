@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:34:53 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/09 14:51:35 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/12 14:57:49 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ char	*get_path(char **path, char *command)
 	return (NULL);
 }
 
-void	free_path(char **path)
+void	free_split(char **split_data)
 {
 	int	i;
 
 	i = -1;
-	while (path[++i])
-		free(path[i]);
-	free(path);
+	while (split_data[++i])
+		free(split_data[i]);
+	free(split_data);
 }

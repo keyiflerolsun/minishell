@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin_three.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:39:34 by hyakici           #+#    #+#             */
-/*   Updated: 2025/08/11 16:05:33 by hyakici          ###   ########.fr       */
+/*   Updated: 2025/08/13 20:16:08 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
