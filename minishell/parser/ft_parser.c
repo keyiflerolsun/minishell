@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 14:13:48 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 17:16:39 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,22 @@ static int	is_builtin(t_vars *vars, char **tokens)
 	return (0);
 }
 
+static void	ft_free(char **tokens, char *temp, char *line)
+{
+	free_split(tokens);
+	free(temp);
+	free(line);
+}
+
 void	ft_parser(t_vars *vars, char *line)
 {
 	char	**tokens;
 	char	*temp;
 	int		i;
 
+	line = ft_strtrim(line, " ");
+	if (!line || !*line)
+		return ;
 	tokens = quote_aware_split(line);
 	if (!tokens)
 		return ;
@@ -47,6 +57,5 @@ void	ft_parser(t_vars *vars, char *line)
 	temp = ft_strdup(tokens[0]);
 	if (!is_builtin(vars, tokens))
 		waitpid(ft_execute(*vars, tokens, temp), NULL, 0);
-	free_split(tokens);
-	free(temp);
+	ft_free(tokens, temp, line);
 }

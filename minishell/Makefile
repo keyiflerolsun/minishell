@@ -69,5 +69,14 @@ fclean: clean
 
 re: fclean all
 
+run: $(NAME)
+	valgrind \
+		--leak-check=full \
+		--show-leak-kinds=all \
+		--track-origins=yes \
+		-s \
+		--suppressions=readline.supp \
+		./minismet
+
 FORCE:
-.PHONY: all clean fclean re FORCE
+.PHONY: all clean fclean re FORCE run

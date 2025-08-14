@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 22:23:46 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 12:31:24 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 16:22:35 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 char	*ft_strdup(const char *s);
+char	*ft_strtrim(char const *s1, char const *set);
 
 #endif
