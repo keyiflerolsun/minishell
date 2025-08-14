@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:43:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 19:42:34 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 21:37:42 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	init_shell(t_vars *vars, char **ep)
 {
 	setup_signals();
 	vars->ep = ep;
+	vars->last_exit_code = EXIT_SUCCESS;
 	set_path(vars);
 	run_prog(vars);
 }

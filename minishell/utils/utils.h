@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 22:23:46 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 19:43:30 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 20:58:33 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@
 // ft_printf
 # include <stdarg.h>
 # include <stddef.h>
-# define DECIMAL "0123456789"
-# define HEXA_UP "0123456789ABCDEF"
+# define DECIMAL   "0123456789"
+# define HEXA_UP   "0123456789ABCDEF"
 # define HEXA_DOWN "0123456789abcdef"
 
 size_t	ft_strlen(const char *s);

@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 14:59:18 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 20:28:37 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 21:43:34 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	echo_string(char *token, t_vars vars)
 		if (*token == '$' && token++)
 		{
 			if (*token == '?' && token++)
-				ft_printf("hayırdır ingiltere prensiyle mi konuşuyorum?");
+				ft_printf("%d", vars.last_exit_code);
 			else if (*token == '$' && token++)
 				ft_printf("%d", getpid());
 			else if (*token == '0' && token++)

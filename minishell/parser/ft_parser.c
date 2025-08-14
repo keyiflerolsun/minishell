@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 18:46:03 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 21:46:09 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ void	ft_parser(t_vars *vars, char *line)
 			YELLOW, tokens[i], RESET);
 	}
 	if (!is_builtin(vars, tokens))
-		waitpid(ft_execute(*vars, tokens), NULL, 0);
+	{
+		waitpid(ft_execute(*vars, tokens), &vars->last_exit_code, 0);
+		if (WIFEXITED(vars->last_exit_code))
+			vars->last_exit_code = WEXITSTATUS(vars->last_exit_code);
+		else
+			vars->last_exit_code = EXIT_FAILURE;
+	}
 	free_split(tokens);
 }
