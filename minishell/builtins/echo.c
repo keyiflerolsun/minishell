@@ -6,62 +6,68 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 14:59:18 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 12:34:46 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 13:39:17 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static void	is_env(char *token, t_vars vars)
+static void	print_env(char *token, char **ep)
 {
-	char	**ep;
-	int		t_len;
+	char	*tmp;
 
-	ep = vars.ep;
-	t_len = ft_strlen(token);
-	if (*token != '$')
-		write(STDOUT_FILENO, token, t_len);
-	else
+	tmp = ft_strjoin(token, "=");
+	while (*ep)
 	{
-		token++;
-		t_len--;
-		while (*ep)
-		{
-			if (!ft_strncmp(*ep, token, t_len))
-			{
-				*ep += t_len + 1;
-				write(STDOUT_FILENO, *ep, ft_strlen(*ep));
-			}
-			ep++;
-		}
+		if (!ft_strncmp(*ep, tmp, ft_strlen(tmp)))
+			printf("%s", *ep + ft_strlen(tmp));
+		ep++;
 	}
+	free(tmp);
+}
+
+static void	echo_string(char *token, t_vars vars)
+{
+	if (*token == '$')
+	{
+		if (*(token + 1) == '?' && token++)
+		{
+			printf("hayırdır ingiltere prensiyle mi konuşuyorum?");
+			if (++token)
+				printf("%s", token);
+		}
+		else if (*(token + 1) == '$' && token++)
+		{
+			printf("sen güzel bir kardeşe benziyorsun.");
+			if (++token)
+				printf("%s", token);
+		}
+		else
+			print_env(++token, vars.ep);
+	}
+	else
+		write(STDOUT_FILENO, token, ft_strlen(token));
 }
 
 void	ft_echo(char **tokens, t_vars vars)
 {
-	char	**token;
-	int		new_line;
+	char	**args;
+	int		print_newline;
 
-	token = tokens + 1;
-	if (!*token)
+	args = tokens + 1;
+	print_newline = 1;
+	while (*args && !ft_strncmp(*args, "-n", 2))
 	{
-		write(STDOUT_FILENO, "\n", 1);
-		return ;
+		print_newline = 0;
+		args++;
 	}
-	if (!ft_strncmp(*token, "-n", 2))
+	while (*args)
 	{
-		new_line = 0;
-		token++;
-	}
-	else
-		new_line = 1;
-	while (*token)
-	{
-		is_env(*token, vars);
-		if (*(token + 1))
+		echo_string(*args, vars);
+		if (*(args + 1))
 			write(STDOUT_FILENO, " ", 1);
-		token++;
+		args++;
 	}
-	if (new_line)
-		write(STDOUT_FILENO, "\n", 1);
+	if (print_newline)
+		printf("\n");
 }
