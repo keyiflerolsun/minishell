@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:50:08 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/12 14:57:31 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 17:56:03 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,28 @@ static void	free_allocs(char **split, char *ex_path, char **path)
 	free_split(path);
 }
 
-pid_t	ft_execute(t_vars vars, char **cmd, char *name)
+static void	get_name(char *cmd, char *name)
+{
+	int	i;
+
+	i = -1;
+	while (cmd[++i])
+		name[i] = cmd[i];
+	name[i] = '\0';
+}
+
+pid_t	ft_execute(t_vars vars, char **cmd)
 {
 	pid_t	pid;
 	char	*ex_path;
 	int		exec_err;
+	char	name[1024];
 
 	exec_err = -1;
 	pid = fork();
 	if (pid == 0)
 	{
+		get_name(cmd[0], name);
 		ex_path = get_path(vars.path, cmd[0]);
 		if (ex_path)
 			exec_err = execve(ex_path, cmd, vars.ep);
