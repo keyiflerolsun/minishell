@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 14:59:18 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 13:39:17 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 14:03:02 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,18 @@ static void	echo_string(char *token, t_vars vars)
 		write(STDOUT_FILENO, token, ft_strlen(token));
 }
 
+static int	n_is_valid(char *arg)
+{
+	if (!arg || *arg++ != '-' || *arg++ != 'n')
+		return (0);
+	while (*arg)
+	{
+		if (*arg++ != 'n')
+			return (0);
+	}
+	return (1);
+}
+
 void	ft_echo(char **tokens, t_vars vars)
 {
 	char	**args;
@@ -56,11 +68,8 @@ void	ft_echo(char **tokens, t_vars vars)
 
 	args = tokens + 1;
 	print_newline = 1;
-	while (*args && !ft_strncmp(*args, "-n", 2))
-	{
+	while (*args && n_is_valid(*args) && args++)
 		print_newline = 0;
-		args++;
-	}
 	while (*args)
 	{
 		echo_string(*args, vars);

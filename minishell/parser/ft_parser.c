@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 12:35:33 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 14:13:48 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ void	ft_parser(t_vars *vars, char *line)
 	while (tokens[++i])
 	{
 		temp = tokens[i];
-		printf(BOLD_GREEN "»» TOKEN [%i]: " BLUE "%s%s\n", i, tokens[i], RESET);
 		tokens[i] = process_token(tokens[i]);
+		printf("%s»» TOKEN [%d]: %s%10s%s » %s%-20s\n",
+			BOLD_GREEN, i, BLUE, temp,
+			YELLOW, tokens[i], RESET);
 		free(temp);
 	}
 	temp = ft_strdup(tokens[0]);
