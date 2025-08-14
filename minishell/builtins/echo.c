@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 14:59:18 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 14:03:02 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 20:28:37 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,38 +15,48 @@
 static void	print_env(char *token, char **ep)
 {
 	char	*tmp;
+	int		i;
 
+	i = 0;
+	while (token[i] && token[i] != '$')
+		i++;
+	token[i] = '\0';
 	tmp = ft_strjoin(token, "=");
 	while (*ep)
 	{
 		if (!ft_strncmp(*ep, tmp, ft_strlen(tmp)))
-			printf("%s", *ep + ft_strlen(tmp));
+		{
+			ft_printf("%s", *ep + ft_strlen(tmp));
+			break ;
+		}
 		ep++;
 	}
 	free(tmp);
+	token[i] = '$';
 }
 
 static void	echo_string(char *token, t_vars vars)
 {
-	if (*token == '$')
+	while (*token)
 	{
-		if (*(token + 1) == '?' && token++)
+		if (*token == '$' && token++)
 		{
-			printf("hayırdır ingiltere prensiyle mi konuşuyorum?");
-			if (++token)
-				printf("%s", token);
-		}
-		else if (*(token + 1) == '$' && token++)
-		{
-			printf("sen güzel bir kardeşe benziyorsun.");
-			if (++token)
-				printf("%s", token);
+			if (*token == '?' && token++)
+				ft_printf("hayırdır ingiltere prensiyle mi konuşuyorum?");
+			else if (*token == '$' && token++)
+				ft_printf("%d", getpid());
+			else if (*token == '0' && token++)
+				ft_printf("minismet");
+			else
+			{
+				print_env(token, vars.ep);
+				while (*token && *token != '$')
+					token++;
+			}
 		}
 		else
-			print_env(++token, vars.ep);
+			ft_printf("%c", *token++);
 	}
-	else
-		write(STDOUT_FILENO, token, ft_strlen(token));
 }
 
 static int	n_is_valid(char *arg)
@@ -74,9 +84,9 @@ void	ft_echo(char **tokens, t_vars vars)
 	{
 		echo_string(*args, vars);
 		if (*(args + 1))
-			write(STDOUT_FILENO, " ", 1);
+			ft_printf(" ");
 		args++;
 	}
 	if (print_newline)
-		printf("\n");
+		ft_printf("\n");
 }

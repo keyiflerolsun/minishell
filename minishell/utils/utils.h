@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 22:23:46 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 16:22:35 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 19:43:30 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,13 @@
 # define RESET_BG   "\033[49m"
 # define RESET_FG   "\033[39m"
 
+// ft_printf
+# include <stdarg.h>
+# include <stddef.h>
+# define DECIMAL "0123456789"
+# define HEXA_UP "0123456789ABCDEF"
+# define HEXA_DOWN "0123456789abcdef"
+
 size_t	ft_strlen(const char *s);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
@@ -107,5 +114,9 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 char	*ft_strdup(const char *s);
 char	*ft_strtrim(char const *s1, char const *set);
+int		ft_putchr(char c);
+int		ft_putstr(char *str);
+int		ft_putnbr(long long nbr, char *base, int is_unsigned);
+int		ft_printf(const char *format, ...);
 
 #endif

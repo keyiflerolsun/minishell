@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:20:39 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/11 15:27:29 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 19:42:34 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ void	ft_pwd(char *line)
 		return ;
 	}
 	getcwd(buff, sizeof(buff));
-	printf("%s\n", buff);
+	ft_printf("%s\n", buff);
 }

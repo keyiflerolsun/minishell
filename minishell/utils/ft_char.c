@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_char.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 14:48:54 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 19:42:34 by osancak          ###   ########.fr       */
+/*   Created: 2025/06/15 19:17:37 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/14 19:41:54 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "utils.h"
 
-void	ft_env(char *line, t_vars vars)
+int	ft_putchr(char c)
 {
-	char	**ep;
+	write(1, &c, 1);
+	return (1);
+}
 
-	if (ft_strlen(line) != 3)
-	{
-		write_err("env", "options or arguments are not supported\n");
-		return ;
-	}
-	ep = vars.ep;
-	while (*ep)
-		ft_printf("%s\n", *ep++);
+int	ft_putstr(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (ft_putstr("(null)"));
+	i = 0;
+	while (str[i])
+		i += ft_putchr(str[i]);
+	return (i);
 }

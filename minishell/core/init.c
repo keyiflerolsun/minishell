@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:43:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 17:39:31 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 19:42:34 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	run_prog(t_vars *vars)
 	}
 	rl_clear_history();
 	free_split(vars->path);
-	printf("\n\n" RED "exit" RESET "\n\n");
+	ft_printf("\n\n" RED "exit" RESET "\n\n");
 }
 
 void	init_shell(t_vars *vars, char **ep)

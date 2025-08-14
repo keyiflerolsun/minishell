@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:12:48 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/09 14:51:34 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 19:50:17 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	sigint_handler(int signum)
 {
 	(void)signum;
-	write(STDOUT_FILENO, "\n", 1);
+	ft_printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
