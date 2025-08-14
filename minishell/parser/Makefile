@@ -1,4 +1,5 @@
-CFILES = ft_parser.c \
+CFILES = utils.c \
+		 ft_parser.c \
 		 ft_strjoin_three.c \
 		 process_token.c \
 		 quote_aware_split.c

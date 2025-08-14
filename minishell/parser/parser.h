@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:26 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/13 20:15:49 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/14 18:46:33 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,17 @@ typedef struct s_token_array
 
 }				t_token_array;
 
+int				ft_isspace(int c);
+int				is_metachar(char c);
+void			handle_token(t_token_array *arr, const char *input, int *i);
+void			handle_metachar(t_token_array *arr, const char *input, int *i);
+void			handle_unquoted_part(const char *input, int *i, char **merged);
+void			handle_quoted_part(const char *input, int *i, char **merged);
+t_token_array	*init_token(t_token_array *arr);
+char			*make_token(const char *input, int start, int end);
 void			add_token(t_token_array *arr, char *token);
 char			**quote_aware_split(const char *input);
-char			*process_token(char *token);
 char			*ft_strjoin_three(char first, char *middle, char last);
-t_token_array	*init_token(t_token_array *arr);
-int				ft_isspace(int c);
 void			ft_parser(t_vars *vars, char *line);
 
 #endif
