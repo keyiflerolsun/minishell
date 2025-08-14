@@ -28,7 +28,6 @@ static int	is_builtin(t_vars *vars, char **tokens)
 void	ft_parser(t_vars *vars, char *line)
 {
 	char	**tokens;
-	char	*temp;
 	int		i;
 
 	if (!line || !*line)
@@ -40,12 +39,9 @@ void	ft_parser(t_vars *vars, char *line)
 	i = -1;
 	while (tokens[++i])
 	{
-		temp = tokens[i];
-		tokens[i] = process_token(tokens[i]);
-		printf("%s»» TOKEN [%d]: %s%10s%s » %s%-20s\n",
-			BOLD_GREEN, i, BLUE, temp,
+		printf("%s»» TOKEN [%d]: %s%10s » %s%-20s\n",
+			BOLD_GREEN, i, BLUE,
 			YELLOW, tokens[i], RESET);
-		free(temp);
 	}
 	if (!is_builtin(vars, tokens))
 		waitpid(ft_execute(*vars, tokens), NULL, 0);
