@@ -6,78 +6,85 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:48:54 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 18:48:40 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 20:36:48 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
+char	*make_env_prefix(char *key, int *len)
+{
+	char	*prefix;
+
+	prefix = ft_strjoin(key, "=");
+	if (len)
+		*len = ft_strlen(prefix);
+	return (prefix);
+}
+
 char	*get_env(t_vars vars, char *str)
 {
 	t_list	*env;
-	char	*tmp;
+	char	*prefix;
 	int		len;
 
 	env = vars.env;
-	if (*str == '$')
-		str++;
-	tmp = ft_strjoin(str, "=");
-	len = ft_strlen(tmp);
+	prefix = make_env_prefix(str, &len);
 	while (env)
 	{
-		if (!ft_strncmp(env->data, tmp, len))
-			return (free(tmp), ft_strdup(env->data + len));
+		if (!ft_strncmp(env->data, prefix, len))
+			return (free(prefix), ft_strdup(env->data + len));
 		env = env->next;
 	}
-	return (free(tmp), NULL);
+	return (free(prefix), NULL);
 }
 
 void	update_env(t_vars *vars, char *key, char *value)
 {
 	t_list	*env;
-	char	*tmp;
+	char	*prefix;
+	int		len;
 
 	env = vars->env;
-	tmp = ft_strjoin(key, "=");
-	if (!tmp)
-		return ;
+	prefix = make_env_prefix(key, &len);
 	while (env)
 	{
-		if (!ft_strncmp(env->data, tmp, ft_strlen(tmp)))
+		if (!ft_strncmp(env->data, prefix, len))
 		{
 			free(env->data);
-			env->data = ft_strjoin(tmp, value);
-			free(tmp);
+			env->data = ft_strjoin(prefix, value);
+			free(prefix);
 			return ;
 		}
 		env = env->next;
 	}
-	ft_lstadd_back(&vars->env, ft_lstnew(ft_strjoin(tmp, value)));
-	free(tmp);
+	ft_lstadd_back(&vars->env, ft_lstnew(ft_strjoin(prefix, value)));
+	free(prefix);
 }
 
 void	delete_env(t_vars *vars, char *key)
 {
 	t_list	**env;
-	char	*tmp;
+	char	*prefix;
+	int		len;
 	t_list	*to_del;
 
 	env = &vars->env;
-	tmp = ft_strjoin(key, "=");
+	prefix = make_env_prefix(key, &len);
 	while (*env)
 	{
-		if (!ft_strncmp((*env)->data, tmp, ft_strlen(tmp)))
+		if (!ft_strncmp((*env)->data, prefix, len))
 		{
 			to_del = *env;
 			*env = (*env)->next;
 			free(to_del->data);
 			free(to_del);
-			free(tmp);
+			free(prefix);
 			return ;
 		}
 		env = &(*env)->next;
 	}
-	free(tmp);
+	free(prefix);
 }
 
 void	ft_env(char **tokens, t_vars *vars)
