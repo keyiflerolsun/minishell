@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 14:40:51 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 15:07:34 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 static int	is_builtin(t_vars *vars, char **tokens)
 {
-	if (!ft_strncmp(*tokens, "pwd", 3))
-		return (ft_pwd(*tokens), 1);
-	else if (!ft_strncmp(*tokens, "env", 3))
-		return (ft_env(*tokens, *vars), 1);
-	else if (!ft_strncmp(*tokens, "echo", 4))
+	if (!ft_strncmp(*tokens, "pwd\0", 4))
+		return (ft_pwd(tokens, vars), 1);
+	else if (!ft_strncmp(*tokens, "env\0", 4))
+		return (ft_env(tokens, vars), 1);
+	else if (!ft_strncmp(*tokens, "echo\0", 5))
 		return (ft_echo(tokens, *vars), 1);
 	return (0);
 }

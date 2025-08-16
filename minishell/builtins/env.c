@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:48:54 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 13:44:42 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 15:08:12 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,17 @@ char	*get_env(t_vars vars, char *str)
 	return (free(tmp), NULL);
 }
 
-void	ft_env(char *line, t_vars vars)
+void	ft_env(char **tokens, t_vars *vars)
 {
 	t_list	*env;
 
-	if (ft_strlen(line) != 3)
+	if (tokens[1])
 	{
 		write_err("env", "options or arguments are not supported\n");
+		vars->last_exit_code = EXIT_FAILURE;
 		return ;
 	}
-	env = vars.env;
+	env = vars->env;
 	while (env)
 	{
 		ft_printf("%s\n", env->data);
