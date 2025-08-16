@@ -6,13 +6,13 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:48:54 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 20:36:48 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 20:38:11 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-char	*make_env_prefix(char *key, int *len)
+static char	*make_env_prefix(char *key, int *len)
 {
 	char	*prefix;
 
