@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 22:23:46 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 14:30:17 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 20:51:53 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int					ft_isprint(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
 int					ft_atoi(const char *nptr, int *res);
+char				*ft_itoa(int n);
 size_t				ft_strlen(const char *s);
 void				*ft_calloc(size_t nmemb, size_t size);
 char				*ft_substr(char const *s, unsigned int start, size_t len);

@@ -6,43 +6,11 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 14:54:47 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 16:27:47 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 20:54:13 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-char	*ft_strjointwo(char *s1, char *s2)
-{
-	size_t	total_len;
-	char	*str;
-
-	total_len = ft_strlen(s1) + ft_strlen(s2);
-	str = malloc(total_len + 1);
-	if (!str)
-		return (NULL);
-	ft_memcpy(str, s1, ft_strlen(s1));
-	ft_memcpy(str + ft_strlen(s1), s2, ft_strlen(s2));
-	str[total_len] = '\0';
-	free(s1);
-	return (str);
-}
-
-char	*get_env_value(char **envp, char *key)
-{
-	size_t	len;
-	int		i;
-
-	len = ft_strlen(key);
-	i = 0;
-	while (envp && envp[i])
-	{
-		if (!strncmp(envp[i], key, len) && envp[i][len] == '=')
-			return (ft_strdup(envp[i] + len + 1));
-		i++;
-	}
-	return (ft_strdup(""));
-}
 
 char	*expand_var(const char *line, size_t *i, char **envp)
 {
@@ -62,8 +30,8 @@ char	*expand_var(const char *line, size_t *i, char **envp)
 void	expand_init(int *q, char **res, size_t *i)
 {
 	*res = ft_strdup("");
-	q[0] = 0; // tek tırnak
-	q[1] = 0; // çift tırnak
+	q[0] = 0;
+	q[1] = 0;
 	*i = 0;
 }
 
@@ -74,10 +42,24 @@ void	join_sstuuf(char **res, char *tmp, size_t *i, char const *line)
 	*res = ft_strjointwo(*res, tmp);
 }
 
+char	*handle_dollar(const char *line, size_t *i, t_vars vars, char **envp)
+{
+	char	*val;
+
+	if (line[*i + 1] == '?')
+	{
+		(*i) += 2;
+		return (ft_itoa(vars.last_exit_code));
+	}
+	(*i)++;
+	val = expand_var(line, i, envp);
+	return (val);
+}
+
 char	*expand_env(t_vars vars, const char *line, char **envp)
 {
 	char	*res;
-	int		q[2]; // q[0] = tek_tırnak, q[1] = çift tırjnak
+	int		q[2];
 	char	tmp[2];
 	char	*val;
 	size_t	i;
@@ -91,14 +73,7 @@ char	*expand_env(t_vars vars, const char *line, char **envp)
 			q[1] = !q[1];
 		else if (line[i] == '$' && !q[0])
 		{
-			if (line[i + 1] == '?')
-			{
-				ft_printf("%d", vars.last_exit_code);
-				i += 2;
-				continue ;
-			}
-			i++;
-			val = expand_var(line, &i, envp);
+			val = handle_dollar(line, &i, vars, envp);
 			res = ft_strjointwo(res, val);
 			free(val);
 			continue ;

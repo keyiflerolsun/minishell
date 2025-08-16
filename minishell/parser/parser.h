@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:26 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 16:28:01 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 20:47:58 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char			*make_token(const char *input, int start, int end);
 void			add_token(t_token_array *arr, char *token);
 char			**quote_aware_split(const char *input);
 char			*ft_strjoin_three(char first, char *middle, char last);
+char			*ft_strjointwo(char *s1, char *s2);
+char			*get_env_value(char **envp, char *key);
 void			ft_parser(t_vars *vars, char *line);
 char			*expand_env(t_vars vars, const char *line, char **envp);
 
