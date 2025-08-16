@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_is.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 14:48:54 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 12:31:47 by osancak          ###   ########.fr       */
+/*   Created: 2025/08/16 12:25:48 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/16 12:26:30 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
-
-void	ft_env(char *line, t_vars vars)
+int	ft_isalpha(int c)
 {
-	t_list	*envs;
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+}
 
-	if (ft_strlen(line) != 3)
-	{
-		write_err("env", "options or arguments are not supported\n");
-		return ;
-	}
-	envs = vars.envs;
-	while (envs)
-	{
-		ft_printf("%s\n", envs->data);
-		envs = envs->next;
-	}
+int	ft_isdigit(int c)
+{
+	return (c >= '0' && c <= '9');
+}
+
+int	ft_isprint(int c)
+{
+	return (c >= ' ' && c <= '~');
+}
+
+int	ft_isalnum(int c)
+{
+	return (ft_isalpha(c) || ft_isdigit(c));
+}
+
+int	ft_isascii(int c)
+{
+	return (c >= 0 && c <= 127);
 }

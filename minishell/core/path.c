@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:34:53 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/12 14:57:49 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 12:31:54 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 void	set_path(t_vars *vars)
 {
 	char	*path;
-	char	**envp;
+	t_list	*envs;
 
-	envp = vars->ep;
+	envs = vars->envs;
 	path = NULL;
 	vars->path = NULL;
-	while (*envp)
+	while (envs)
 	{
-		if (ft_strstr(*envp, "PATH=") && ft_strstr(*envp, "bin"))
+		if (ft_strstr(envs->data, "PATH=") && ft_strstr(envs->data, "bin"))
 		{
-			path = *envp + 5;
+			path = envs->data + 5;
 			break ;
 		}
-		envp++;
+		envs = envs->next;
 	}
 	if (path)
 		vars->path = ft_split(path, ':');

@@ -1,4 +1,6 @@
-CFILES = ft_strlen.c \
+CFILES = ft_is.c \
+		 ft_atoi.c \
+		 ft_strlen.c \
 		 ft_calloc.c \
 		 ft_substr.c \
 		 ft_split.c \

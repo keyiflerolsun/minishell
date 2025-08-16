@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 22:23:46 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/15 19:36:48 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 12:28:21 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,12 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+int					ft_isalpha(int c);
+int					ft_isdigit(int c);
+int					ft_isprint(int c);
+int					ft_isalnum(int c);
+int					ft_isascii(int c);
+int					ft_atoi(const char *nptr, int *res);
 size_t				ft_strlen(const char *s);
 void				*ft_calloc(size_t nmemb, size_t size);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
