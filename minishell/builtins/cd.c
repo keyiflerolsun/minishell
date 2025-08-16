@@ -6,49 +6,25 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 16:44:32 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 17:13:37 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 18:16:22 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static int	check_directory_access(char *path)
-{
-	struct stat	statbuf;
-
-	if (!path)
-		return (0);
-	if (stat(path, &statbuf) != 0)
-	{
-		write_err(path, "No such file or directory\n");
-		return (0);
-	}
-	if (!S_ISDIR(statbuf.st_mode))
-	{
-		write_err(path, "Not a directory\n");
-		return (0);
-	}
-	if (access(path, R_OK | X_OK) != 0)
-	{
-		write_err(path, "Permission denied\n");
-		return (0);
-	}
-	return (1);
-}
-
 void	ft_cd(char **tokens, t_vars *vars)
 {
 	char	*old;
 
-	if (!tokens[1] || !check_directory_access(tokens[1]))
+	if (!tokens[1])
 	{
 		vars->last_exit_code = EXIT_FAILURE;
 		return ;
 	}
 	if (chdir(tokens[1]) != 0)
 	{
-		write_err("cd", "Failed to change directory\n");
-		vars->last_exit_code = EXIT_FAILURE;
+		write_perr(tokens[1]);
+		vars->last_exit_code = errno;
 		return ;
 	}
 	old = get_env(*vars, "PWD");

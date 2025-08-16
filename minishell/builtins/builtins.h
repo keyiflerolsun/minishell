@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:12 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 16:51:21 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 18:14:53 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "core.h"
 
 void	write_err(char *left, char *right);
+void	write_perr(char *left);
 void	ft_pwd(char **tokens, t_vars *vars);
 char	*get_env(t_vars vars, char *str);
 void	ft_env(char **tokens, t_vars *vars);
