@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 14:54:47 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 14:56:08 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 16:27:47 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	join_sstuuf(char **res, char *tmp, size_t *i, char const *line)
 	*res = ft_strjointwo(*res, tmp);
 }
 
-char	*expand_env(const char *line, char **envp)
+char	*expand_env(t_vars vars, const char *line, char **envp)
 {
 	char	*res;
 	int		q[2]; // q[0] = tek_tırnak, q[1] = çift tırjnak
@@ -91,6 +91,12 @@ char	*expand_env(const char *line, char **envp)
 			q[1] = !q[1];
 		else if (line[i] == '$' && !q[0])
 		{
+			if (line[i + 1] == '?')
+			{
+				ft_printf("%d", vars.last_exit_code);
+				i += 2;
+				continue ;
+			}
 			i++;
 			val = expand_var(line, &i, envp);
 			res = ft_strjointwo(res, val);
