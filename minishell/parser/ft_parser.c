@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 16:51:49 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 19:43:30 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static int	is_builtin(t_vars *vars, char **tokens)
 		return (ft_unset(tokens, vars), 1);
 	else if (!ft_strncmp(*tokens, "cd", len))
 		return (ft_cd(tokens, vars), 1);
+	else if (!ft_strncmp(*tokens, "exit", len))
+		return (ft_exit(tokens, vars), 1);
 	return (0);
 }
 
