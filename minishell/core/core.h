@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:15 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/15 19:18:32 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 13:43:34 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 typedef struct s_vars
 {
 	char	**ep;
+	t_list	*env;
 	char	**path;
-	t_list	*envs;
 	int		last_exit_code;
 }			t_vars;
 

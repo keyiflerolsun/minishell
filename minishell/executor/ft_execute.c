@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:50:08 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 12:33:37 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 13:43:34 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	free_allocs(char **split, char *ex_path, t_vars *vars)
 	free(split);
 	free(ex_path);
 	free_split(vars->path);
-	ft_lstclear(&vars->envs, free);
+	ft_lstclear(&vars->env, free);
 }
 
 static void	get_name(char *cmd, char *name)

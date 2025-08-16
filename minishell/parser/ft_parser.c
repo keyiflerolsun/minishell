@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 21:46:09 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 13:44:58 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,28 @@ static int	is_builtin(t_vars *vars, char **tokens)
 	return (0);
 }
 
+static void	check_dollar(t_vars vars, char **tokens)
+{
+	int		i;
+	char	*tmp;
+
+	i = -1;
+	while (tokens[++i])
+	{
+		if (ft_strchr(tokens[i], '$'))
+		{
+			tmp = get_env(vars, tokens[i]);
+			free(tokens[i]);
+			tokens[i] = tmp;
+		}
+		printf("%s»» TOKEN [%d]: %s%10s » %s%-20s\n", BOLD_GREEN, i, BLUE,
+			YELLOW, tokens[i], RESET);
+	}
+}
+
 void	ft_parser(t_vars *vars, char *line)
 {
-	char	**tokens;
-	int		i;
+	char **tokens;
 
 	if (!line || !*line)
 		return (free(line));
@@ -36,13 +54,7 @@ void	ft_parser(t_vars *vars, char *line)
 	if (!tokens)
 		return (free(line));
 	free(line);
-	i = -1;
-	while (tokens[++i])
-	{
-		printf("%s»» TOKEN [%d]: %s%10s » %s%-20s\n",
-			BOLD_GREEN, i, BLUE,
-			YELLOW, tokens[i], RESET);
-	}
+	check_dollar(*vars, tokens);
 	if (!is_builtin(vars, tokens))
 	{
 		waitpid(ft_execute(*vars, tokens), &vars->last_exit_code, 0);
