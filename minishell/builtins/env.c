@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:48:54 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 17:03:41 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 18:48:40 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	ft_env(char **tokens, t_vars *vars)
 	if (tokens[1])
 	{
 		write_err("env", "options or arguments are not supported\n");
-		vars->last_exit_code = EXIT_FAILURE;
+		vars->last_exit_code = 42;
 		return ;
 	}
 	env = vars->env;

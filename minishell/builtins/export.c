@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 15:27:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 16:33:20 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 19:04:27 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,8 @@ void	ft_export(char **tokens, t_vars *vars)
 	char	**parts;
 	int		count;
 
-	if (tokens[2] || !ft_strchr(tokens[1], '='))
-	{
-		write_err("export", "options or arguments are not supported\n");
-		vars->last_exit_code = EXIT_FAILURE;
+	if (!bi_is_valid(tokens, vars) || !ft_strchr(tokens[1], '='))
 		return ;
-	}
 	parts = ft_split(tokens[1], '=');
 	count = 0;
 	while (parts[count])

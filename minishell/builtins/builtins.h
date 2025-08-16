@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:12 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 18:14:53 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 19:00:10 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "core.h"
 
+int		bi_is_valid(char **tokens, t_vars *vars);
 void	write_err(char *left, char *right);
 void	write_perr(char *left);
 void	ft_pwd(char **tokens, t_vars *vars);
