@@ -12,16 +12,6 @@
 
 #include "parser.h"
 
-int	ft_isspace(int c)
-{
-	return (c == ' ' || (c >= '\t' && c <= '\r'));
-}
-
-int	is_metachar(char c)
-{
-	return (c == '|' || c == '<' || c == '>');
-}
-
 char	*parser_join(char *s1, char *s2)
 {
 	size_t	total_len;

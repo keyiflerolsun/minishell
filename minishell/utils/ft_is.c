@@ -20,17 +20,17 @@ int	ft_isdigit(int c)
 	return (c >= '0' && c <= '9');
 }
 
-int	ft_isprint(int c)
-{
-	return (c >= ' ' && c <= '~');
-}
-
 int	ft_isalnum(int c)
 {
 	return (ft_isalpha(c) || ft_isdigit(c));
 }
 
-int	ft_isascii(int c)
+int	ft_isspace(int c)
 {
-	return (c >= 0 && c <= 127);
+	return (c == ' ' || (c >= '\t' && c <= '\r'));
+}
+
+int	ft_is_meta(char c)
+{
+	return (c == '|' || c == '<' || c == '>');
 }

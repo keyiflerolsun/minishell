@@ -61,7 +61,7 @@ char	**quote_aware_split(const char *input)
 			i++;
 		if (i >= len)
 			break ;
-		if (is_metachar(input[i]))
+		if (ft_is_meta(input[i]))
 			handle_metachar(&arr, input, &i);
 		else
 			handle_token(&arr, input, &i);

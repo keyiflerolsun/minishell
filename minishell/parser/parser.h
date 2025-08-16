@@ -15,11 +15,6 @@
 
 # include "core.h"
 
-typedef struct s_command
-{
-	char		**cmd_args;
-}				t_command;
-
 typedef struct s_token_array
 {
 	char		**tokens;
@@ -28,8 +23,6 @@ typedef struct s_token_array
 
 }				t_token_array;
 
-int				ft_isspace(int c);
-int				is_metachar(char c);
 void			handle_token(t_token_array *arr, const char *input, int *i);
 void			handle_metachar(t_token_array *arr, const char *input, int *i);
 t_token_array	*init_token(t_token_array *arr);

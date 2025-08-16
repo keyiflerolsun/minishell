@@ -92,9 +92,9 @@ typedef struct s_list
 
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
-int					ft_isprint(int c);
 int					ft_isalnum(int c);
-int					ft_isascii(int c);
+int					ft_isspace(int c);
+int					ft_is_meta(char c);
 int					ft_atoi(const char *nptr, int *res);
 char				*ft_itoa(int n);
 size_t				ft_strlen(const char *s);

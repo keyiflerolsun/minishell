@@ -58,7 +58,7 @@ static void	handle_unquoted_part(const char *input, int *i, char **merged)
 		input[*i]
 		&& !ft_isspace(input[*i])
 		&& input[*i] != '\'' && input[*i] != '"'
-		&& !is_metachar(input[*i])
+		&& !ft_is_meta(input[*i])
 	)
 		(*i)++;
 	tmp = make_token(input, start, *i);
@@ -78,7 +78,7 @@ void	handle_token(t_token_array *arr, const char *input, int *i)
 	char	*merged;
 
 	merged = NULL;
-	while (input[*i] && !ft_isspace(input[*i]) && !is_metachar(input[*i]))
+	while (input[*i] && !ft_isspace(input[*i]) && !ft_is_meta(input[*i]))
 	{
 		if (input[*i] == '\'' || input[*i] == '"')
 			handle_quoted_part(input, i, &merged);
