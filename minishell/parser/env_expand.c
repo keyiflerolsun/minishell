@@ -12,7 +12,7 @@
 
 #include "parser.h"
 
-char	*expand_var(const char *line, size_t *i, char **envp)
+static char	*expand_var(const char *line, size_t *i, char **envp)
 {
 	size_t	st;
 	char	*val;
@@ -27,7 +27,7 @@ char	*expand_var(const char *line, size_t *i, char **envp)
 	return (val);
 }
 
-void	expand_init(int *q, char **res, size_t *i)
+static void	expand_init(int *q, char **res, size_t *i)
 {
 	*res = ft_strdup("");
 	q[0] = 0;
@@ -35,14 +35,14 @@ void	expand_init(int *q, char **res, size_t *i)
 	*i = 0;
 }
 
-void	join_sstuuf(char **res, char *tmp, size_t *i, char const *line)
+static void	join_sstuuf(char **res, char *tmp, size_t *i, char const *line)
 {
 	tmp[0] = line[(*i)++];
 	tmp[1] = '\0';
-	*res = ft_strjointwo(*res, tmp);
+	*res = parser_join(*res, tmp);
 }
 
-char	*handle_dollar(const char *line, size_t *i, t_vars vars, char **envp)
+static char	*handle_dollar(const char *line, size_t *i, t_vars vars, char **envp)
 {
 	char	*val;
 
@@ -74,7 +74,7 @@ char	*expand_env(t_vars vars, const char *line, char **envp)
 		else if (line[i] == '$' && !q[0])
 		{
 			val = handle_dollar(line, &i, vars, envp);
-			res = ft_strjointwo(res, val);
+			res = parser_join(res, val);
 			free(val);
 			continue ;
 		}

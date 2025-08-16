@@ -22,7 +22,7 @@ t_token_array	*init_token(t_token_array *arr)
 	return (arr);
 }
 
-void	handle_quoted_part(const char *input, int *i, char **merged)
+static void	handle_quoted_part(const char *input, int *i, char **merged)
 {
 	char	quote;
 	int		start;
@@ -47,7 +47,7 @@ void	handle_quoted_part(const char *input, int *i, char **merged)
 		(*i)++;
 }
 
-void	handle_unquoted_part(const char *input, int *i, char **merged)
+static void	handle_unquoted_part(const char *input, int *i, char **merged)
 {
 	int		start;
 	char	*tmp;
