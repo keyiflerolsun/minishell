@@ -6,37 +6,13 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 15:27:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 15:42:35 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 16:33:20 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	update_env(t_vars *vars, char *key, char *value)
-{
-	t_list	*env;
-	char	*tmp;
-
-	env = vars->env;
-	tmp = ft_strjoin(key, "=");
-	if (!tmp)
-		return ;
-	while (env)
-	{
-		if (!ft_strncmp(env->data, tmp, ft_strlen(tmp)))
-		{
-			free(env->data);
-			env->data = ft_strjoin(tmp, value);
-			free(tmp);
-			return ;
-		}
-		env = env->next;
-	}
-	ft_lstadd_back(&vars->env, ft_lstnew(ft_strjoin(tmp, value)));
-	free(tmp);
-}
-
-int	is_valid_key(char *key)
+static int	is_valid_key(char *key)
 {
 	int	i;
 

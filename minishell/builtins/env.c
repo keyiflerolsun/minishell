@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:48:54 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 15:08:12 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 16:36:35 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,58 @@ char	*get_env(t_vars vars, char *str)
 	return (free(tmp), NULL);
 }
 
+void	update_env(t_vars *vars, char *key, char *value)
+{
+	t_list	*env;
+	char	*tmp;
+
+	env = vars->env;
+	tmp = ft_strjoin(key, "=");
+	if (!tmp)
+		return ;
+	while (env)
+	{
+		if (!ft_strncmp(env->data, tmp, ft_strlen(tmp)))
+		{
+			free(env->data);
+			env->data = ft_strjoin(tmp, value);
+			free(tmp);
+			return ;
+		}
+		env = env->next;
+	}
+	ft_lstadd_back(&vars->env, ft_lstnew(ft_strjoin(tmp, value)));
+	free(tmp);
+}
+
+void	delete_env(t_vars *vars, char *key)
+{
+	t_list	*env;
+	t_list	*prev;
+	char	*tmp;
+
+	env = vars->env;
+	prev = NULL;
+	tmp = ft_strjoin(key, "=");
+	while (env)
+	{
+		if (!ft_strncmp(env->data, tmp, ft_strlen(tmp)))
+		{
+			if (prev)
+				prev->next = env->next;
+			else
+				vars->env = env->next;
+			free(env->data);
+			free(env);
+			free(tmp);
+			return ;
+		}
+		prev = env;
+		env = env->next;
+	}
+	free(tmp);
+}
+
 void	ft_env(char **tokens, t_vars *vars)
 {
 	t_list	*env;
@@ -48,4 +100,5 @@ void	ft_env(char **tokens, t_vars *vars)
 		ft_printf("%s\n", env->data);
 		env = env->next;
 	}
+	vars->last_exit_code = EXIT_SUCCESS;
 }

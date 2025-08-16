@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 12:20:39 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 16:33:53 by osancak          ###   ########.fr       */
+/*   Created: 2025/08/16 16:37:07 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/16 16:39:11 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	ft_pwd(char **tokens, t_vars *vars)
+void	ft_unset(char **tokens, t_vars *vars)
 {
-	char	buff[PATH_MAX];
-
-	if (tokens[1])
+	if (tokens[2])
 	{
-		write_err("pwd", "options or arguments are not supported\n");
+		write_err("unset", "options or arguments are not supported\n");
 		vars->last_exit_code = EXIT_FAILURE;
 		return ;
 	}
-	getcwd(buff, sizeof(buff));
-	ft_printf("%s\n", buff);
+	delete_env(vars, tokens[1]);
 	vars->last_exit_code = EXIT_SUCCESS;
 }
