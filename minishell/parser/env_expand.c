@@ -51,7 +51,7 @@ char	*expand_var(const char *line, size_t *i, char **envp)
 	char	*key;
 
 	st = *i;
-	while (ft_isalnum(line[*i]) || line[*i] == '_')
+	while (ft_isalnum(line[*i]) || line[*i] == '_' || line[*i] == '?')
 		(*i)++;
 	key = ft_substr(line, st, *i - st);
 	val = get_env_value(envp, key);
