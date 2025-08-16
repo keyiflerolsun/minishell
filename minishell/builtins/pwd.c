@@ -14,7 +14,7 @@
 
 void	ft_pwd(char **tokens, t_vars *vars)
 {
-	char	buff[PATH_MAX];
+	char	buff[1024];
 
 	if (tokens[1] && *tokens[1] == '-')
 	{

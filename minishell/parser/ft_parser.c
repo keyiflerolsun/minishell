@@ -16,19 +16,19 @@
 
 static int	is_builtin(t_vars *vars, char **tokens)
 {
-	if (!ft_strncmp(*tokens, "pwd\0", 4))
+	if (!ft_strcmp(*tokens, "pwd"))
 		return (ft_pwd(tokens, vars), 1);
-	else if (!ft_strncmp(*tokens, "env\0", 4))
+	else if (!ft_strcmp(*tokens, "env"))
 		return (ft_env(tokens, vars), 1);
-	else if (!ft_strncmp(*tokens, "echo\0", 5))
+	else if (!ft_strcmp(*tokens, "echo"))
 		return (ft_echo(tokens, vars), 1);
-	else if (!ft_strncmp(*tokens, "export\0", 7))
+	else if (!ft_strcmp(*tokens, "export"))
 		return (ft_export(tokens, vars), 1);
-	else if (!ft_strncmp(*tokens, "unset\0", 6))
+	else if (!ft_strcmp(*tokens, "unset"))
 		return (ft_unset(tokens, vars), 1);
-	else if (!ft_strncmp(*tokens, "cd\0", 3))
+	else if (!ft_strcmp(*tokens, "cd"))
 		return (ft_cd(tokens, vars), 1);
-	else if (!ft_strncmp(*tokens, "exit\0", 5))
+	else if (!ft_strcmp(*tokens, "exit"))
 		return (ft_exit(tokens, vars), 1);
 	return (0);
 }

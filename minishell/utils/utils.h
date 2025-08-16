@@ -15,20 +15,17 @@
 
 // 🖨️ Standart IO
 # include <stdio.h>  // printf, perror
-# include <string.h> // strerror
 
 // 🧠 GNU Readline
 # include <readline/history.h>  // add_history
 # include <readline/readline.h> // readline, rl_*
 
 // 🧠 Memory
-# include <limits.h> // sys limits
 # include <stdlib.h> // malloc, free, exit, getenv
 
 // 🔧 Sys Calls
 # include <fcntl.h>     // open
 # include <sys/stat.h>  // stat, lstat, fstat, unlink
-# include <sys/types.h> // stat yapıları
 // write, access, read, close, fork, execve, dup*, pipe, isatty, tty*
 # include <unistd.h>
 
@@ -36,22 +33,6 @@
 # include <errno.h>    // errno
 # include <signal.h>   // signal, sigaction, sigemptyset, sigaddset, kill
 # include <sys/wait.h> // wait, waitpid, wait3, wait4
-
-// 📂 *dir
-# include <dirent.h> // opendir, readdir, closedir
-
-// 🧭 Cwd
-# include <unistd.h> // getcwd, chdir
-
-// 🖥️ Terminal Control
-# include <sys/ioctl.h> // ioctl
-# include <unistd.h>    // isatty, ttyname, ttyslot
-
-// 🧵 Terminal Attr
-# include <termios.h> // tcgetattr, tcsetattr
-
-// 🧾 Termcap
-# include <termcap.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
 // Metin Renkleri
 # define BLACK      "\033[0;30m"
@@ -124,6 +105,7 @@ char				*ft_strstr(const char *big, const char *little);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strjoin(char const *s1, char const *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+int					ft_strcmp(const char *s1, const char *s2);
 void				*ft_memcpy(void *dest, const void *src, size_t n);
 char				*ft_strdup(const char *s);
 char				*ft_strtrim(char const *s1, char const *set);
