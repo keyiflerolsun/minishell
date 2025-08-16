@@ -25,37 +25,20 @@ static int	is_builtin(t_vars *vars, char **tokens)
 	return (0);
 }
 
-static void	check_dollar(t_vars vars, char **tokens)
-{
-	int		i;
-	char	*tmp;
-
-	i = -1;
-	while (tokens[++i])
-	{
-		if (ft_strchr(tokens[i], '$'))
-		{
-			tmp = get_env(vars, tokens[i]);
-			free(tokens[i]);
-			tokens[i] = tmp;
-		}
-		printf("%s»» TOKEN [%d]: %s%10s » %s%-20s\n",
-			BOLD_GREEN, i, BLUE,
-			YELLOW, tokens[i], RESET);
-	}
-}
 
 void	ft_parser(t_vars *vars, char *line)
 {
 	char	**tokens;
+	char *expanded_line;
 
 	if (!line || !*line)
 		return (free(line));
-	tokens = quote_aware_split(line);
-	if (!tokens)
-		return (free(line));
+	expanded_line = expand_env(line, vars->ep);
 	free(line);
-	check_dollar(*vars, tokens);
+	tokens = quote_aware_split(expanded_line);
+	if (!tokens)
+		return (free(expanded_line));
+	free(expanded_line);
 	if (!is_builtin(vars, tokens))
 	{
 		waitpid(ft_execute(*vars, tokens), &vars->last_exit_code, 0);

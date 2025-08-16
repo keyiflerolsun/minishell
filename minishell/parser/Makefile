@@ -2,7 +2,8 @@ CFILES = utils.c \
 		 ft_parser.c \
 		 ft_strjoin_three.c \
 		 process_token.c \
-		 quote_aware_split.c
+		 quote_aware_split.c \
+		 env_expand.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
