@@ -59,6 +59,21 @@ char	*expand_var(const char *line, size_t *i, char **envp)
 	return (val);
 }
 
+void	expand_init(int *q, char **res, size_t *i)
+{
+	*res = ft_strdup("");
+	q[0] = 0; // tek tırnak
+	q[1] = 0; // çift tırnak
+	*i = 0;
+}
+
+void	join_sstuuf(char **res, char *tmp, size_t *i, char const *line)
+{
+	tmp[0] = line[(*i)++];
+	tmp[1] = '\0';
+	*res = ft_strjointwo(*res, tmp);
+}
+
 char	*expand_env(const char *line, char **envp)
 {
 	char	*res;
@@ -67,10 +82,7 @@ char	*expand_env(const char *line, char **envp)
 	char	*val;
 	size_t	i;
 
-	res = ft_strdup("");
-	q[0] = 0;
-	q[1] = 0;
-	i = 0;
+	expand_init(q, &res, &i);
 	while (line[i])
 	{
 		if (line[i] == '\'' && !q[1])
@@ -85,9 +97,7 @@ char	*expand_env(const char *line, char **envp)
 			free(val);
 			continue ;
 		}
-		tmp[0] = line[i++];
-		tmp[1] = '\0';
-		res = ft_strjointwo(res, tmp);
+		join_sstuuf(&res, tmp, &i, line);
 	}
 	return (res);
 }
