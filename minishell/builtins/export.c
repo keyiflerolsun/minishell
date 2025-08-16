@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 15:27:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 19:11:08 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 20:06:51 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,34 @@ static int	is_valid_key(char *key)
 	return (1);
 }
 
-void	ft_export(char **tokens, t_vars *vars)
+static int	ft_stop(char **tokens, t_vars *vars)
 {
-	char	**parts;
-	int		count;
-
-	if (!tokens[1] || !ft_strchr(tokens[1], '='))
+	if (!tokens[1])
 	{
 		vars->last_exit_code = EXIT_SUCCESS;
-		return ;
+		return (1);
 	}
 	if (*tokens[1] == '-')
 	{
 		write_err(tokens[0], "options are not supported\n");
 		vars->last_exit_code = 42;
-		return ;
+		return (1);
 	}
+	if (!ft_strchr(tokens[1], '='))
+	{
+		vars->last_exit_code = EXIT_SUCCESS;
+		return (1);
+	}
+	return (0);
+}
+
+void	ft_export(char **tokens, t_vars *vars)
+{
+	char	**parts;
+	int		count;
+
+	if (ft_stop(tokens, vars))
+		return ;
 	parts = ft_split(tokens[1], '=');
 	count = 0;
 	while (parts[count])

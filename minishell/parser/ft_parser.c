@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 20:00:24 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 20:15:25 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,19 @@
 
 static int	is_builtin(t_vars *vars, char **tokens)
 {
-	int	len;
-
-	len = ft_strlen(*tokens);
-	if (!ft_strncmp(*tokens, "pwd", len))
+	if (!ft_strncmp(*tokens, "pwd\0", 4))
 		return (ft_pwd(tokens, vars), 1);
-	else if (!ft_strncmp(*tokens, "env", len))
+	else if (!ft_strncmp(*tokens, "env\0", 4))
 		return (ft_env(tokens, vars), 1);
-	else if (!ft_strncmp(*tokens, "echo", len))
+	else if (!ft_strncmp(*tokens, "echo\0", 5))
 		return (ft_echo(tokens, vars), 1);
-	else if (!ft_strncmp(*tokens, "export", len))
+	else if (!ft_strncmp(*tokens, "export\0", 7))
 		return (ft_export(tokens, vars), 1);
-	else if (!ft_strncmp(*tokens, "unset", len))
+	else if (!ft_strncmp(*tokens, "unset\0", 6))
 		return (ft_unset(tokens, vars), 1);
-	else if (!ft_strncmp(*tokens, "cd", len))
+	else if (!ft_strncmp(*tokens, "cd\0", 3))
 		return (ft_cd(tokens, vars), 1);
-	else if (!ft_strncmp(*tokens, "exit", len))
+	else if (!ft_strncmp(*tokens, "exit\0", 5))
 		return (ft_exit(tokens, vars), 1);
 	return (0);
 }
