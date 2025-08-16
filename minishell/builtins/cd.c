@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 16:44:32 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 16:56:57 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 17:13:37 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,6 @@ void	ft_cd(char **tokens, t_vars *vars)
 {
 	char	*old;
 
-	if (tokens[2])
-	{
-		write_err("cd", "options or arguments are not supported\n");
-		vars->last_exit_code = EXIT_FAILURE;
-		return ;
-	}
 	if (!tokens[1] || !check_directory_access(tokens[1]))
 	{
 		vars->last_exit_code = EXIT_FAILURE;
