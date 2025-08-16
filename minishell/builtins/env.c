@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:48:54 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 16:36:35 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 17:03:41 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,28 +58,24 @@ void	update_env(t_vars *vars, char *key, char *value)
 
 void	delete_env(t_vars *vars, char *key)
 {
-	t_list	*env;
-	t_list	*prev;
+	t_list	**env;
 	char	*tmp;
+	t_list	*to_del;
 
-	env = vars->env;
-	prev = NULL;
+	env = &vars->env;
 	tmp = ft_strjoin(key, "=");
-	while (env)
+	while (*env)
 	{
-		if (!ft_strncmp(env->data, tmp, ft_strlen(tmp)))
+		if (!ft_strncmp((*env)->data, tmp, ft_strlen(tmp)))
 		{
-			if (prev)
-				prev->next = env->next;
-			else
-				vars->env = env->next;
-			free(env->data);
-			free(env);
+			to_del = *env;
+			*env = (*env)->next;
+			free(to_del->data);
+			free(to_del);
 			free(tmp);
 			return ;
 		}
-		prev = env;
-		env = env->next;
+		env = &(*env)->next;
 	}
 	free(tmp);
 }
