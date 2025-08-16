@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 22:23:46 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 12:28:21 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 14:30:17 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,6 @@ int					ft_printf(const char *format, ...);
 t_list				*ft_lstnew(void *data);
 void				ft_lstadd_back(t_list **lst, t_list *new);
 void				ft_lstclear(t_list **lst, void (*del)(void *));
+int					ft_lstsize(t_list *lst);
 
 #endif

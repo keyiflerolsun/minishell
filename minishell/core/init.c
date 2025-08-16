@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:43:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 13:43:34 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 14:38:57 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,31 @@
 #include "executor.h"
 #include "parser.h"
 
+static void	update_env(t_vars *vars)
+{
+	t_list	*env;
+	char	**ep;
+	int		i;
+
+	free(vars->ep);
+	env = vars->env;
+	ep = ft_calloc(sizeof(char *), ft_lstsize(env) + 1);
+	i = -1;
+	while (env)
+	{
+		ep[++i] = env->data;
+		env = env->next;
+	}
+	vars->ep = ep;
+}
+
 static void	run_prog(t_vars *vars)
 {
 	char	*line;
 
 	while (1)
 	{
+		update_env(vars);
 		line = readline(MAGENTA "minismet" CYAN " ¢ " RESET);
 		if (!line)
 			break ;
@@ -31,6 +50,7 @@ static void	run_prog(t_vars *vars)
 		free(line);
 	}
 	rl_clear_history();
+	free(vars->ep);
 	free_split(vars->path);
 	ft_lstclear(&vars->env, free);
 	ft_printf("\n\n" RED "exit" RESET "\n\n");
@@ -39,7 +59,7 @@ static void	run_prog(t_vars *vars)
 void	init_shell(t_vars *vars, char **ep)
 {
 	setup_signals();
-	vars->ep = ep;
+	vars->ep = ft_calloc(sizeof(char *), 1);
 	vars->env = NULL;
 	while (*ep)
 		ft_lstadd_back(&vars->env, ft_lstnew(ft_strdup(*ep++)));

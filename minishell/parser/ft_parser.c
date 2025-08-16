@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 13:44:58 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 14:40:51 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,15 @@ static void	check_dollar(t_vars vars, char **tokens)
 			free(tokens[i]);
 			tokens[i] = tmp;
 		}
-		printf("%s»» TOKEN [%d]: %s%10s » %s%-20s\n", BOLD_GREEN, i, BLUE,
+		printf("%s»» TOKEN [%d]: %s%10s » %s%-20s\n",
+			BOLD_GREEN, i, BLUE,
 			YELLOW, tokens[i], RESET);
 	}
 }
 
 void	ft_parser(t_vars *vars, char *line)
 {
-	char **tokens;
+	char	**tokens;
 
 	if (!line || !*line)
 		return (free(line));
