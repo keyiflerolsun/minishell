@@ -28,12 +28,12 @@
 // 🔧 Sys Calls
 # include <unistd.h>     // write, access, read, close, fork, execve, dup*
 # include <fcntl.h>      // open
-# include <sys/stat.h>   // stat, lstat, fstat, unlink
+# include <sys/stat.h>   // unlink
 
 // 🧒 Processes & Sinyaller
 # include <errno.h>      // errno
 # include <signal.h>     // signal*
-# include <sys/wait.h>   // wait, waitpid, wait3, wait4
+# include <sys/wait.h>   // wait*
 
 // 🎨 Metin Renkleri
 # define BLACK      "\033[0;30m"
