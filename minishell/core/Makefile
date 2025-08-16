@@ -1,6 +1,7 @@
 CFILES = signals.c \
 		 init.c \
-		 path.c
+		 path.c \
+		 clear.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))

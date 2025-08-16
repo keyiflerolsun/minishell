@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 19:43:30 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 20:00:24 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,24 @@ static int	is_builtin(t_vars *vars, char **tokens)
 
 void	ft_parser(t_vars *vars, char *line)
 {
-	char	**tokens;
 	char	*expanded_line;
 
 	if (!line || !*line)
 		return (free(line));
 	expanded_line = expand_env(*vars, line, vars->ep);
 	free(line);
-	tokens = quote_aware_split(expanded_line);
-	if (!tokens)
+	if (vars->tokens)
+		free_split(vars->tokens);
+	vars->tokens = quote_aware_split(expanded_line);
+	if (!vars->tokens)
 		return (free(expanded_line));
 	free(expanded_line);
-	if (!is_builtin(vars, tokens))
+	if (!is_builtin(vars, vars->tokens))
 	{
-		waitpid(ft_execute(*vars, tokens), &vars->last_exit_code, 0);
+		waitpid(ft_execute(*vars, vars->tokens), &vars->last_exit_code, 0);
 		if (WIFEXITED(vars->last_exit_code))
 			vars->last_exit_code = WEXITSTATUS(vars->last_exit_code);
 		else
 			vars->last_exit_code = EXIT_FAILURE;
 	}
-	free_split(tokens);
 }

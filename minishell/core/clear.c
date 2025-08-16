@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core.h                                             :+:      :+:    :+:   */
+/*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 13:08:15 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 19:57:29 by osancak          ###   ########.fr       */
+/*   Created: 2025/08/16 19:52:32 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/16 19:59:23 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CORE_H
-# define CORE_H
+#include "core.h"
 
-# include "utils.h"
-
-typedef struct s_vars
+void	ft_clear(t_vars *vars)
 {
-	char	**ep;
-	t_list	*env;
-	char	**path;
-	char	**tokens;
-	int		last_exit_code;
-}			t_vars;
-
-void		setup_signals(void);
-void		set_path(t_vars *vars);
-char		*get_path(char **path, char *command);
-void		free_split(char **split_data);
-void		init_shell(t_vars *vars, char **ep);
-void		ft_clear(t_vars *vars);
-
-#endif
+	rl_clear_history();
+	free(vars->ep);
+	free_split(vars->path);
+	free_split(vars->tokens);
+	ft_lstclear(&vars->env, free);
+}
