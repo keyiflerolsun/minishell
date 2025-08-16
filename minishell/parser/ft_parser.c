@@ -25,11 +25,10 @@ static int	is_builtin(t_vars *vars, char **tokens)
 	return (0);
 }
 
-
 void	ft_parser(t_vars *vars, char *line)
 {
 	char	**tokens;
-	char *expanded_line;
+	char	*expanded_line;
 
 	if (!line || !*line)
 		return (free(line));

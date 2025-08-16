@@ -40,6 +40,6 @@ void			add_token(t_token_array *arr, char *token);
 char			**quote_aware_split(const char *input);
 char			*ft_strjoin_three(char first, char *middle, char last);
 void			ft_parser(t_vars *vars, char *line);
-char	*expand_env(const char *line, char **envp);
+char			*expand_env(const char *line, char **envp);
 
 #endif

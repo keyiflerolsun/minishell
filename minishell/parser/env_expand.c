@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env_expand.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/16 14:54:47 by osancak           #+#    #+#             */
+/*   Updated: 2025/08/16 14:56:08 by osancak          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "parser.h"
 
@@ -13,7 +24,7 @@ char	*ft_strjointwo(char *s1, char *s2)
 	ft_memcpy(str, s1, ft_strlen(s1));
 	ft_memcpy(str + ft_strlen(s1), s2, ft_strlen(s2));
 	str[total_len] = '\0';
-    free(s1);
+	free(s1);
 	return (str);
 }
 
@@ -21,9 +32,9 @@ char	*get_env_value(char **envp, char *key)
 {
 	size_t	len;
 	int		i;
-    
-    len = ft_strlen(key);
-    i = 0;
+
+	len = ft_strlen(key);
+	i = 0;
 	while (envp && envp[i])
 	{
 		if (!strncmp(envp[i], key, len) && envp[i][len] == '=')
@@ -36,14 +47,14 @@ char	*get_env_value(char **envp, char *key)
 char	*expand_var(const char *line, size_t *i, char **envp)
 {
 	size_t	st;
-    char *val;
-	char *key;
+	char	*val;
+	char	*key;
 
-    st = *i;
+	st = *i;
 	while (ft_isalnum(line[*i]) || line[*i] == '_')
 		(*i)++;
-    key = ft_substr(line, st, *i - st);
-    val = get_env_value(envp, key);
+	key = ft_substr(line, st, *i - st);
+	val = get_env_value(envp, key);
 	free(key);
 	return (val);
 }
@@ -80,5 +91,3 @@ char	*expand_env(const char *line, char **envp)
 	}
 	return (res);
 }
-
-
