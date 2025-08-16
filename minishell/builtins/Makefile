@@ -1,7 +1,8 @@
 CFILES = utils.c \
 		 pwd.c \
 		 env.c \
-		 echo.c
+		 echo.c \
+		 export.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))

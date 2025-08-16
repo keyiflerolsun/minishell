@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:12 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 15:04:47 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/16 15:32:00 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@ void	ft_pwd(char **tokens, t_vars *vars);
 char	*get_env(t_vars vars, char *str);
 void	ft_env(char **tokens, t_vars *vars);
 void	ft_echo(char **tokens, t_vars vars);
+void	update_env(t_vars *vars, char *key, char *value);
+void	ft_export(char **tokens, t_vars *vars);
 
 #endif
