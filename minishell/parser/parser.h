@@ -39,6 +39,6 @@ char			**quote_aware_split(const char *input);
 char			*parser_join(char *s1, char *s2);
 char			*get_env_value(char **envp, char *key);
 void			ft_parser(t_vars *vars, char *line);
-char			*expand_env(t_vars vars, const char *line, char **envp);
+char			*expand_env(t_vars vars, const char *line);
 
 #endif

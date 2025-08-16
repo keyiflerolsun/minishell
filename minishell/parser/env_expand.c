@@ -42,7 +42,7 @@ static void	join_sstuuf(char **res, char *tmp, size_t *i, char const *line)
 	*res = parser_join(*res, tmp);
 }
 
-static char	*handle_dollar(const char *line, size_t *i, t_vars vars, char **envp)
+static char	*handle_dollar(const char *line, size_t *i, t_vars vars)
 {
 	char	*val;
 
@@ -52,11 +52,11 @@ static char	*handle_dollar(const char *line, size_t *i, t_vars vars, char **envp
 		return (ft_itoa(vars.last_exit_code));
 	}
 	(*i)++;
-	val = expand_var(line, i, envp);
+	val = expand_var(line, i, vars.ep);
 	return (val);
 }
 
-char	*expand_env(t_vars vars, const char *line, char **envp)
+char	*expand_env(t_vars vars, const char *line)
 {
 	char	*res;
 	int		q[2];
@@ -73,7 +73,7 @@ char	*expand_env(t_vars vars, const char *line, char **envp)
 			q[1] = !q[1];
 		else if (line[i] == '$' && !q[0])
 		{
-			val = handle_dollar(line, &i, vars, envp);
+			val = handle_dollar(line, &i, vars);
 			res = parser_join(res, val);
 			free(val);
 			continue ;

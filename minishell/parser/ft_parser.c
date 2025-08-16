@@ -39,7 +39,7 @@ void	ft_parser(t_vars *vars, char *line)
 
 	if (!line || !*line)
 		return (free(line));
-	expanded_line = expand_env(*vars, line, vars->ep);
+	expanded_line = expand_env(*vars, line);
 	free(line);
 	if (vars->tokens)
 		free_split(vars->tokens);
