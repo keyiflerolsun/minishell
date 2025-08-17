@@ -33,10 +33,39 @@ static int	is_builtin(t_vars *vars, char **tokens)
 	return (0);
 }
 
+
+void print_cmds(t_cmd *cmd)
+{
+    int j;
+
+    while (cmd)
+    {
+        printf("Command:\n");
+        if (cmd->cmd_args)
+        {
+			j = 0;
+            while (cmd->cmd_args[j])
+			{
+                printf("  arg[%d]: %s\n", j, cmd->cmd_args[j]);
+				j++;
+			}
+        }
+        if (cmd->infile) printf("  infile: %s\n", cmd->infile);
+        if (cmd->outfile) printf("  outfile: %s (append=%d)\n", cmd->outfile, cmd->append);
+        if (cmd->here_doc) printf("  here_doc with limiter: %s\n", cmd->limiter);
+
+        printf("----\n");
+        cmd = cmd->next_cmd;
+    }
+}
+
 void	ft_parser(t_vars *vars, char *line)
 {
 	char	*expanded_line;
+	int	i;
+	t_cmd *cmd_info;
 
+	i = 0;
 	if (!line || !*line)
 		return (free(line));
 	expanded_line = expand_env(*vars, line);
@@ -44,6 +73,9 @@ void	ft_parser(t_vars *vars, char *line)
 	if (vars->tokens)
 		free_split(vars->tokens);
 	vars->tokens = quote_aware_split(expanded_line);
+
+	cmd_info = parse_cmd(vars->tokens, &i);
+	print_cmds(cmd_info);
 	if (!vars->tokens)
 		return (free(expanded_line));
 	free(expanded_line);
@@ -55,4 +87,5 @@ void	ft_parser(t_vars *vars, char *line)
 		else
 			vars->last_exit_code = EXIT_FAILURE;
 	}
+	free_cmd(cmd_info);
 }
