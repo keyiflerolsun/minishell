@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 20:15:25 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 14:54:25 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,37 +33,50 @@ static int	is_builtin(t_vars *vars, char **tokens)
 	return (0);
 }
 
-
-void print_cmds(t_cmd *cmd)
+void	print_cmds(t_cmd *cmd)
 {
-    int j;
+	int	j;
 
-    while (cmd)
-    {
-        printf("Command:\n");
-        if (cmd->cmd_args)
-        {
+	while (cmd)
+	{
+		printf("Command:\n");
+		if (cmd->cmd_args)
+		{
 			j = 0;
-            while (cmd->cmd_args[j])
+			while (cmd->cmd_args[j])
 			{
-                printf("  arg[%d]: %s\n", j, cmd->cmd_args[j]);
+				printf("  arg[%d]: %s\n", j, cmd->cmd_args[j]);
 				j++;
 			}
-        }
-        if (cmd->infile) printf("  infile: %s\n", cmd->infile);
-        if (cmd->outfile) printf("  outfile: %s (append=%d)\n", cmd->outfile, cmd->append);
-        if (cmd->here_doc) printf("  here_doc with limiter: %s\n", cmd->limiter);
+		}
+		if (cmd->infile)
+			printf("  infile: %s\n", cmd->infile);
+		if (cmd->outfile)
+			printf("  outfile: %s (append=%d)\n", cmd->outfile, cmd->append);
+		if (cmd->here_doc)
+			printf("  here_doc with limiter: %s\n", cmd->limiter);
+		printf("----\n");
+		cmd = cmd->next_cmd;
+	}
+}
 
-        printf("----\n");
-        cmd = cmd->next_cmd;
-    }
+static void	ft_to_exec(t_vars *vars)
+{
+	if (!is_builtin(vars, vars->tokens))
+	{
+		waitpid(ft_execute(*vars, vars->tokens), &vars->last_exit_code, 0);
+		if (WIFEXITED(vars->last_exit_code))
+			vars->last_exit_code = WEXITSTATUS(vars->last_exit_code);
+		else
+			vars->last_exit_code = EXIT_FAILURE;
+	}
 }
 
 void	ft_parser(t_vars *vars, char *line)
 {
 	char	*expanded_line;
-	int	i;
-	t_cmd *cmd_info;
+	int		i;
+	t_cmd	*cmd_info;
 
 	i = 0;
 	if (!line || !*line)
@@ -73,19 +86,11 @@ void	ft_parser(t_vars *vars, char *line)
 	if (vars->tokens)
 		free_split(vars->tokens);
 	vars->tokens = quote_aware_split(expanded_line);
-
 	cmd_info = parse_cmd(vars->tokens, &i);
 	print_cmds(cmd_info);
 	if (!vars->tokens)
 		return (free(expanded_line));
 	free(expanded_line);
-	if (!is_builtin(vars, vars->tokens))
-	{
-		waitpid(ft_execute(*vars, vars->tokens), &vars->last_exit_code, 0);
-		if (WIFEXITED(vars->last_exit_code))
-			vars->last_exit_code = WEXITSTATUS(vars->last_exit_code);
-		else
-			vars->last_exit_code = EXIT_FAILURE;
-	}
+	ft_to_exec(vars);
 	free_cmd(cmd_info);
 }

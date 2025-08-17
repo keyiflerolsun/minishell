@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:26 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 20:47:58 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 14:56:34 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@
 
 typedef struct s_token_array
 {
-	char		**tokens;
-	int			size;
-	int			capacity;
+	char			**tokens;
+	int				size;
+	int				capacity;
 
-}				t_token_array;
+}					t_token_array;
 
 typedef struct s_cmd
 {
-    char **cmd_args;
-    char *infile;
-    char *outfile;
-    int append;
-    int here_doc;
-    char *limiter;
-    struct s_cmd *next_cmd;
-} t_cmd;
+	char			**cmd_args;
+	char			*infile;
+	char			*outfile;
+	int				append;
+	int				here_doc;
+	char			*limiter;
+	struct s_cmd	*next_cmd;
+}					t_cmd;
 
 void			handle_token(t_token_array *arr, const char *input, int *i);
 void			handle_metachar(t_token_array *arr, const char *input, int *i);
@@ -44,7 +44,7 @@ char			*parser_join(char *s1, char *s2);
 char			*get_env_value(char **envp, char *key);
 void			ft_parser(t_vars *vars, char *line);
 char			*expand_env(t_vars vars, const char *line);
-t_cmd *parse_cmd(char **args, int *i);
-void free_cmd(t_cmd *cmd);
+t_cmd			*parse_cmd(char **args, int *i);
+void			free_cmd(t_cmd *cmd);
 
 #endif
