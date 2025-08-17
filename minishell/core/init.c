@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:43:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 12:42:25 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 15:25:18 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	run_prog(t_vars *vars)
 void	init_shell(t_vars *vars, char **ep)
 {
 	setup_signals();
+	vars->cmd_info = NULL;
 	vars->tokens = NULL;
 	vars->path = NULL;
 	vars->ep = ft_calloc(sizeof(char *), 1);

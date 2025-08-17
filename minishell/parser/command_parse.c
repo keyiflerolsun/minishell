@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 14:45:21 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 14:49:19 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 15:26:20 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,12 @@ static int	handle_inout(t_cmd *cmd, char **args, int *i)
 	return (0);
 }
 
-void	free_cmd(t_cmd *cmd)
+void	free_cmd(t_vars *vars)
 {
 	t_cmd	*tmp;
+	t_cmd   *cmd;
 
+	cmd = vars->cmd_info;
 	while (cmd)
 	{
 		if (cmd->cmd_args)
@@ -67,6 +69,7 @@ void	free_cmd(t_cmd *cmd)
 		free(cmd);
 		cmd = tmp;
 	}
+	vars->cmd_info = NULL;
 }
 
 t_cmd	*parse_cmd(char **args, int *i)

@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 15:04:13 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 15:25:43 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,5 @@ void	ft_parser(t_vars *vars, char *line)
 		return (free(expanded_line));
 	free(expanded_line);
 	ft_to_exec(vars);
-	free_cmd(vars->cmd_info);
+	free_cmd(vars);
 }

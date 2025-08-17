@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:26 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 15:05:35 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 15:26:29 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ char			*get_env_value(char **envp, char *key);
 void			ft_parser(t_vars *vars, char *line);
 char			*expand_env(t_vars vars, const char *line);
 t_cmd			*parse_cmd(char **args, int *i);
-void			free_cmd(t_cmd *cmd);
+void			free_cmd(t_vars *vars);
 
 #endif
