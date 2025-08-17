@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:15:43 by hyakici           #+#    #+#             */
-/*   Updated: 2025/08/14 18:45:48 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 09:28:21 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	**quote_aware_split(const char *input)
 			i++;
 		if (i >= len)
 			break ;
-		if (ft_is_meta(input[i]))
+		if (ft_ismeta(input[i]))
 			handle_metachar(&arr, input, &i);
 		else
 			handle_token(&arr, input, &i);

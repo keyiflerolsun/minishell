@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 22:23:46 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 20:51:53 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 09:30:41 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,26 @@
 # define UTILS_H
 
 // 🖨️ Standart IO
-# include <stdio.h>      // perror
+# include <stdio.h> // perror
 
 // 🧠 Bellek & Temel Türler
-# include <stdlib.h>     // malloc, free, exit
-# include <stdarg.h>     // va_list (ft_printf)
-# include <stddef.h>     // size_t
+# include <stdarg.h> // va_list (ft_printf)
+# include <stddef.h> // size_t
+# include <stdlib.h> // malloc, free, exit
 
 // 🧠 GNU Readline
-# include <readline/readline.h> // readline, rl_*
 # include <readline/history.h>  // add_history
+# include <readline/readline.h> // readline, rl_*
 
 // 🔧 Sys Calls
-# include <unistd.h>     // write, access, read, close, fork, execve, dup*
-# include <fcntl.h>      // open
-# include <sys/stat.h>   // unlink
+# include <fcntl.h>    // open
+# include <sys/stat.h> // unlink
+# include <unistd.h>   // write, access, read, close, fork, execve, dup*
 
 // 🧒 Processes & Sinyaller
-# include <errno.h>      // errno
-# include <signal.h>     // signal*
-# include <sys/wait.h>   // wait*
+# include <errno.h>    // errno
+# include <signal.h>   // signal*
+# include <sys/wait.h> // wait*
 
 // 🎨 Metin Renkleri
 # define BLACK      "\033[0;30m"
@@ -95,7 +95,7 @@ int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
 int					ft_isspace(int c);
-int					ft_is_meta(char c);
+int					ft_ismeta(char c);
 
 // 🔁 Dönüşüm
 int					ft_atoi(const char *nptr, int *res);
@@ -103,8 +103,8 @@ char				*ft_itoa(int n);
 
 // 🔎 Uzunluk / Karşılaştırma / Arama
 size_t				ft_strlen(const char *s);
-int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_strcmp(const char *s1, const char *s2);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
 char				*ft_strstr(const char *big, const char *little);
 char				*ft_strchr(const char *s, int c);
 
