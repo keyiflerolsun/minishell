@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:48:54 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 09:42:26 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 13:03:41 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ static char	*make_env_prefix(char *key, int *len)
 	return (prefix);
 }
 
-char	*get_env(t_vars vars, char *str)
+char	*get_env(t_list *env, char *str)
 {
-	t_list	*env;
 	char	*prefix;
 	int		len;
 
-	env = vars.env;
 	prefix = make_env_prefix(str, &len);
 	while (env)
 	{
@@ -39,35 +37,33 @@ char	*get_env(t_vars vars, char *str)
 	return (free(prefix), NULL);
 }
 
-void	update_env(t_vars *vars, char *key, char *value)
+void	update_env(t_list **env, char *key, char *value)
 {
-	t_list	*env;
+	t_list	*stack;
 	char	*prefix;
 	int		len;
 
-	env = vars->env;
+	stack = *env;
 	prefix = make_env_prefix(key, &len);
-	while (env)
+	while (stack)
 	{
-		if (!ft_strncmp(env->data, prefix, len))
+		if (!ft_strncmp(stack->data, prefix, len))
 		{
-			free(env->data);
-			env->data = ft_strjoin(prefix, value, 1);
+			free(stack->data);
+			stack->data = ft_strjoin(prefix, value, 1);
 			return ;
 		}
-		env = env->next;
+		stack = stack->next;
 	}
-	ft_lstadd_back(&vars->env, ft_lstnew(ft_strjoin(prefix, value, 1)));
+	ft_lstadd_back(env, ft_lstnew(ft_strjoin(prefix, value, 1)));
 }
 
-void	delete_env(t_vars *vars, char *key)
+void	delete_env(t_list **env, char *key)
 {
-	t_list	**env;
 	char	*prefix;
 	int		len;
 	t_list	*to_del;
 
-	env = &vars->env;
 	prefix = make_env_prefix(key, &len);
 	while (*env)
 	{
