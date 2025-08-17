@@ -5,15 +5,15 @@ OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 NAME    = minismet
 CC      = cc
-CFLAGS  = -Wall -Wextra -Werror -Iutils -Icore -Iexecutor -Iparser -Ibuiltins
+CFLAGS  = -Wall -Wextra -Werror -Icore -Iparser -Iexecutor -Ibuiltins -Iutils
 LDFLAGS = -lreadline
 
 MAKEFLAGS += --no-print-directory --silent
 CORE      = core/core.a
-UTLS      = utils/utils.a
-EXCT      = executor/executor.a
 PARS      = parser/parser.a
+EXCT      = executor/executor.a
 BLTN      = builtins/builtins.a
+UTLS      = utils/utils.a
 
 GREEN   = \033[0;32m
 YELLOW  = \033[0;33m
@@ -25,9 +25,9 @@ RESET   = \033[0m
 
 all: $(NAME)
 
-$(NAME): $(OFILES) $(CORE) $(PARS) $(BLTN) $(EXCT) $(UTLS)
+$(NAME): $(OFILES) $(CORE) $(PARS) $(EXCT) $(BLTN) $(UTLS)
 	@printf "$(GREEN)» 📦 Linking   $(RESET)» $(MAGENTA)./$(NAME)$(RESET)\n"
-	@$(CC) $(CFLAGS) $(OFILES) $(CORE) $(PARS) $(BLTN) $(EXCT) $(UTLS) -o $(NAME) $(LDFLAGS)
+	@$(CC) $(CFLAGS) $(OFILES) $(CORE) $(PARS) $(EXCT) $(BLTN) $(UTLS) -o $(NAME) $(LDFLAGS)
 
 $(OBJDIR)/%.o: %.c
 	@mkdir -p $(OBJDIR)
@@ -37,35 +37,35 @@ $(OBJDIR)/%.o: %.c
 $(CORE): FORCE
 	@$(MAKE) -C $(dir $@)
 
-$(UTLS): FORCE
+$(PARS): FORCE
 	@$(MAKE) -C $(dir $@)
 
 $(EXCT): FORCE
 	@$(MAKE) -C $(dir $@)
 
-$(PARS): FORCE
+$(BLTN): FORCE
 	@$(MAKE) -C $(dir $@)
 
-$(BLTN): FORCE
+$(UTLS): FORCE
 	@$(MAKE) -C $(dir $@)
 
 clean:
 	@printf "$(RED)» 🧹 Cleaning  $(RESET)» $(CYAN)./$(OBJDIR) $(RESET)\n"
 	@rm -rf $(OBJDIR)
 	@$(MAKE) -C $(dir $(CORE)) clean
-	@$(MAKE) -C $(dir $(UTLS)) clean
-	@$(MAKE) -C $(dir $(EXCT)) clean
 	@$(MAKE) -C $(dir $(PARS)) clean
+	@$(MAKE) -C $(dir $(EXCT)) clean
 	@$(MAKE) -C $(dir $(BLTN)) clean
+	@$(MAKE) -C $(dir $(UTLS)) clean
 
 fclean: clean
 	@printf "$(RED)» 🔥 Removing  $(RESET)» $(MAGENTA)./$(NAME)$(RESET)\n"
 	@rm -f $(NAME)
 	@$(MAKE) -C $(dir $(CORE)) fclean
-	@$(MAKE) -C $(dir $(UTLS)) fclean
-	@$(MAKE) -C $(dir $(EXCT)) fclean
 	@$(MAKE) -C $(dir $(PARS)) fclean
+	@$(MAKE) -C $(dir $(EXCT)) fclean
 	@$(MAKE) -C $(dir $(BLTN)) fclean
+	@$(MAKE) -C $(dir $(UTLS)) fclean
 
 re: fclean all
 
