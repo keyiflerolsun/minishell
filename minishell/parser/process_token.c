@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:51:35 by hyakici           #+#    #+#             */
-/*   Updated: 2025/08/17 10:13:10 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 14:25:57 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static void	handle_quoted_part(const char *input, int *i, char **merged)
 	if (!*merged)
 		*merged = ft_strdup(tmp);
 	else
-		*merged = ft_strjoin(*merged, tmp, 3);
+		*merged = ft_strjoin(*merged, tmp, 1);
+	free(tmp);
 	if (input[*i])
 		(*i)++;
 }
