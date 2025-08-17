@@ -6,7 +6,7 @@ OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 NAME   = executor.a
 CC     = cc
-CFLAGS = -Wall -Wextra -Werror -I../utils -I../core -I../executor
+CFLAGS = -Wall -Wextra -Werror -I../utils -I../core -I../executor -I../parser
 
 GREEN   = \033[0;32m
 YELLOW  = \033[0;33m

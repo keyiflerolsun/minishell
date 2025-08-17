@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:15 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 12:31:02 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 15:05:40 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,33 @@
 
 # include "utils.h"
 
+typedef struct s_cmd
+{
+	char			**cmd_args;
+	char			*infile;
+	char			*outfile;
+	int				append;
+	int				here_doc;
+	char			*limiter;
+	struct s_cmd	*next_cmd;
+}					t_cmd;
+
 typedef struct s_vars
 {
-	char	**ep;
-	t_list	*env;
-	t_list	*export;
-	char	**path;
-	char	**tokens;
-	int		last_exit_code;
-}			t_vars;
+	char			**ep;
+	t_list			*env;
+	t_list			*export;
+	char			**path;
+	char			**tokens;
+	t_cmd			*cmd_info;
+	int				last_exit_code;
+}					t_vars;
 
-void		setup_signals(void);
-void		set_path(t_vars *vars);
-char		*get_path(char **path, char *command);
-void		free_split(char **split_data);
-void		init_shell(t_vars *vars, char **ep);
-void		ft_clear(t_vars *vars);
+void				setup_signals(void);
+void				set_path(t_vars *vars);
+char				*get_path(char **path, char *command);
+void				free_split(char **split_data);
+void				init_shell(t_vars *vars, char **ep);
+void				ft_clear(t_vars *vars);
 
 #endif

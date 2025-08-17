@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 14:54:25 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 15:04:13 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	ft_parser(t_vars *vars, char *line)
 {
 	char	*expanded_line;
 	int		i;
-	t_cmd	*cmd_info;
 
 	i = 0;
 	if (!line || !*line)
@@ -86,11 +85,11 @@ void	ft_parser(t_vars *vars, char *line)
 	if (vars->tokens)
 		free_split(vars->tokens);
 	vars->tokens = quote_aware_split(expanded_line);
-	cmd_info = parse_cmd(vars->tokens, &i);
-	print_cmds(cmd_info);
+	vars->cmd_info = parse_cmd(vars->tokens, &i);
+	print_cmds(vars->cmd_info);
 	if (!vars->tokens)
 		return (free(expanded_line));
 	free(expanded_line);
 	ft_to_exec(vars);
-	free_cmd(cmd_info);
+	free_cmd(vars->cmd_info);
 }

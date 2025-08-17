@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:26 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 14:56:34 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 15:05:35 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,6 @@ typedef struct s_token_array
 	int				capacity;
 
 }					t_token_array;
-
-typedef struct s_cmd
-{
-	char			**cmd_args;
-	char			*infile;
-	char			*outfile;
-	int				append;
-	int				here_doc;
-	char			*limiter;
-	struct s_cmd	*next_cmd;
-}					t_cmd;
 
 void			handle_token(t_token_array *arr, const char *input, int *i);
 void			handle_metachar(t_token_array *arr, const char *input, int *i);
