@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 14:54:47 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 20:54:13 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 10:14:04 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	join_sstuuf(char **res, char *tmp, size_t *i, char const *line)
 {
 	tmp[0] = line[(*i)++];
 	tmp[1] = '\0';
-	*res = parser_join(*res, tmp);
+	*res = ft_strjoin(*res, tmp, 1);
 }
 
 static char	*handle_dollar(const char *line, size_t *i, t_vars vars)
@@ -74,8 +74,7 @@ char	*expand_env(t_vars vars, const char *line)
 		else if (line[i] == '$' && !q[0])
 		{
 			val = handle_dollar(line, &i, vars);
-			res = parser_join(res, val);
-			free(val);
+			res = ft_strjoin(res, val, 3);
 			continue ;
 		}
 		join_sstuuf(&res, tmp, &i, line);

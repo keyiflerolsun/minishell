@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:51:35 by hyakici           #+#    #+#             */
-/*   Updated: 2025/08/17 09:28:21 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 10:13:10 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	handle_quoted_part(const char *input, int *i, char **merged)
 	char	quote;
 	int		start;
 	char	*tmp;
-	char	*old;
 
 	quote = input[(*i)++];
 	start = *i;
@@ -37,12 +36,7 @@ static void	handle_quoted_part(const char *input, int *i, char **merged)
 	if (!*merged)
 		*merged = ft_strdup(tmp);
 	else
-	{
-		old = *merged;
-		*merged = ft_strjoin(*merged, tmp);
-		free(old);
-	}
-	free(tmp);
+		*merged = ft_strjoin(*merged, tmp, 3);
 	if (input[*i])
 		(*i)++;
 }
@@ -51,7 +45,6 @@ static void	handle_unquoted_part(const char *input, int *i, char **merged)
 {
 	int		start;
 	char	*tmp;
-	char	*old;
 
 	start = *i;
 	while (
@@ -65,12 +58,7 @@ static void	handle_unquoted_part(const char *input, int *i, char **merged)
 	if (!*merged)
 		*merged = tmp;
 	else
-	{
-		old = *merged;
-		*merged = ft_strjoin(*merged, tmp);
-		free(old);
-		free(tmp);
-	}
+		*merged = ft_strjoin(*merged, tmp, 3);
 }
 
 void	handle_token(t_token_array *arr, const char *input, int *i)

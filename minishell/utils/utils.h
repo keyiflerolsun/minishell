@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 22:23:46 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 09:30:41 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 10:11:47 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char				*ft_strdup(const char *s);
 // ✂️ String Parçalama/Birleştirme
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				**ft_split(char const *s, char c);
-char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin(char *s1, char *s2, int which_free);
 char				*ft_strtrim(char const *s1, char const *set);
 
 // 🖨️ Yazdırma / ft_printf

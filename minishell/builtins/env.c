@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:48:54 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 20:38:11 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 09:42:26 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*make_env_prefix(char *key, int *len)
 {
 	char	*prefix;
 
-	prefix = ft_strjoin(key, "=");
+	prefix = ft_strjoin(key, "=", 0);
 	if (len)
 		*len = ft_strlen(prefix);
 	return (prefix);
@@ -52,14 +52,12 @@ void	update_env(t_vars *vars, char *key, char *value)
 		if (!ft_strncmp(env->data, prefix, len))
 		{
 			free(env->data);
-			env->data = ft_strjoin(prefix, value);
-			free(prefix);
+			env->data = ft_strjoin(prefix, value, 1);
 			return ;
 		}
 		env = env->next;
 	}
-	ft_lstadd_back(&vars->env, ft_lstnew(ft_strjoin(prefix, value)));
-	free(prefix);
+	ft_lstadd_back(&vars->env, ft_lstnew(ft_strjoin(prefix, value, 1)));
 }
 
 void	delete_env(t_vars *vars, char *key)
