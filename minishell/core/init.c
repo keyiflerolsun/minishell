@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:43:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 20:00:48 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 11:23:30 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "executor.h"
 #include "parser.h"
 
-static void	update_env(t_vars *vars)
+static void	env2p(t_vars *vars)
 {
 	t_list	*env;
 	char	**ep;
@@ -30,6 +30,7 @@ static void	update_env(t_vars *vars)
 		env = env->next;
 	}
 	vars->ep = ep;
+	set_path(vars);
 }
 
 static void	run_prog(t_vars *vars)
@@ -38,7 +39,7 @@ static void	run_prog(t_vars *vars)
 
 	while (1)
 	{
-		update_env(vars);
+		env2p(vars);
 		line = readline(MAGENTA "minismet" CYAN " ¢ " RESET);
 		if (!line)
 			break ;
@@ -56,11 +57,11 @@ void	init_shell(t_vars *vars, char **ep)
 {
 	setup_signals();
 	vars->tokens = NULL;
+	vars->path = NULL;
 	vars->ep = ft_calloc(sizeof(char *), 1);
 	vars->env = NULL;
 	while (*ep)
 		ft_lstadd_back(&vars->env, ft_lstnew(ft_strdup(*ep++)));
 	vars->last_exit_code = EXIT_SUCCESS;
-	set_path(vars);
 	run_prog(vars);
 }

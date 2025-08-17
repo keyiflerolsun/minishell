@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:34:53 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 09:42:58 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 11:21:12 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	set_path(t_vars *vars)
 
 	env = vars->env;
 	path = NULL;
+	if (vars->path)
+		free_split(vars->path);
 	vars->path = NULL;
 	while (env)
 	{
@@ -45,7 +47,7 @@ char	*get_path(char **path, char *command)
 		else
 			*path = NULL;
 	}
-	while (*path)
+	while (path && *path)
 	{
 		____tmp = ft_strjoin(*path, "/", 0);
 		ex_path = ft_strjoin(____tmp, command, 1);
