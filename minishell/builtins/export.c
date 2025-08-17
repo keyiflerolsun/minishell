@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 15:27:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 13:08:39 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 13:10:31 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,8 @@ static void	print_export(t_vars vars)
 		data = env->data;
 		while (*data && *data != '=')
 			ft_printf("%c", *data++);
-		if (eq_in_env)
-		{
-			if (*++data)
-				ft_printf("=\"%s\"", data);
-		}
+		if (eq_in_env && *++data)
+			ft_printf("=\"%s\"", data);
 		ft_printf("\n");
 		env = env->next;
 	}
