@@ -6,33 +6,25 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:34:53 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 11:21:12 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 14:14:26 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
 #include "core.h"
 
 void	set_path(t_vars *vars)
 {
 	char	*path;
-	t_list	*env;
 
-	env = vars->env;
-	path = NULL;
-	if (vars->path)
-		free_split(vars->path);
+	free_split(vars->path);
 	vars->path = NULL;
-	while (env)
-	{
-		if (ft_strstr(env->data, "PATH=") && ft_strstr(env->data, "bin"))
-		{
-			path = env->data + 5;
-			break ;
-		}
-		env = env->next;
-	}
+	path = get_env(vars->env, "PATH");
 	if (path)
+	{
 		vars->path = ft_split(path, ':');
+		free(path);
+	}
 }
 
 char	*get_path(char **path, char *command)
@@ -43,9 +35,9 @@ char	*get_path(char **path, char *command)
 	if (ft_strchr(command, '/'))
 	{
 		if (access(command, F_OK) == 0)
-			return (ft_strjoin("", command, 0));
+			return (ft_strdup(command));
 		else
-			*path = NULL;
+			return (NULL);
 	}
 	while (path && *path)
 	{
@@ -64,6 +56,8 @@ void	free_split(char **split_data)
 {
 	int	i;
 
+	if (!split_data)
+		return ;
 	i = -1;
 	while (split_data[++i])
 		free(split_data[i]);

@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 15:27:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 13:10:31 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 13:51:27 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,50 +52,63 @@ static void	print_export(t_vars vars)
 	}
 }
 
-static int	ft_stop(char **tokens, t_vars *vars)
+static void	handle_no_equal(char *token, t_vars *vars)
 {
-	if (!tokens[1])
+	if (is_valid_key(token))
 	{
-		print_export(*vars);
+		update_env(&vars->export, token, "");
+		delete_env(&vars->env, token);
 		vars->last_exit_code = EXIT_SUCCESS;
-		return (1);
 	}
-	if (*tokens[1] == '-')
+	else
 	{
-		write_err(tokens[0], "options are not supported\n");
-		vars->last_exit_code = 42;
-		return (1);
+		write_err(token, "invalid export identifier\n");
+		vars->last_exit_code = EXIT_FAILURE;
 	}
-	if (!ft_strchr(tokens[1], '='))
-	{
-		update_env(&vars->export, tokens[1], "\0");
-		delete_env(&vars->env, tokens[1]);
-		vars->last_exit_code = EXIT_SUCCESS;
-		return (1);
-	}
-	return (0);
 }
 
-void	ft_export(char **tokens, t_vars *vars)
+static void	handle_key_value(char *token, t_vars *vars)
 {
 	char	**parts;
 	int		count;
 
-	if (ft_stop(tokens, vars))
-		return ;
-	parts = ft_split(tokens[1], '=');
+	parts = ft_split(token, '=');
 	count = 0;
 	while (parts[count])
 		count++;
 	if (count != 2 || !is_valid_key(parts[0]))
 	{
-		free_split(parts);
-		write_err("export", "invalid identifier\n");
+		write_err(parts[0], "invalid export identifier\n");
 		vars->last_exit_code = EXIT_FAILURE;
+	}
+	else
+	{
+		update_env(&vars->env, parts[0], parts[1]);
+		update_env(&vars->export, parts[0], parts[1]);
+		vars->last_exit_code = EXIT_SUCCESS;
+	}
+	free_split(parts);
+}
+
+void	ft_export(char **tokens, t_vars *vars)
+{
+	if (!tokens[1])
+	{
+		print_export(*vars);
+		vars->last_exit_code = EXIT_SUCCESS;
 		return ;
 	}
-	update_env(&vars->env, parts[0], parts[1]);
-	update_env(&vars->export, parts[0], parts[1]);
-	free_split(parts);
-	vars->last_exit_code = EXIT_SUCCESS;
+	if (*tokens[1] == '-')
+	{
+		write_err("export", "options are not supported\n");
+		vars->last_exit_code = 42;
+		return ;
+	}
+	while (*++tokens)
+	{
+		if (ft_strchr(*tokens, '='))
+			handle_key_value(*tokens, vars);
+		else
+			handle_no_equal(*tokens, vars);
+	}
 }

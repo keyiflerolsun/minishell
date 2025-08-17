@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:48:54 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 13:03:41 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/17 13:53:20 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,12 @@ void	ft_env(char **tokens, t_vars *vars)
 {
 	t_list	*env;
 
+	if (!vars->path)
+	{
+		write_err("env", "No such file or directory\n");
+		vars->last_exit_code = 127;
+		return ;
+	}
 	if (tokens[1])
 	{
 		write_err("env", "options or arguments are not supported\n");
