@@ -1,7 +1,10 @@
 CFILES = err_exit.c \
 		 builtin_exec.c \
 		 child_exec.c \
-		 pars_to_exec.c
+		 pars_to_exec.c \
+		 init_files.c \
+		 pipe.c \
+		 utils.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 13:54:15 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/18 14:37:07 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,22 @@ static void	wait_child_exec(t_vars *vars, char **cmd)
 
 void	pars_to_exec(t_vars *vars)
 {
-	t_list	*cmds;
-	t_pipe	pipe;
+	t_pipes	pipes;
 	t_cmd	*cmd;
 
-	cmds = vars->cmds;
-	pipe.cmd_count = ft_lstsize(cmds);
-	pipe.cmd_index = 0;
-	while (cmds)
+	pipes.cmd_list = vars->cmds;
+	pipes.cmd_count = ft_lstsize(pipes.cmd_list);
+	pipes.cmd_index = 0;
+	while (pipes.cmd_list)
 	{
-		cmd = (t_cmd *)cmds->data;
+		cmd = (t_cmd *)pipes.cmd_list->data;
 		if (!cmd->infile
 			&& !cmd->outfile
 			&& !cmd->here_doc
 			&& !builtin_exec(vars, cmd->args))
 			wait_child_exec(vars, cmd->args);
-		cmds = cmds->next;
-		pipe.cmd_index++;
+		pipes.exit_codes[pipes.cmd_index] = vars->last_exit_code;
+		pipes.cmd_list = pipes.cmd_list->next;
+		pipes.cmd_index++;
 	}
 }

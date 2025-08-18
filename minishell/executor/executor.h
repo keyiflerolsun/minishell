@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:19 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 13:02:18 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/18 14:41:33 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,30 @@
 #  define MAX_PIPE 512
 # endif
 
-typedef struct s_pipe
+typedef struct s_pipes
 {
+	int		infile;
+	int		outfile;
 	int		curr_pipe[2];
 	int		last_read;
 	pid_t	cmds[MAX_PIPE];
 	int		exit_codes[MAX_PIPE];
+	t_list	*cmd_list;
 	int		cmd_count;
 	int		cmd_index;
-}			t_pipe;
+}			t_pipes;
 
 void		error_exit(const char *msg, int exit_code);
 int			builtin_exec(t_vars *vars, char **cmd);
 pid_t		child_exec(t_vars *vars, char **cmd);
 void		pars_to_exec(t_vars *vars);
+void		init_infile(t_pipes *pipes);
+void		init_outfile(t_pipes *pipes);
+void		setup_pipe(t_pipes *pipes);
+int			get_pipe_in(t_pipes *pipes);
+int			get_pipe_out(t_pipes *pipes);
+void		clean_pipe(t_pipes *pipes);
+void		fd_apply(t_pipes *pipes);
+void		close_fd(t_pipes pipes);
 
 #endif
