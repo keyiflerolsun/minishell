@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 14:45:21 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 15:26:20 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/18 12:09:24 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,18 @@ static int	handle_inout(t_cmd *cmd, char **args, int *i)
 void	free_cmd(t_vars *vars)
 {
 	t_cmd	*tmp;
-	t_cmd   *cmd;
+	t_cmd	*cmd;
 
-	cmd = vars->cmd_info;
+	cmd = vars->cmds;
 	while (cmd)
 	{
-		if (cmd->cmd_args)
-			free(cmd->cmd_args);
+		if (cmd->args)
+			free(cmd->args);
 		tmp = cmd->next_cmd;
 		free(cmd);
 		cmd = tmp;
 	}
-	vars->cmd_info = NULL;
+	vars->cmds = NULL;
 }
 
 t_cmd	*parse_cmd(char **args, int *i)
@@ -79,16 +79,16 @@ t_cmd	*parse_cmd(char **args, int *i)
 
 	cmd = calloc(1, sizeof(t_cmd));
 	if (count_args(args, *i))
-		cmd->cmd_args = malloc(sizeof(char *) * (count_args(args, *i) + 1));
+		cmd->args = malloc(sizeof(char *) * (count_args(args, *i) + 1));
 	arg_i = 0;
 	while (args[*i] && ft_strcmp(args[*i], "|"))
 	{
 		if (handle_inout(cmd, args, i))
-			cmd->cmd_args[arg_i++] = args[*i];
+			cmd->args[arg_i++] = args[*i];
 		(*i)++;
 	}
-	if (cmd->cmd_args)
-		cmd->cmd_args[arg_i] = NULL;
+	if (cmd->args)
+		cmd->args[arg_i] = NULL;
 	if (args[*i] && !ft_strcmp(args[*i], "|"))
 	{
 		(*i)++;

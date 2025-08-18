@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_execute.c                                       :+:      :+:    :+:   */
+/*   child_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:50:08 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 15:26:49 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/18 12:06:31 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 #include "parser.h"
 
-static void	free_allocs(char **split, char *ex_path, t_vars *vars)
+static void	free_child_allocs(char **split, char *ex_path, t_vars *vars)
 {
 	free_split(split);
 	free(ex_path);
@@ -24,7 +24,7 @@ static void	free_allocs(char **split, char *ex_path, t_vars *vars)
 		ft_lstclear(&vars->env, free);
 	if (vars->export)
 		ft_lstclear(&vars->export, free);
-	if (vars->cmd_info)
+	if (vars->cmds)
 		free_cmd(vars);
 }
 
@@ -38,26 +38,30 @@ static void	get_name(char *cmd, char *name)
 	name[i] = '\0';
 }
 
-pid_t	ft_execute(t_vars vars, char **cmd)
+static void	execute_child(t_vars *vars, char **cmd)
 {
-	pid_t	pid;
 	char	*ex_path;
 	int		exec_err;
 	char	name[1024];
 
 	exec_err = -1;
+	get_name(cmd[0], name);
+	ex_path = get_path(vars->path, cmd[0]);
+	if (ex_path)
+		exec_err = execve(ex_path, cmd, vars->ep);
+	free_child_allocs(cmd, ex_path, vars);
+	if (exec_err)
+		error_exit(name, 1);
+	exit(EXIT_SUCCESS);
+}
+
+pid_t	child_exec(t_vars *vars, char **cmd)
+{
+	pid_t	pid;
+
 	pid = fork();
 	if (pid == 0)
-	{
-		get_name(cmd[0], name);
-		ex_path = get_path(vars.path, cmd[0]);
-		if (ex_path)
-			exec_err = execve(ex_path, cmd, vars.ep);
-		free_allocs(cmd, ex_path, &vars);
-		if (exec_err)
-			error_exit(name, 1);
-		exit(EXIT_SUCCESS);
-	}
+		execute_child(vars, cmd);
 	if (pid < 0)
 		error_exit("fork", 1);
 	return (pid);

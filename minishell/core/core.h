@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:15 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 15:05:40 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/18 12:06:57 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 typedef struct s_cmd
 {
-	char			**cmd_args;
+	char			**args;
 	char			*infile;
 	char			*outfile;
 	int				append;
@@ -33,7 +33,7 @@ typedef struct s_vars
 	t_list			*export;
 	char			**path;
 	char			**tokens;
-	t_cmd			*cmd_info;
+	t_cmd			*cmds;
 	int				last_exit_code;
 }					t_vars;
 

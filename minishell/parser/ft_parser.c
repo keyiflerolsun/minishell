@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 15:38:00 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/18 12:09:29 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	print_cmds(t_cmd *cmd)
 	while (cmd)
 	{
 		printf("Command:\n");
-		if (cmd->cmd_args)
+		if (cmd->args)
 		{
 			j = 0;
-			while (cmd->cmd_args[j])
+			while (cmd->args[j])
 			{
-				printf("  arg[%d]: %s\n", j, cmd->cmd_args[j]);
+				printf("  arg[%d]: %s\n", j, cmd->args[j]);
 				j++;
 			}
 		}
@@ -53,8 +53,8 @@ void	ft_parser(t_vars *vars, char *line)
 	if (vars->tokens)
 		free_split(vars->tokens);
 	vars->tokens = quote_aware_split(expanded_line);
-	vars->cmd_info = parse_cmd(vars->tokens, &i);
-	print_cmds(vars->cmd_info);
+	vars->cmds = parse_cmd(vars->tokens, &i);
+	print_cmds(vars->cmds);
 	if (!vars->tokens)
 		return (free(expanded_line));
 	free(expanded_line);

@@ -1,5 +1,6 @@
-CFILES = ft_execute.c \
-		 err_exit.c \
+CFILES = err_exit.c \
+		 builtin_exec.c \
+		 child_exec.c \
 		 pars_to_exec.c
 
 OBJDIR = obj
