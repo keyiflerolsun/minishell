@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 14:45:21 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 12:09:24 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/18 12:50:08 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	free_single_cmd(void *data)
 		return ;
 	cmd = (t_cmd *)data;
 	if (cmd->args)
-		free_split(cmd->args);
+		free(cmd->args);
 	if (cmd->infile)
 		free(cmd->infile);
 	if (cmd->outfile)

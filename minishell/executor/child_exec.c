@@ -6,16 +6,15 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:50:08 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 12:06:31 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/18 13:43:00 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 #include "parser.h"
 
-static void	free_child_allocs(char **split, char *ex_path, t_vars *vars)
+static void	free_child_allocs(char *ex_path, t_vars *vars)
 {
-	free_split(split);
 	free(ex_path);
 	free_split(vars->path);
 	if (vars->ep)
@@ -26,6 +25,8 @@ static void	free_child_allocs(char **split, char *ex_path, t_vars *vars)
 		ft_lstclear(&vars->export, free);
 	if (vars->cmds)
 		free_cmd(vars);
+	if (vars->tokens)
+		free_split(vars->tokens);
 }
 
 static void	get_name(char *cmd, char *name)
@@ -49,7 +50,7 @@ static void	execute_child(t_vars *vars, char **cmd)
 	ex_path = get_path(vars->path, cmd[0]);
 	if (ex_path)
 		exec_err = execve(ex_path, cmd, vars->ep);
-	free_child_allocs(cmd, ex_path, vars);
+	free_child_allocs(ex_path, vars);
 	if (exec_err)
 		error_exit(name, 1);
 	exit(EXIT_SUCCESS);

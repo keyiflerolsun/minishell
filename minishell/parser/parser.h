@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:26 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 15:26:29 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/18 12:53:32 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,23 @@
 
 # include "core.h"
 
+typedef struct s_cmd
+{
+	char		**args;
+	char		*infile;
+	char		*outfile;
+	int			append;
+	int			here_doc;
+	char		*limiter;
+}				t_cmd;
+
 typedef struct s_token_array
 {
-	char			**tokens;
-	int				size;
-	int				capacity;
+	char		**tokens;
+	int			size;
+	int			capacity;
 
-}					t_token_array;
+}				t_token_array;
 
 void			handle_token(t_token_array *arr, const char *input, int *i);
 void			handle_metachar(t_token_array *arr, const char *input, int *i);
