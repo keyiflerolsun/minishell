@@ -23,7 +23,6 @@ typedef struct s_cmd
 	int				append;
 	int				here_doc;
 	char			*limiter;
-	struct s_cmd	*next_cmd;
 }					t_cmd;
 
 typedef struct s_vars
@@ -33,7 +32,7 @@ typedef struct s_vars
 	t_list			*export;
 	char			**path;
 	char			**tokens;
-	t_cmd			*cmds;
+	t_list			*cmds;
 	int				last_exit_code;
 }					t_vars;
 

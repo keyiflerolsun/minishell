@@ -27,3 +27,19 @@ char	*get_env_value(char **envp, char *key)
 	}
 	return (ft_strdup(""));
 }
+
+t_cmd	*init_cmd(void)
+{
+	t_cmd	*cmd;
+
+	cmd = calloc(1, sizeof(t_cmd));
+	if (!cmd)
+		return (NULL);
+	cmd->args = NULL;
+	cmd->infile = NULL;
+	cmd->outfile = NULL;
+	cmd->limiter = NULL;
+	cmd->append = 0;
+	cmd->here_doc = 0;
+	return (cmd);
+}

@@ -13,21 +13,22 @@
 #include "executor.h"
 #include "parser.h"
 
-void	print_cmds(t_cmd *cmd)
+void	print_cmds(t_list *cmd_list)
 {
-	int	j;
+	int		j;
+	t_cmd	*cmd;
+	t_list	*current;
 
-	while (cmd)
+	current = cmd_list;
+	while (current)
 	{
+		cmd = (t_cmd *)current->data;
 		printf("Command:\n");
 		if (cmd->args)
 		{
-			j = 0;
-			while (cmd->args[j])
-			{
+			j = -1;
+			while (cmd->args[++j])
 				printf("  arg[%d]: %s\n", j, cmd->args[j]);
-				j++;
-			}
 		}
 		if (cmd->infile)
 			printf("  infile: %s\n", cmd->infile);
@@ -36,7 +37,7 @@ void	print_cmds(t_cmd *cmd)
 		if (cmd->here_doc)
 			printf("  here_doc with limiter: %s\n", cmd->limiter);
 		printf("----\n");
-		cmd = cmd->next_cmd;
+		current = current->next;
 	}
 }
 
@@ -53,7 +54,7 @@ void	ft_parser(t_vars *vars, char *line)
 	if (vars->tokens)
 		free_split(vars->tokens);
 	vars->tokens = quote_aware_split(expanded_line);
-	vars->cmds = parse_cmd(vars->tokens, &i);
+	parse_cmd(vars, vars->tokens, &i);
 	print_cmds(vars->cmds);
 	if (!vars->tokens)
 		return (free(expanded_line));

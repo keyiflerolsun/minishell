@@ -33,7 +33,8 @@ char			*parser_join(char *s1, char *s2);
 char			*get_env_value(char **envp, char *key);
 void			ft_parser(t_vars *vars, char *line);
 char			*expand_env(t_vars vars, const char *line);
-t_cmd			*parse_cmd(char **args, int *i);
+t_cmd			*init_cmd(void);
+void			parse_cmd(t_vars *vars, char **args, int *i);
 void			free_cmd(t_vars *vars);
 
 #endif

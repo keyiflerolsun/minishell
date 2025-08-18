@@ -55,29 +55,41 @@ static int	handle_inout(t_cmd *cmd, char **args, int *i)
 	return (0);
 }
 
-void	free_cmd(t_vars *vars)
+static void	free_single_cmd(void *data)
 {
-	t_cmd	*tmp;
 	t_cmd	*cmd;
 
-	cmd = vars->cmds;
-	while (cmd)
-	{
-		if (cmd->args)
-			free(cmd->args);
-		tmp = cmd->next_cmd;
-		free(cmd);
-		cmd = tmp;
-	}
-	vars->cmds = NULL;
+	if (!data)
+		return ;
+	cmd = (t_cmd *)data;
+	if (cmd->args)
+		free_split(cmd->args);
+	if (cmd->infile)
+		free(cmd->infile);
+	if (cmd->outfile)
+		free(cmd->outfile);
+	if (cmd->limiter)
+		free(cmd->limiter);
+	free(cmd);
 }
 
-t_cmd	*parse_cmd(char **args, int *i)
+void	free_cmd(t_vars *vars)
+{
+	if (vars->cmds)
+	{
+		ft_lstclear(&vars->cmds, free_single_cmd);
+		vars->cmds = NULL;
+	}
+}
+
+void	parse_cmd(t_vars *vars, char **args, int *i)
 {
 	t_cmd	*cmd;
 	int		arg_i;
 
-	cmd = calloc(1, sizeof(t_cmd));
+	cmd = init_cmd();
+	if (!cmd)
+		return ;
 	if (count_args(args, *i))
 		cmd->args = malloc(sizeof(char *) * (count_args(args, *i) + 1));
 	arg_i = 0;
@@ -89,10 +101,10 @@ t_cmd	*parse_cmd(char **args, int *i)
 	}
 	if (cmd->args)
 		cmd->args[arg_i] = NULL;
+	ft_lstadd_back(&vars->cmds, ft_lstnew(cmd));
 	if (args[*i] && !ft_strcmp(args[*i], "|"))
 	{
 		(*i)++;
-		cmd->next_cmd = parse_cmd(args, i);
+		parse_cmd(vars, args, i);
 	}
-	return (cmd);
 }
