@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 13:17:47 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/18 13:54:15 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ static void	wait_child_exec(t_vars *vars, char **cmd)
 
 void	pars_to_exec(t_vars *vars)
 {
-	// if (builtin_exec(vars, vars->tokens))
-	// 	return ;
-	// wait_child_exec(vars, vars->tokens);
 	t_list	*cmds;
 	t_pipe	pipe;
 	t_cmd	*cmd;
@@ -37,7 +34,10 @@ void	pars_to_exec(t_vars *vars)
 	while (cmds)
 	{
 		cmd = (t_cmd *)cmds->data;
-		if (!builtin_exec(vars, cmd->args))
+		if (!cmd->infile
+			&& !cmd->outfile
+			&& !cmd->here_doc
+			&& !builtin_exec(vars, cmd->args))
 			wait_child_exec(vars, cmd->args);
 		cmds = cmds->next;
 		pipe.cmd_index++;
