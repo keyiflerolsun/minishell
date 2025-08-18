@@ -22,7 +22,7 @@ void	init_infile(t_pipes *pp)
 	if (pp->infile < 0)
 	{
 		error_exit(cmd->infile, 42);
-		pp->infile = open("/dev/null", O_CREAT | O_RDWR | O_TRUNC);
+		pp->infile = open("/dev/null", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	}
 }
 
@@ -38,6 +38,6 @@ void	init_outfile(t_pipes *pp)
 	if (pp->outfile < 0)
 	{
 		error_exit(cmd->outfile, 42);
-		pp->outfile = open("/dev/null", O_CREAT | O_RDWR | O_TRUNC);
+		pp->outfile = open("/dev/null", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	}
 }

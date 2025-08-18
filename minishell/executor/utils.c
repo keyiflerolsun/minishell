@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:38:58 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 14:40:06 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/18 16:32:41 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,14 @@ void	fd_apply(t_pipes *pipes)
 
 void	close_fd(t_pipes pipes)
 {
-	close(pipes.curr_pipe[0]);
-	close(pipes.curr_pipe[1]);
-	close(pipes.last_read);
-	close(pipes.infile);
-	close(pipes.outfile);
+	if (pipes.curr_pipe[0] > 2)
+		close(pipes.curr_pipe[0]);
+	if (pipes.curr_pipe[1] > 2)
+		close(pipes.curr_pipe[1]);
+	if (pipes.last_read > 2)
+		close(pipes.last_read);
+	if (pipes.infile > 2)
+		close(pipes.infile);
+	if (pipes.outfile > 2)
+		close(pipes.outfile);
 }

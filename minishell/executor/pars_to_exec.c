@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 14:37:07 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/18 16:31:38 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,21 @@ void	pars_to_exec(t_vars *vars)
 	while (pipes.cmd_list)
 	{
 		cmd = (t_cmd *)pipes.cmd_list->data;
-		if (!cmd->infile
-			&& !cmd->outfile
-			&& !cmd->here_doc
-			&& !builtin_exec(vars, cmd->args))
+		setup_pipe(&pipes);
+		if (cmd->infile || cmd->outfile || cmd->here_doc)
+		{
+			if (cmd->infile)
+				init_infile(&pipes);
+			if (cmd->outfile)
+				init_outfile(&pipes);
+			fd_apply(&pipes);
+		}
+		else if (!builtin_exec(vars, cmd->args))
 			wait_child_exec(vars, cmd->args);
+		clean_pipe(&pipes);
 		pipes.exit_codes[pipes.cmd_index] = vars->last_exit_code;
 		pipes.cmd_list = pipes.cmd_list->next;
 		pipes.cmd_index++;
 	}
+	close_fd(pipes);
 }

@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 07:38:23 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 14:35:07 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/18 16:31:19 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	setup_pipe(t_pipes *pipes)
 {
+	pipes->infile = STDIN_FILENO;
+	pipes->outfile = STDOUT_FILENO;
 	if (pipes->cmd_index != pipes->cmd_count)
 		if (pipe(pipes->curr_pipe) == -1)
 			error_exit("pipe", 1);
