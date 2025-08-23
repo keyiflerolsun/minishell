@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 14:45:21 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 13:56:36 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/23 17:03:08 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static int	handle_inout(t_cmd *cmd, char **args, int *i)
 	}
 	else if (!ft_strcmp(args[*i], "<<"))
 	{
+		cmd->infile = "here_doc";
 		cmd->here_doc = 1;
 		cmd->limiter = args[++(*i)];
 	}
