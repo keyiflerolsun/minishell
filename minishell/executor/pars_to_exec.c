@@ -6,20 +6,38 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 16:31:38 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/23 14:28:27 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 #include "parser.h"
 
-static void	wait_child_exec(t_vars *vars, char **cmd)
+static void	wait_child_exec(t_vars *vars, t_pipes *pipes, char **cmd)
 {
-	waitpid(child_exec(vars, cmd), &vars->last_exit_code, 0);
+	waitpid(child_exec(vars, pipes, cmd), &vars->last_exit_code, 0);
 	if (WIFEXITED(vars->last_exit_code))
 		vars->last_exit_code = WEXITSTATUS(vars->last_exit_code);
 	else
 		vars->last_exit_code = EXIT_FAILURE;
+}
+
+static void	init_pipes(t_vars *vars, t_pipes *pipes)
+{
+	pipes->cmd_list = vars->cmds;
+	pipes->cmd_count = ft_lstsize(pipes->cmd_list);
+	pipes->cmd_index = 0;
+	pipes->infile = STDIN_FILENO;
+	pipes->outfile = STDOUT_FILENO;
+	pipes->last_read = pipes->infile;
+}
+
+static void	continue_pipes(t_vars *vars, t_pipes *pipes)
+{
+	clean_pipe(pipes);
+	pipes->exit_codes[pipes->cmd_index] = vars->last_exit_code;
+	pipes->cmd_list = pipes->cmd_list->next;
+	pipes->cmd_index++;
 }
 
 void	pars_to_exec(t_vars *vars)
@@ -27,9 +45,7 @@ void	pars_to_exec(t_vars *vars)
 	t_pipes	pipes;
 	t_cmd	*cmd;
 
-	pipes.cmd_list = vars->cmds;
-	pipes.cmd_count = ft_lstsize(pipes.cmd_list);
-	pipes.cmd_index = 0;
+	init_pipes(vars, &pipes);
 	while (pipes.cmd_list)
 	{
 		cmd = (t_cmd *)pipes.cmd_list->data;
@@ -40,14 +56,14 @@ void	pars_to_exec(t_vars *vars)
 				init_infile(&pipes);
 			if (cmd->outfile)
 				init_outfile(&pipes);
-			fd_apply(&pipes);
+			if (!builtin_exec(vars, cmd->args))
+				wait_child_exec(vars, &pipes, cmd->args);
+			continue_pipes(vars, &pipes);
+			continue ;
 		}
-		else if (!builtin_exec(vars, cmd->args))
-			wait_child_exec(vars, cmd->args);
-		clean_pipe(&pipes);
-		pipes.exit_codes[pipes.cmd_index] = vars->last_exit_code;
-		pipes.cmd_list = pipes.cmd_list->next;
-		pipes.cmd_index++;
+		if (!builtin_exec(vars, cmd->args))
+			wait_child_exec(vars, &pipes, cmd->args);
+		continue_pipes(vars, &pipes);
 	}
 	close_fd(pipes);
 }

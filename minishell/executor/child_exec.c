@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:50:08 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 13:43:00 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/23 14:11:00 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	get_name(char *cmd, char *name)
 	name[i] = '\0';
 }
 
-static void	execute_child(t_vars *vars, char **cmd)
+static void	execute_child(t_vars *vars, t_pipes *pipes, char **cmd)
 {
 	char	*ex_path;
 	int		exec_err;
@@ -47,6 +47,8 @@ static void	execute_child(t_vars *vars, char **cmd)
 
 	exec_err = -1;
 	get_name(cmd[0], name);
+	fd_apply(pipes);
+	close_fd(*pipes);
 	ex_path = get_path(vars->path, cmd[0]);
 	if (ex_path)
 		exec_err = execve(ex_path, cmd, vars->ep);
@@ -56,13 +58,13 @@ static void	execute_child(t_vars *vars, char **cmd)
 	exit(EXIT_SUCCESS);
 }
 
-pid_t	child_exec(t_vars *vars, char **cmd)
+pid_t	child_exec(t_vars *vars, t_pipes *pipes, char **cmd)
 {
 	pid_t	pid;
 
 	pid = fork();
 	if (pid == 0)
-		execute_child(vars, cmd);
+		execute_child(vars, pipes, cmd);
 	if (pid < 0)
 		error_exit("fork", 1);
 	return (pid);

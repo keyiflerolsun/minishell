@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 07:38:23 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 16:31:19 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/23 14:30:19 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,16 @@
 
 void	setup_pipe(t_pipes *pipes)
 {
-	pipes->infile = STDIN_FILENO;
-	pipes->outfile = STDOUT_FILENO;
-	if (pipes->cmd_index != pipes->cmd_count)
+	if (pipes->cmd_index < pipes->cmd_count - 1)
+	{
 		if (pipe(pipes->curr_pipe) == -1)
 			error_exit("pipe", 1);
+	}
+	else
+	{
+		pipes->curr_pipe[0] = -1;
+		pipes->curr_pipe[1] = -1;
+	}
 }
 
 int	get_pipe_in(t_pipes *pipes)
@@ -35,7 +40,9 @@ int	get_pipe_out(t_pipes *pipes)
 
 void	clean_pipe(t_pipes *pipes)
 {
-	close(pipes->last_read);
-	close(pipes->curr_pipe[1]);
+	if (pipes->last_read > 2)
+		close(pipes->last_read);
+	if (pipes->curr_pipe[1] > 2)
+		close(pipes->curr_pipe[1]);
 	pipes->last_read = pipes->curr_pipe[0];
 }
