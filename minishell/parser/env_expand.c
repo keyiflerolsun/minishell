@@ -53,6 +53,8 @@ static char	*handle_dollar(const char *line, size_t *i, t_vars vars)
 	}
 	(*i)++;
 	val = expand_var(line, i, vars.ep);
+	if (!val)
+		return (ft_strdup(""));
 	return (val);
 }
 

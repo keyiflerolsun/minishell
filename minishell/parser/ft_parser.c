@@ -54,6 +54,7 @@ void	ft_parser(t_vars *vars, char *line)
 	if (vars->tokens)
 		free_split(vars->tokens);
 	vars->tokens = quote_aware_split(expanded_line);
+	vars->last_exit_code = 0;
 	parse_cmd(vars, vars->tokens, &i);
 	print_cmds(vars->cmds);
 	if (!vars->tokens)

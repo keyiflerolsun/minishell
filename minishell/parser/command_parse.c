@@ -56,35 +56,14 @@ static int	handle_inout(t_cmd *cmd, char **args, int *i)
 	return (0);
 }
 
-static void	free_single_cmd(void *data)
-{
-	t_cmd	*cmd;
-
-	if (!data)
-		return ;
-	cmd = (t_cmd *)data;
-	if (cmd->args)
-		free(cmd->args);
-	free(cmd);
-}
-
-void	free_cmd(t_vars *vars)
-{
-	if (vars->cmds)
-	{
-		ft_lstclear(&vars->cmds, free_single_cmd);
-		vars->cmds = NULL;
-	}
-}
-
-void	parse_cmd(t_vars *vars, char **args, int *i)
+static t_cmd	*create_cmd(char **args, int *i)
 {
 	t_cmd	*cmd;
 	int		arg_i;
 
 	cmd = init_cmd();
 	if (!cmd)
-		return ;
+		return (NULL);
 	if (count_args(args, *i))
 		cmd->args = malloc(sizeof(char *) * (count_args(args, *i) + 1));
 	arg_i = 0;
@@ -96,10 +75,25 @@ void	parse_cmd(t_vars *vars, char **args, int *i)
 	}
 	if (cmd->args)
 		cmd->args[arg_i] = NULL;
+	return (cmd);
+}
+
+void	parse_cmd(t_vars *vars, char **args, int *i)
+{
+	t_cmd	*cmd;
+
+	cmd = create_cmd(args, i);
+	if (!cmd)
+		return ;
 	ft_lstadd_back(&vars->cmds, ft_lstnew(cmd));
 	if (args[*i] && !ft_strcmp(args[*i], "|"))
 	{
 		(*i)++;
+		if (!args[*i])
+		{
+			vars->last_exit_code = 333;
+			return ;
+		}
 		parse_cmd(vars, args, i);
 	}
 }

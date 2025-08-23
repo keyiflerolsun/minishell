@@ -43,3 +43,24 @@ t_cmd	*init_cmd(void)
 	cmd->here_doc = 0;
 	return (cmd);
 }
+
+static void	free_single_cmd(void *data)
+{
+	t_cmd	*cmd;
+
+	if (!data)
+		return ;
+	cmd = (t_cmd *)data;
+	if (cmd->args)
+		free(cmd->args);
+	free(cmd);
+}
+
+void	free_cmd(t_vars *vars)
+{
+	if (vars->cmds)
+	{
+		ft_lstclear(&vars->cmds, free_single_cmd);
+		vars->cmds = NULL;
+	}
+}

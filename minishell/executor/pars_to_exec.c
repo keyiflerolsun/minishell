@@ -12,6 +12,7 @@
 
 #include "executor.h"
 #include "parser.h"
+#include "builtins.h"
 
 static void	wait_child_exec(t_vars *vars, t_pipes *pipes, char **cmd)
 {
@@ -22,14 +23,17 @@ static void	wait_child_exec(t_vars *vars, t_pipes *pipes, char **cmd)
 		vars->last_exit_code = EXIT_FAILURE;
 }
 
-static void	init_pipes(t_vars *vars, t_pipes *pipes)
+static int	init_pipes(t_vars *vars, t_pipes *pipes)
 {
+	if (vars->last_exit_code == 333)
+		return (write_err("minismet", "syntax error\n"), 0);
 	pipes->cmd_list = vars->cmds;
 	pipes->cmd_count = ft_lstsize(pipes->cmd_list);
 	pipes->cmd_index = 0;
 	pipes->infile = STDIN_FILENO;
 	pipes->outfile = STDOUT_FILENO;
 	pipes->last_read = pipes->infile;
+	return (1);
 }
 
 static void	continue_pipes(t_vars *vars, t_pipes *pipes)
@@ -54,7 +58,6 @@ static int	ft_is_operator(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
 			init_outfile(pipes);
 		if (!builtin_exec(vars, pipes, cmd->args))
 			wait_child_exec(vars, pipes, cmd->args);
-		continue_pipes(vars, pipes);
 	}
 	return (res);
 }
@@ -64,13 +67,17 @@ void	pars_to_exec(t_vars *vars)
 	t_pipes	pipes;
 	t_cmd	*cmd;
 
-	init_pipes(vars, &pipes);
+	if (!init_pipes(vars, &pipes))
+		return ;
 	while (pipes.cmd_list)
 	{
 		cmd = (t_cmd *)pipes.cmd_list->data;
 		setup_pipe(&pipes);
-		if (ft_is_operator(vars, &pipes, cmd))
+		if (!(cmd->args && cmd->args[0]) || ft_is_operator(vars, &pipes, cmd))
+		{
+			continue_pipes(vars, &pipes);
 			continue ;
+		}
 		if (!builtin_exec(vars, &pipes, cmd->args))
 			wait_child_exec(vars, &pipes, cmd->args);
 		continue_pipes(vars, &pipes);
