@@ -1,0 +1,9 @@
+
+# Execute
+¢ > a > b > c           --------- seg + a b c açılması lazım
+¢ a > b > c             --------- command not found ama b ve c açılacak
+
+# Parser
+¢ cat a |               --------- hata döndürmesi lazım ama seg
+¢ cat a" && echo '1     --------- gibi şeyler unclosed quote tarzında hata döndürmesi lazım sub istior
+¢ export b && $b        --------- leak + seg var
