@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/23 14:52:28 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/23 15:31:00 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	pars_to_exec(t_vars *vars)
 				init_infile(&pipes);
 			if (cmd->outfile)
 				init_outfile(&pipes);
-			if (!builtin_exec(vars, cmd->args))
+			if (!builtin_exec(vars, &pipes, cmd->args))
 				wait_child_exec(vars, &pipes, cmd->args);
 			continue_pipes(vars, &pipes);
 			continue ;
 		}
-		if (!builtin_exec(vars, cmd->args))
+		if (!builtin_exec(vars, &pipes, cmd->args))
 			wait_child_exec(vars, &pipes, cmd->args);
 		continue_pipes(vars, &pipes);
 	}
