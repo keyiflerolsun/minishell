@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:19 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/23 15:24:27 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 11:55:26 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ int			get_pipe_out(t_pipes *pipes);
 void		clean_pipe(t_pipes *pipes);
 void		fd_apply(t_pipes *pipes);
 void		close_fd(t_pipes pipes);
+pid_t		ft_heredot(t_vars *vars, char *limiter);
 
 #endif
