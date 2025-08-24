@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:19 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 13:01:10 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 13:29:34 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_pipes
 
 void		error_exit(const char *msg, int exit_code);
 int			builtin_exec(t_vars *vars, t_pipes *pipes, char **cmd);
-pid_t		child_exec(t_vars *vars, t_pipes *pipes, char **cmd);
+void		child_exec(t_vars *vars, t_pipes *pipes, char **cmd);
 void		pars_to_exec(t_vars *vars);
 void		init_infile(t_pipes *pipes);
 void		init_outfile(t_pipes *pipes);
@@ -45,6 +45,6 @@ void		clean_pipe(t_pipes *pipes);
 void		fd_apply(t_pipes *pipes);
 void		close_fd(t_pipes pipes);
 void		ft_heredot(t_vars *vars, char *limiter);
-void		ft_wait_pid(t_vars *vars, pid_t pid, void (*prev_sigint)(int));
+void		ft_wait_pid(t_vars *vars, pid_t pid);
 
 #endif

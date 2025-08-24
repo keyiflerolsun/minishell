@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:38:58 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 13:01:03 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 13:29:27 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ void	close_fd(t_pipes pipes)
 		close(pipes.outfile);
 }
 
-void	ft_wait_pid(t_vars *vars, pid_t pid, void (*prev_sigint)(int))
+void	ft_wait_pid(t_vars *vars, pid_t pid)
 {
 	waitpid(pid, &vars->last_exit_code, 0);
-	signal(SIGINT, prev_sigint);
 	if (WIFEXITED(vars->last_exit_code))
 		vars->last_exit_code = WEXITSTATUS(vars->last_exit_code);
 }
