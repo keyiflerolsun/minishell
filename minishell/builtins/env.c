@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:48:54 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 13:53:20 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 10:21:34 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	update_env(t_list **env, char *key, char *value)
 
 	stack = *env;
 	prefix = make_env_prefix(key, &len);
+	if (!value)
+		value = "";
 	while (stack)
 	{
 		if (!ft_strncmp(stack->data, prefix, len))

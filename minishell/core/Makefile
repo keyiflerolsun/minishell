@@ -1,4 +1,5 @@
-CFILES = signals.c \
+CFILES = utils.c \
+		 signals.c \
 		 init.c \
 		 path.c \
 		 clear.c

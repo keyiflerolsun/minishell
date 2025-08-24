@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:15 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 12:55:08 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 10:53:03 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_vars
 	int		last_exit_code;
 }			t_vars;
 
+void		sort_list(t_list *lst);
 void		setup_signals(void);
 void		set_path(t_vars *vars);
 char		*get_path(char **path, char *command);

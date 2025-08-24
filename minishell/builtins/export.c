@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 15:27:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 13:51:27 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 10:30:31 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,15 @@ static void	print_export(t_vars vars)
 	while (env)
 	{
 		eq_in_env = 0;
-		if (ft_strchr(env->data, '='))
+		data = env->data;
+		if (ft_strchr(data, '='))
 			eq_in_env = 1;
 		ft_printf("declare -x ");
-		data = env->data;
 		while (*data && *data != '=')
 			ft_printf("%c", *data++);
-		if (eq_in_env && *++data)
+		if (eq_in_env && ft_strstr(data, "comolokko"))
+			ft_printf("=\"\"");
+		else if (eq_in_env && *++data)
 			ft_printf("=\"%s\"", data);
 		ft_printf("\n");
 		env = env->next;
@@ -70,13 +72,9 @@ static void	handle_no_equal(char *token, t_vars *vars)
 static void	handle_key_value(char *token, t_vars *vars)
 {
 	char	**parts;
-	int		count;
 
 	parts = ft_split(token, '=');
-	count = 0;
-	while (parts[count])
-		count++;
-	if (count != 2 || !is_valid_key(parts[0]))
+	if (!is_valid_key(parts[0]))
 	{
 		write_err(parts[0], "invalid export identifier\n");
 		vars->last_exit_code = EXIT_FAILURE;
@@ -84,7 +82,10 @@ static void	handle_key_value(char *token, t_vars *vars)
 	else
 	{
 		update_env(&vars->env, parts[0], parts[1]);
-		update_env(&vars->export, parts[0], parts[1]);
+		if (parts[1])
+			update_env(&vars->export, parts[0], parts[1]);
+		else
+			update_env(&vars->export, parts[0], "comolokko");
 		vars->last_exit_code = EXIT_SUCCESS;
 	}
 	free_split(parts);
