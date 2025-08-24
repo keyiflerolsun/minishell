@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 11:24:32 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/23 16:53:56 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 15:43:37 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	builtin_exec(t_vars *vars, t_pipes *pipes, char **cmd)
 	else if (!ft_strcmp(cmd[0], "cd"))
 		ft_cd(cmd, vars);
 	else if (!ft_strcmp(cmd[0], "exit"))
-		ft_exit(cmd, vars);
+		ft_exit(cmd);
 	else
 		return (fds_restore_and_close(fds), 0);
 	return (fds_restore_and_close(fds), 1);

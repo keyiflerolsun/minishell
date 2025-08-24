@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:12 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 13:03:33 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 15:43:25 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	ft_echo(char **tokens, t_vars *vars);
 void	ft_export(char **tokens, t_vars *vars);
 void	ft_unset(char **tokens, t_vars *vars);
 void	ft_cd(char **tokens, t_vars *vars);
-void	ft_exit(char **tokens, t_vars *vars);
+void	ft_exit(char **tokens);
 
 #endif

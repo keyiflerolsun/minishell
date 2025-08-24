@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:43:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 10:53:42 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 15:42:03 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	run_prog(t_vars *vars)
 		sort_list(vars->export);
 		sort_list(vars->env);
 		env2p(vars);
+		static_vars(vars, 1);
 		line = readline(MAGENTA "minismet" CYAN " ¢ " RESET);
 		if (!line)
 			break ;
@@ -52,7 +53,7 @@ static void	run_prog(t_vars *vars)
 		}
 		free(line);
 	}
-	ft_clear(vars);
+	ft_clear();
 }
 
 void	init_shell(t_vars *vars, char **ep)

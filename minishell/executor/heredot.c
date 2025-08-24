@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 09:23:12 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 13:30:45 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 15:43:11 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,15 @@ static int	get_input(int fd, char *limiter)
 	return (EXIT_SUCCESS);
 }
 
-static t_vars	*g_vars;
-
 static void	heredoc_sigint_handler(int sig)
 {
 	(void)sig;
 	ft_printf("\n");
-	ft_clear(g_vars);
+	ft_clear();
 	exit(130);
 }
 
-static void	child_heredot(t_vars *vars, char *limiter)
+static void	child_heredot(char *limiter)
 {
 	int	fd;
 	int	exit_code;
@@ -61,7 +59,7 @@ static void	child_heredot(t_vars *vars, char *limiter)
 		error_exit("here_doc", 1);
 	exit_code = get_input(fd, limiter);
 	close(fd);
-	ft_clear(vars);
+	ft_clear();
 	exit(exit_code);
 }
 
@@ -70,11 +68,10 @@ void	ft_heredot(t_vars *vars, char *limiter)
 	pid_t			pid;
 	__sighandler_t	prev_sigint;
 
-	g_vars = vars;
 	prev_sigint = signal(SIGINT, SIG_IGN);
 	pid = fork();
 	if (pid == 0)
-		child_heredot(vars, limiter);
+		child_heredot(limiter);
 	if (pid < 0)
 		error_exit("heredot", 1);
 	ft_wait_pid(vars, pid);

@@ -6,15 +6,18 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 19:52:32 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 12:06:31 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 15:41:32 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "core.h"
 #include "parser.h"
 
-void	ft_clear(t_vars *vars)
+void	ft_clear(void)
 {
+	t_vars	*vars;
+
+	vars = static_vars(NULL, 0);
 	rl_clear_history();
 	free_split(vars->path);
 	free_split(vars->tokens);
