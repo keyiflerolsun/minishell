@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 12:09:29 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 13:18:33 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,20 @@ void	print_cmds(t_list *cmd_list)
 	while (current)
 	{
 		cmd = (t_cmd *)current->data;
-		printf("Command:\n");
+		ft_printf("Command:\n");
 		if (cmd->args)
 		{
 			j = -1;
 			while (cmd->args[++j])
-				printf("  arg[%d]: %s\n", j, cmd->args[j]);
+				ft_printf("  arg[%d]: %s\n", j, cmd->args[j]);
 		}
 		if (cmd->infile)
-			printf("  infile: %s\n", cmd->infile);
+			ft_printf("  infile: %s\n", cmd->infile);
 		if (cmd->outfile)
-			printf("  outfile: %s (append=%d)\n", cmd->outfile, cmd->append);
+			ft_printf("  outfile: %s (append=%d)\n", cmd->outfile, cmd->append);
 		if (cmd->here_doc)
-			printf("  here_doc with limiter: %s\n", cmd->limiter);
-		printf("----\n");
+			ft_printf("  here_doc with limiter: %s\n", cmd->limiter);
+		ft_printf("----\n");
 		current = current->next;
 	}
 }
