@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 13:01:57 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 17:17:53 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 static int	init_pipes(t_vars *vars, t_pipes *pipes)
 {
 	if (vars->last_exit_code == 333)
+	{
+		vars->last_exit_code = EXIT_FAILURE;
 		return (write_err("minismet", "syntax error\n"), 0);
+	}
 	pipes->cmd_list = vars->cmds;
 	pipes->cmd_count = ft_lstsize(pipes->cmd_list);
 	pipes->cmd_index = 0;
