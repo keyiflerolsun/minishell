@@ -32,6 +32,12 @@ static void	handle_quoted_part(const char *input, int *i, char **merged)
 	start = *i;
 	while (input[*i] && input[*i] != quote)
 		(*i)++;
+	if (input[*i] != quote)
+	{
+		// exit buraya koyacam
+		free(*merged);
+		return ;
+	}
 	tmp = make_token(input, start, *i);
 	if (!*merged)
 		*merged = ft_strdup(tmp);
