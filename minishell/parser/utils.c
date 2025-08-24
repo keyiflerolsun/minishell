@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 18:42:41 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 09:44:35 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 09:58:31 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_env_value(char **envp, char *key)
 			return (ft_strdup(envp[i] + len + 1));
 		i++;
 	}
-	return (ft_strdup(""));
+	return (NULL);
 }
 
 t_cmd	*init_cmd(void)

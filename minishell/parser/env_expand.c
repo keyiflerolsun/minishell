@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 14:54:47 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 10:14:04 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 09:58:31 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*expand_var(const char *line, size_t *i, char **envp)
 
 static void	expand_init(int *q, char **res, size_t *i)
 {
-	*res = ft_strdup("");
+	*res = NULL;
 	q[0] = 0;
 	q[1] = 0;
 	*i = 0;
@@ -54,7 +54,7 @@ static char	*handle_dollar(const char *line, size_t *i, t_vars vars)
 	(*i)++;
 	val = expand_var(line, i, vars.ep);
 	if (!val)
-		return (ft_strdup(""));
+		return (NULL);
 	return (val);
 }
 

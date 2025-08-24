@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 20:02:33 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 10:11:30 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 10:01:10 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ char	*ft_strjoin(char *s1, char *s2, int which_free)
 	char	*ss2;
 	int		i;
 
-	if (!*s1 && !*s2)
-		return (ft_calloc(1, sizeof(char)));
+	if (!s1)
+		s1 = ft_strdup("");
+	if (!s2)
+		s2 = ft_strdup("");
 	ss1 = s1;
 	ss2 = s2;
 	res = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
