@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:51:35 by hyakici           #+#    #+#             */
-/*   Updated: 2025/08/17 14:25:57 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 16:59:50 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,16 @@ static void	handle_quoted_part(const char *input, int *i, char **merged)
 	char	quote;
 	int		start;
 	char	*tmp;
+	t_vars	*vars;
 
+	vars = static_vars(NULL, 0);
 	quote = input[(*i)++];
 	start = *i;
 	while (input[*i] && input[*i] != quote)
 		(*i)++;
 	if (input[*i] != quote)
 	{
-		// exit buraya koyacam
+		vars->last_exit_code = 333;
 		free(*merged);
 		return ;
 	}
@@ -46,6 +48,7 @@ static void	handle_quoted_part(const char *input, int *i, char **merged)
 	free(tmp);
 	if (input[*i])
 		(*i)++;
+	vars->last_exit_code = 0;
 }
 
 static void	handle_unquoted_part(const char *input, int *i, char **merged)
