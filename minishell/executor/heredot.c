@@ -6,14 +6,15 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 09:23:12 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 13:01:34 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 13:15:27 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
 #include "core.h"
 #include "executor.h"
 
-static void	get_input(int fd, char *limiter)
+static int	get_input(int fd, char *limiter)
 {
 	char	*line;
 
@@ -21,6 +22,11 @@ static void	get_input(int fd, char *limiter)
 	while (line)
 	{
 		line = readline(BOLD_YELLOW "heredot" BOLD_RED " > " RESET);
+		if (line == NULL)
+		{
+			write_err("minismet", "heredoc delimited by end-of-file\n");
+			return (130);
+		}
 		if (!ft_strcmp(line, limiter))
 		{
 			free(line);
@@ -30,6 +36,7 @@ static void	get_input(int fd, char *limiter)
 		write(fd, "\n", 1);
 		free(line);
 	}
+	return (EXIT_SUCCESS);
 }
 
 static t_vars	*g_vars;
@@ -45,16 +52,17 @@ static void	heredoc_sigint_handler(int sig)
 static void	child_heredot(t_vars *vars, char *limiter)
 {
 	int	fd;
+	int	exit_code;
 
 	signal(SIGINT, heredoc_sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 	fd = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 		error_exit("here_doc", 1);
-	get_input(fd, limiter);
+	exit_code = get_input(fd, limiter);
 	close(fd);
 	ft_clear(vars);
-	exit(EXIT_SUCCESS);
+	exit(exit_code);
 }
 
 void	ft_heredot(t_vars *vars, char *limiter)
