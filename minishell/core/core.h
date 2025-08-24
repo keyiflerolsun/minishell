@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:15 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 15:42:44 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 17:03:37 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ char		*get_path(char **path, char *command);
 void		free_split(char **split_data);
 void		init_shell(t_vars *vars, char **ep);
 void		ft_clear(void);
-t_vars		*static_vars(t_vars *vars, int set_get);
+t_vars		*static_vars(t_vars *vars);
 
 #endif

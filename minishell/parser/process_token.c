@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:51:35 by hyakici           #+#    #+#             */
-/*   Updated: 2025/08/24 16:59:50 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 17:03:51 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	handle_quoted_part(const char *input, int *i, char **merged)
 	char	*tmp;
 	t_vars	*vars;
 
-	vars = static_vars(NULL, 0);
+	vars = static_vars(NULL);
 	quote = input[(*i)++];
 	start = *i;
 	while (input[*i] && input[*i] != quote)
@@ -48,7 +48,6 @@ static void	handle_quoted_part(const char *input, int *i, char **merged)
 	free(tmp);
 	if (input[*i])
 		(*i)++;
-	vars->last_exit_code = 0;
 }
 
 static void	handle_unquoted_part(const char *input, int *i, char **merged)
@@ -57,12 +56,8 @@ static void	handle_unquoted_part(const char *input, int *i, char **merged)
 	char	*tmp;
 
 	start = *i;
-	while (
-		input[*i]
-		&& !ft_isspace(input[*i])
-		&& input[*i] != '\'' && input[*i] != '"'
-		&& !ft_ismeta(input[*i])
-	)
+	while (input[*i] && !ft_isspace(input[*i]) && input[*i] != '\''
+		&& input[*i] != '"' && !ft_ismeta(input[*i]))
 		(*i)++;
 	tmp = make_token(input, start, *i);
 	if (!*merged)
@@ -89,10 +84,8 @@ void	handle_token(t_token_array *arr, const char *input, int *i)
 
 void	handle_metachar(t_token_array *arr, const char *input, int *i)
 {
-	if (
-		(input[*i] == '<' && input[*i + 1] == '<')
-		|| (input[*i] == '>' && input[*i + 1] == '>')
-	)
+	if ((input[*i] == '<' && input[*i + 1] == '<') || (input[*i] == '>'
+			&& input[*i + 1] == '>'))
 	{
 		add_token(arr, make_token(input, *i, *i + 2));
 		*i += 2;

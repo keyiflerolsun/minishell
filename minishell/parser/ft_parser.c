@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 16:59:43 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 17:04:01 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	ft_parser(t_vars *vars, char *line)
 	i = 0;
 	if (!line || !*line)
 		return (free(line));
+	vars->last_exit_code = 0;
 	expanded_line = expand_env(*vars, line);
 	free(line);
 	if (vars->tokens)

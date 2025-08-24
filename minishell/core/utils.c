@@ -6,17 +6,17 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:52:41 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 15:38:49 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 17:02:41 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "core.h"
 
-t_vars	*static_vars(t_vars *vars, int set_vars)
+t_vars	*static_vars(t_vars *vars)
 {
 	static t_vars	*s_vars;
 
-	if (set_vars == 1)
+	if (vars)
 		s_vars = vars;
 	return (s_vars);
 }
