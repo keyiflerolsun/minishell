@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:51:35 by hyakici           #+#    #+#             */
-/*   Updated: 2025/08/24 17:14:22 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 17:21:33 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ static void	handle_quoted_part(const char *input, int *i, char **merged)
 		free(*merged);
 		return ;
 	}
-	else
-		vars->last_exit_code = 0;
 	tmp = make_token(input, start, *i);
 	if (!*merged)
 		*merged = ft_strdup(tmp);
