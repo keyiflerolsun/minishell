@@ -34,15 +34,36 @@ static int	count_args(char **args, int i)
 	return (count);
 }
 
+static int	create_or_truncate(char *filename, int append)
+{
+	int	fd;
+
+	if (append)
+		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else
+		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd < 0)
+		return (0);
+	close(fd);
+	return (1);
+}
+
 static int	handle_inout(t_cmd *cmd, char **args, int *i)
 {
 	if (!ft_strcmp(args[*i], "<"))
 		cmd->infile = args[++(*i)];
 	else if (!ft_strcmp(args[*i], ">"))
+	{
 		cmd->outfile = args[++(*i)];
+		if (!create_or_truncate(cmd->outfile, 0))
+			return (0);
+		cmd->append = 0;
+	}
 	else if (!ft_strcmp(args[*i], ">>"))
 	{
 		cmd->outfile = args[++(*i)];
+		if (!create_or_truncate(cmd->outfile, 1))
+			return (0);
 		cmd->append = 1;
 	}
 	else if (!ft_strcmp(args[*i], "<<"))
