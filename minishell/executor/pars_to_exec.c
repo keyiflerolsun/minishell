@@ -6,22 +6,13 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 11:58:20 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/24 13:01:57 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
 #include "executor.h"
 #include "parser.h"
-#include "builtins.h"
-
-static void	wait_child_exec(t_vars *vars, t_pipes *pipes, char **cmd)
-{
-	waitpid(child_exec(vars, pipes, cmd), &vars->last_exit_code, 0);
-	if (WIFEXITED(vars->last_exit_code))
-		vars->last_exit_code = WEXITSTATUS(vars->last_exit_code);
-	else
-		vars->last_exit_code = EXIT_FAILURE;
-}
 
 static int	init_pipes(t_vars *vars, t_pipes *pipes)
 {
@@ -53,13 +44,15 @@ static int	ft_is_operator(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
 	{
 		res = 1;
 		if (cmd->here_doc)
-			waitpid(ft_heredot(vars, cmd->limiter), NULL, 0);
+			ft_heredot(vars, cmd->limiter);
 		if (cmd->infile)
 			init_infile(pipes);
 		if (cmd->outfile)
 			init_outfile(pipes);
+		if (vars->last_exit_code == 130)
+			return (res);
 		if (!builtin_exec(vars, pipes, cmd->args))
-			wait_child_exec(vars, pipes, cmd->args);
+			child_exec(vars, pipes, cmd->args);
 	}
 	return (res);
 }
@@ -81,7 +74,7 @@ void	pars_to_exec(t_vars *vars)
 			continue ;
 		}
 		if (!builtin_exec(vars, &pipes, cmd->args))
-			wait_child_exec(vars, &pipes, cmd->args);
+			child_exec(vars, &pipes, cmd->args);
 		continue_pipes(vars, &pipes);
 	}
 	close_fd(pipes);
