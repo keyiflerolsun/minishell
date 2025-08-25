@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 07:38:23 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/23 16:10:56 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/25 12:57:05 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int	get_pipe_in(t_pipes *pipes)
 
 int	get_pipe_out(t_pipes *pipes)
 {
-	if (pipes->cmd_index == pipes->cmd_count - 1)
+	if (pipes->outfile != STDOUT_FILENO)
 		return (pipes->outfile);
+	if (pipes->cmd_index == pipes->cmd_count - 1)
+		return (STDOUT_FILENO);
 	return (pipes->curr_pipe[1]);
 }
 

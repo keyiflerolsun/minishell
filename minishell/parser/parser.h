@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:26 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/18 13:51:13 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:33:28 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "core.h"
 
-#define ARG_PIPE_SEPARATOR '\x1D'
+# define ARG_PIPE_SEPARATOR '\x1D'
 
 typedef struct s_cmd
 {
@@ -47,5 +47,11 @@ char			*expand_env(t_vars vars, const char *line);
 t_cmd			*init_cmd(void);
 void			parse_cmd(t_vars *vars, char **args, int *i);
 void			free_cmd(t_vars *vars);
+int				count_args(char **args, int i);
+int				is_quoted_token(char *token);
+char			*strip_quote(char *token);
+void			add_quoted_token(char **merged, char *tmp);
+void			handle_quoted_part(const char *input, int *i, char **merged);
+void			handle_unquoted_part(const char *input, int *i, char **merged);
 
 #endif

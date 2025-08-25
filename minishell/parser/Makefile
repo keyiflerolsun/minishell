@@ -3,7 +3,8 @@ CFILES = utils.c \
 		 process_token.c \
 		 quote_aware_split.c \
 		 env_expand.c\
-		 command_parse.c
+		 command_parse.c \
+		 quote_utils.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))

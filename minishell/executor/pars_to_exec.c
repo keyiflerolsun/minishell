@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 17:17:53 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:02:15 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@ static void	continue_pipes(t_vars *vars, t_pipes *pipes)
 {
 	clean_pipe(pipes);
 	pipes->exit_codes[pipes->cmd_index] = vars->last_exit_code;
+	if (pipes->outfile > 2)
+	{
+		close(pipes->outfile);
+		pipes->outfile = STDOUT_FILENO;
+	}
+	if (pipes->infile > 2)
+	{
+		close(pipes->infile);
+		pipes->infile = STDIN_FILENO;
+	}
 	pipes->cmd_list = pipes->cmd_list->next;
 	pipes->cmd_index++;
 }

@@ -6,45 +6,11 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 14:45:21 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/23 17:03:08 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:33:40 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-static int is_quoted_token(char *token)
-{
-	return (token && token[0] == ARG_PIPE_SEPARATOR);
-}
-static char *strip_quote(char *token)
-{
-	if (token && token[0] == ARG_PIPE_SEPARATOR)
-		return token + 1;
-	return token;
-}
-
-static int	count_args(char **args, int i)
-{
-	int	count;
-
-	count = 0;
-	while (args[i] && (is_quoted_token(args[i]) || ft_strcmp(args[i], "|")))
-	{
-		if (!is_quoted_token(args[i]) && ((!ft_strcmp(args[i], "<") || !ft_strcmp(args[i], ">")
-				|| !ft_strcmp(args[i], ">>") || !ft_strcmp(args[i], "<<")))
-			&& args[i + 1])
-		{
-			i += 2;
-		}
-		else
-		{
-			count++;
-			i++;
-		}
-	}
-	return (count);
-}
-
 
 static int	create_or_truncate(char *filename, int append)
 {

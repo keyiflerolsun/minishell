@@ -6,12 +6,17 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 17:14:08 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/25 13:34:28 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
 #include "parser.h"
+
+int	is_quoted_token(char *token)
+{
+	return (token && token[0] == ARG_PIPE_SEPARATOR);
+}
 
 void	print_cmds(t_list *cmd_list)
 {
