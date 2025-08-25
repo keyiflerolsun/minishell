@@ -12,6 +12,7 @@
 
 #include "parser.h"
 
+
 t_token_array	*init_token(t_token_array *arr)
 {
 	arr->size = 0;
@@ -22,11 +23,46 @@ t_token_array	*init_token(t_token_array *arr)
 	return (arr);
 }
 
+static char	*group_seperator(char *str)
+{
+	char	*new;
+
+	if (!str)
+		return (NULL);
+	new = malloc(ft_strlen(str) + 2);
+	if (!new)
+		return (NULL);
+	new[0] = ARG_PIPE_SEPARATOR;
+	ft_memcpy(new + 1, str, ft_strlen(str) + 1);
+	free(str);
+	return (new);
+}
+
+
+static void	add_quoted_token(char **merged, char *tmp)
+{
+	if (!*merged)
+	{
+		*merged = malloc(ft_strlen(tmp) + 2);
+		if (*merged)
+		{
+			(*merged)[0] = ARG_PIPE_SEPARATOR;
+			ft_memcpy(*merged + 1, tmp, ft_strlen(tmp) + 1);
+		}
+	}
+	else
+	{
+		if ((*merged)[0] != ARG_PIPE_SEPARATOR)
+			*merged = group_seperator(*merged);
+		*merged = ft_strjoin(*merged, tmp, 1);
+	}
+}
+
 static void	handle_quoted_part(const char *input, int *i, char **merged)
 {
+	char	*tmp;
 	char	quote;
 	int		start;
-	char	*tmp;
 	t_vars	*vars;
 
 	vars = static_vars(NULL);
@@ -41,10 +77,7 @@ static void	handle_quoted_part(const char *input, int *i, char **merged)
 		return ;
 	}
 	tmp = make_token(input, start, *i);
-	if (!*merged)
-		*merged = ft_strdup(tmp);
-	else
-		*merged = ft_strjoin(*merged, tmp, 1);
+	add_quoted_token(merged, tmp);
 	free(tmp);
 	if (input[*i])
 		(*i)++;

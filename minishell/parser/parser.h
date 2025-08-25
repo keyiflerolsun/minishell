@@ -15,6 +15,8 @@
 
 # include "core.h"
 
+#define ARG_PIPE_SEPARATOR '\x1D'
+
 typedef struct s_cmd
 {
 	char		**args;

@@ -12,15 +12,26 @@
 
 #include "parser.h"
 
+static int is_quoted_token(char *token)
+{
+	return (token && token[0] == ARG_PIPE_SEPARATOR);
+}
+static char *strip_quote(char *token)
+{
+	if (token && token[0] == ARG_PIPE_SEPARATOR)
+		return token + 1;
+	return token;
+}
+
 static int	count_args(char **args, int i)
 {
 	int	count;
 
 	count = 0;
-	while (args[i] && ft_strcmp(args[i], "|"))
+	while (args[i] && (is_quoted_token(args[i]) || ft_strcmp(args[i], "|")))
 	{
-		if ((!ft_strcmp(args[i], "<") || !ft_strcmp(args[i], ">")
-				|| !ft_strcmp(args[i], ">>") || !ft_strcmp(args[i], "<<"))
+		if (!is_quoted_token(args[i]) && ((!ft_strcmp(args[i], "<") || !ft_strcmp(args[i], ">")
+				|| !ft_strcmp(args[i], ">>") || !ft_strcmp(args[i], "<<")))
 			&& args[i + 1])
 		{
 			i += 2;
@@ -33,6 +44,7 @@ static int	count_args(char **args, int i)
 	}
 	return (count);
 }
+
 
 static int	create_or_truncate(char *filename, int append)
 {
@@ -48,29 +60,34 @@ static int	create_or_truncate(char *filename, int append)
 	return (1);
 }
 
+static int	set_outfile(t_cmd *cmd, char *filename, int append)
+{
+	cmd->outfile = strip_quote(filename);
+	if (!create_or_truncate(cmd->outfile, append))
+		return (0);
+	cmd->append = append;
+	return (1);
+}
+
 static int	handle_inout(t_cmd *cmd, char **args, int *i)
 {
-	if (!ft_strcmp(args[*i], "<"))
-		cmd->infile = args[++(*i)];
-	else if (!ft_strcmp(args[*i], ">"))
+	if (!is_quoted_token(args[*i]) && !ft_strcmp(args[*i], "<"))
+		cmd->infile = strip_quote(args[++(*i)]);
+	else if (!is_quoted_token(args[*i]) && !ft_strcmp(args[*i], ">"))
 	{
-		cmd->outfile = args[++(*i)];
-		if (!create_or_truncate(cmd->outfile, 0))
+		if (!set_outfile(cmd, args[++(*i)], 0))
 			return (0);
-		cmd->append = 0;
 	}
-	else if (!ft_strcmp(args[*i], ">>"))
+	else if (!is_quoted_token(args[*i]) && !ft_strcmp(args[*i], ">>"))
 	{
-		cmd->outfile = args[++(*i)];
-		if (!create_or_truncate(cmd->outfile, 1))
+		if (!set_outfile(cmd, args[++(*i)], 1))
 			return (0);
-		cmd->append = 1;
 	}
-	else if (!ft_strcmp(args[*i], "<<"))
+	else if (!is_quoted_token(args[*i]) && !ft_strcmp(args[*i], "<<"))
 	{
 		cmd->infile = "here_doc";
 		cmd->here_doc = 1;
-		cmd->limiter = args[++(*i)];
+		cmd->limiter = strip_quote(args[++(*i)]);
 	}
 	else
 		return (1);
@@ -88,10 +105,10 @@ static t_cmd	*create_cmd(char **args, int *i)
 	if (count_args(args, *i))
 		cmd->args = malloc(sizeof(char *) * (count_args(args, *i) + 1));
 	arg_i = 0;
-	while (args[*i] && ft_strcmp(args[*i], "|"))
+	while (args[*i] && (is_quoted_token(args[*i]) || ft_strcmp(args[*i], "|")))
 	{
 		if (handle_inout(cmd, args, i))
-			cmd->args[arg_i++] = args[*i];
+			cmd->args[arg_i++] = strip_quote(args[*i]);
 		(*i)++;
 	}
 	if (cmd->args)
@@ -107,7 +124,7 @@ void	parse_cmd(t_vars *vars, char **args, int *i)
 	if (!cmd)
 		return ;
 	ft_lstadd_back(&vars->cmds, ft_lstnew(cmd));
-	if (args[*i] && !ft_strcmp(args[*i], "|"))
+	if (args[*i] && !is_quoted_token(args[*i]) && !ft_strcmp(args[*i], "|"))
 	{
 		(*i)++;
 		if (!args[*i])
