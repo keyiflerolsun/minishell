@@ -28,6 +28,8 @@ void	setup_pipe(t_pipes *pipes)
 
 int	get_pipe_in(t_pipes *pipes)
 {
+	if (pipes->infile != STDIN_FILENO)
+		return (pipes->infile);
 	return (pipes->last_read);
 }
 
@@ -46,5 +48,15 @@ void	clean_pipe(t_pipes *pipes)
 		close(pipes->last_read);
 	if (pipes->curr_pipe[1] > 2)
 		close(pipes->curr_pipe[1]);
+	if (pipes->infile > 2)
+	{
+		close(pipes->infile);
+		pipes->infile = STDIN_FILENO;
+	}
+	if (pipes->outfile > 2)
+	{
+		close(pipes->outfile);
+		pipes->outfile = STDOUT_FILENO;
+	}
 	pipes->last_read = pipes->curr_pipe[0];
 }

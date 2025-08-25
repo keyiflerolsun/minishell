@@ -13,41 +13,46 @@
 #include "builtins.h"
 #include "executor.h"
 
-static void	fds_backup_and_apply(t_pipes *pipes, int *fds)
+static void	fds_backup_and_apply(t_pipes *pipes, int *backup_fds)
 {
-	fds[0] = -1;
-	fds[1] = -1;
-	if (get_pipe_in(pipes) != STDIN_FILENO)
+	int	pipe_in;
+	int	pipe_out;
+
+	backup_fds[0] = -1;
+	backup_fds[1] = -1;
+	pipe_in = get_pipe_in(pipes);
+	pipe_out = get_pipe_out(pipes);
+	if (pipe_in != STDIN_FILENO)
 	{
-		fds[0] = dup(STDIN_FILENO);
-		dup2(get_pipe_in(pipes), STDIN_FILENO);
+		backup_fds[0] = dup(STDIN_FILENO);
+		dup2(pipe_in, STDIN_FILENO);
 	}
-	if (get_pipe_out(pipes) != STDOUT_FILENO)
+	if (pipe_out != STDOUT_FILENO)
 	{
-		fds[1] = dup(STDOUT_FILENO);
-		dup2(get_pipe_out(pipes), STDOUT_FILENO);
+		backup_fds[1] = dup(STDOUT_FILENO);
+		dup2(pipe_out, STDOUT_FILENO);
 	}
 }
 
-static void	fds_restore_and_close(int *fds)
+static void	fds_restore_and_close(int *backup_fds)
 {
-	if (fds[0] != -1)
+	if (backup_fds[0] != -1)
 	{
-		dup2(fds[0], STDIN_FILENO);
-		close(fds[0]);
+		dup2(backup_fds[0], STDIN_FILENO);
+		close(backup_fds[0]);
 	}
-	if (fds[1] != -1)
+	if (backup_fds[1] != -1)
 	{
-		dup2(fds[1], STDOUT_FILENO);
-		close(fds[1]);
+		dup2(backup_fds[1], STDOUT_FILENO);
+		close(backup_fds[1]);
 	}
 }
 
 int	builtin_exec(t_vars *vars, t_pipes *pipes, char **cmd)
 {
-	int	fds[2];
+	int	backup_fds[2];
 
-	fds_backup_and_apply(pipes, fds);
+	fds_backup_and_apply(pipes, backup_fds);
 	if (!ft_strcmp(cmd[0], "pwd"))
 		ft_pwd(cmd, vars);
 	else if (!ft_strcmp(cmd[0], "env"))
@@ -63,6 +68,6 @@ int	builtin_exec(t_vars *vars, t_pipes *pipes, char **cmd)
 	else if (!ft_strcmp(cmd[0], "exit"))
 		ft_exit(cmd);
 	else
-		return (fds_restore_and_close(fds), 0);
-	return (fds_restore_and_close(fds), 1);
+		return (fds_restore_and_close(backup_fds), 0);
+	return (fds_restore_and_close(backup_fds), 1);
 }

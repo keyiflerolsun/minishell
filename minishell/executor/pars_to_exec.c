@@ -32,18 +32,8 @@ static int	init_pipes(t_vars *vars, t_pipes *pipes)
 
 static void	continue_pipes(t_vars *vars, t_pipes *pipes)
 {
-	clean_pipe(pipes);
 	pipes->exit_codes[pipes->cmd_index] = vars->last_exit_code;
-	if (pipes->outfile > 2)
-	{
-		close(pipes->outfile);
-		pipes->outfile = STDOUT_FILENO;
-	}
-	if (pipes->infile > 2)
-	{
-		close(pipes->infile);
-		pipes->infile = STDIN_FILENO;
-	}
+	clean_pipe(pipes);
 	pipes->cmd_list = pipes->cmd_list->next;
 	pipes->cmd_index++;
 }

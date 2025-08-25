@@ -14,8 +14,15 @@
 
 void	fd_apply(t_pipes *pipes)
 {
-	dup2(get_pipe_in(pipes), STDIN_FILENO);
-	dup2(get_pipe_out(pipes), STDOUT_FILENO);
+	int	pipe_in;
+	int	pipe_out;
+
+	pipe_in = get_pipe_in(pipes);
+	pipe_out = get_pipe_out(pipes);
+	if (pipe_in != STDIN_FILENO)
+		dup2(pipe_in, STDIN_FILENO);
+	if (pipe_out != STDOUT_FILENO)
+		dup2(pipe_out, STDOUT_FILENO);
 }
 
 void	close_fd(t_pipes pipes)
