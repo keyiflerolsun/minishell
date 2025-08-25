@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 15:27:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 10:30:31 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/25 14:26:18 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	print_export(t_vars vars)
 		ft_printf("declare -x ");
 		while (*data && *data != '=')
 			ft_printf("%c", *data++);
-		if (eq_in_env && ft_strstr(data, "comolokko"))
+		if (eq_in_env && ft_strstr(data, "\a\b"))
 			ft_printf("=\"\"");
 		else if (eq_in_env && *++data)
 			ft_printf("=\"%s\"", data);
@@ -85,7 +85,7 @@ static void	handle_key_value(char *token, t_vars *vars)
 		if (parts[1])
 			update_env(&vars->export, parts[0], parts[1]);
 		else
-			update_env(&vars->export, parts[0], "comolokko");
+			update_env(&vars->export, parts[0], "\a\b");
 		vars->last_exit_code = EXIT_SUCCESS;
 	}
 	free_split(parts);
