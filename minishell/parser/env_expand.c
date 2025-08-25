@@ -12,6 +12,15 @@
 
 #include "parser.h"
 
+typedef struct s_expander
+{
+	int		q[2];
+	char	*res;
+	char	tmp[2];
+	size_t	i;
+}	t_expander;
+
+
 static char	*expand_var(const char *line, size_t *i, char **envp)
 {
 	size_t	st;
@@ -27,12 +36,12 @@ static char	*expand_var(const char *line, size_t *i, char **envp)
 	return (val);
 }
 
-static void	expand_init(int *q, char **res, size_t *i)
+static void	expand_init(t_expander *expender)
 {
-	*res = NULL;
-	q[0] = 0;
-	q[1] = 0;
-	*i = 0;
+	expender->res = NULL;
+	expender->q[0] = 0;
+	expender->q[1] = 0;
+	expender->i = 0;
 }
 
 static void	join_sstuuf(char **res, char *tmp, size_t *i, char const *line)
@@ -58,33 +67,37 @@ static char	*handle_dollar(const char *line, size_t *i, t_vars vars)
 	return (val);
 }
 
+int	is_special_dollar(char c)
+{
+	if (c == '\'' || c == '"' || c == '\0' || c == ' ')
+		return (1);
+	return (0);
+}
+
 char	*expand_env(t_vars vars, const char *line)
 {
-	char	*res;
-	int		q[2];
-	char	tmp[2];
-	char	*val;
-	size_t	i;
+	t_expander expander;
+	char *val;
 
-	expand_init(q, &res, &i);
-	while (line[i])
+	expand_init(&expander);
+	while (line[expander.i])
 	{
-		if (line[i] == '\'' && !q[1])
-			q[0] = !q[0];
-		else if (line[i] == '"' && !q[0])
-			q[1] = !q[1];
-		else if (line[i] == '$' && (line[i + 1] == '\'' || line[i + 1] == '"' || line[i + 1] == '\0' || line[i + 1] == ' ' ) && !q[0])
+		if (line[expander.i] == '\'' && !expander.q[1])
+			expander.q[0] = !expander.q[0];
+		else if (line[expander.i] == '"' && !expander.q[0])
+			expander.q[1] = !expander.q[1];
+		else if (line[expander.i] == '$' && is_special_dollar(line[expander.i + 1]) && !expander.q[0])
 		{
-			join_sstuuf(&res, tmp, &i, line);
+			join_sstuuf(&expander.res, expander.tmp, &expander.i, line);
 			continue;
 		}
-		else if (line[i] == '$' && !q[0])
+		else if (line[expander.i] == '$' && !expander.q[0])
 		{
-			val = handle_dollar(line, &i, vars);
-			res = ft_strjoin(res, val, 3);
+			val = handle_dollar(line, &expander.i, vars);
+			expander.res = ft_strjoin(expander.res, val, 3);
 			continue ;
 		}
-		join_sstuuf(&res, tmp, &i, line);
+		join_sstuuf(&expander.res, expander.tmp, &expander.i, line);
 	}
-	return (res);
+	return (expander.res);
 }
