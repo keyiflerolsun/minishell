@@ -73,6 +73,11 @@ char	*expand_env(t_vars vars, const char *line)
 			q[0] = !q[0];
 		else if (line[i] == '"' && !q[0])
 			q[1] = !q[1];
+		else if (line[i] == '$' && (line[i + 1] == '\'' || line[i + 1] == '"' || line[i + 1] == '\0' ) && !q[0])
+		{
+			join_sstuuf(&res, tmp, &i, line);
+			continue;
+		}
 		else if (line[i] == '$' && !q[0])
 		{
 			val = handle_dollar(line, &i, vars);
