@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:26 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/25 13:33:28 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/27 08:46:10 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 # include "core.h"
 
 # define ARG_PIPE_SEPARATOR '\x1D'
+
+typedef struct s_expander
+{
+	int			q[2];
+	char		*res;
+	char		tmp[2];
+	size_t		i;
+}				t_expander;
 
 typedef struct s_cmd
 {

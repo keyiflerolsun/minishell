@@ -6,20 +6,11 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 14:54:47 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 09:58:31 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/27 08:47:06 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-typedef struct s_expander
-{
-	int		q[2];
-	char	*res;
-	char	tmp[2];
-	size_t	i;
-}	t_expander;
-
 
 static char	*expand_var(const char *line, size_t *i, char **envp)
 {
@@ -67,17 +58,10 @@ static char	*handle_dollar(const char *line, size_t *i, t_vars vars)
 	return (val);
 }
 
-int	is_special_dollar(char c)
-{
-	if (c == '\'' || c == '"' || c == '\0' || c == ' ')
-		return (1);
-	return (0);
-}
-
 char	*expand_env(t_vars vars, const char *line)
 {
-	t_expander expander;
-	char *val;
+	t_expander	expander;
+	char		*val;
 
 	expand_init(&expander);
 	while (line[expander.i])
@@ -86,10 +70,11 @@ char	*expand_env(t_vars vars, const char *line)
 			expander.q[0] = !expander.q[0];
 		else if (line[expander.i] == '"' && !expander.q[0])
 			expander.q[1] = !expander.q[1];
-		else if (line[expander.i] == '$' && is_special_dollar(line[expander.i + 1]) && !expander.q[0])
+		else if (line[expander.i] == '$'
+			&& is_special_dollar(line[expander.i + 1]) && !expander.q[0])
 		{
 			join_sstuuf(&expander.res, expander.tmp, &expander.i, line);
-			continue;
+			continue ;
 		}
 		else if (line[expander.i] == '$' && !expander.q[0])
 		{

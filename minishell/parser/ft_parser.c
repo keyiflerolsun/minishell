@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/25 13:34:28 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/27 08:47:10 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 int	is_quoted_token(char *token)
 {
 	return (token && token[0] == ARG_PIPE_SEPARATOR);
+}
+
+int	is_special_dollar(char c)
+{
+	if (c == '\'' || c == '"' || c == '\0' || c == ' ')
+		return (1);
+	return (0);
 }
 
 void	print_cmds(t_list *cmd_list)
