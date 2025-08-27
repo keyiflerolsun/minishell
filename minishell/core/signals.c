@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:12:48 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/14 19:50:17 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/27 09:05:14 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 static void	sigint_handler(int signum)
 {
+	t_vars	*vars;
+
 	(void)signum;
 	ft_printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
+	vars = static_vars(NULL);
+	vars->last_exit_code = 130;
 	rl_redisplay();
 }
 

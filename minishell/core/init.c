@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:43:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 17:06:10 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/27 10:21:26 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	init_shell(t_vars *vars, char **ep)
 	while (*ep)
 	{
 		ft_lstadd_back(&vars->env, ft_lstnew(ft_strdup(*ep)));
+		if (ft_strstr(*ep, "_=/") && ep++)
+			continue ;
 		ft_lstadd_back(&vars->export, ft_lstnew(ft_strdup(*ep++)));
 	}
 	vars->last_exit_code = EXIT_SUCCESS;

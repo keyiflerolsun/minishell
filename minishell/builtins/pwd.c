@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:20:39 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/16 19:09:42 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/27 10:22:06 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	ft_pwd(char **tokens, t_vars *vars)
 		vars->last_exit_code = 42;
 		return ;
 	}
-	getcwd(buff, sizeof(buff));
-	ft_printf("%s\n", buff);
-	vars->last_exit_code = EXIT_SUCCESS;
+	if (getcwd(buff, sizeof(buff)))
+	{
+		ft_printf("%s\n", buff);
+		vars->last_exit_code = EXIT_SUCCESS;
+	}
+	vars->last_exit_code = EXIT_FAILURE;
 }
