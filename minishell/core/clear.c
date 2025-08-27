@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 19:52:32 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 17:03:11 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/27 10:56:06 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void	ft_clear(void)
 
 	vars = static_vars(NULL);
 	rl_clear_history();
-	free_split(vars->path);
-	free_split(vars->tokens);
+	if(vars->path)
+		free_split(vars->path);
+	if (vars->tokens)
+		free_split(vars->tokens);
 	if (vars->ep)
 		free(vars->ep);
 	if (vars->env)

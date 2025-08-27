@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/25 13:02:15 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/27 11:00:07 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	ft_is_operator(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
 			init_outfile(pipes);
 		if (vars->last_exit_code == 130)
 			return (res);
-		if (!builtin_exec(vars, pipes, cmd->args))
+		if (cmd->args && !builtin_exec(vars, pipes, cmd->args))
 			child_exec(vars, pipes, cmd->args);
 	}
 	return (res);
@@ -71,7 +71,7 @@ void	pars_to_exec(t_vars *vars)
 	{
 		cmd = (t_cmd *)pipes.cmd_list->data;
 		setup_pipe(&pipes);
-		if (!(cmd->args && cmd->args[0]) || ft_is_operator(vars, &pipes, cmd))
+		if ((!(cmd->args && cmd->args[0]) && !cmd->here_doc) || ft_is_operator(vars, &pipes, cmd))
 		{
 			continue_pipes(vars, &pipes);
 			continue ;
