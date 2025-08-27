@@ -53,6 +53,34 @@ void	print_cmds(t_list *cmd_list)
 	}
 }
 
+int	continus_pipe(char **token)
+{
+	int i;
+	t_vars	*vars;
+
+	i = 0;
+	vars = static_vars(NULL);
+	while (token[i])
+	{
+		if (token[i][0] == '|' && token[i + 1] == NULL )
+		{
+			vars->last_exit_code = 333;
+			ft_printf("NU");
+			return 1;
+		}
+		else if (token[i][0] == '|' && token[i + 1][0] == '|')
+		{
+			vars->last_exit_code = 333;
+			ft_printf("BU");
+			return 1;
+		}
+		
+		
+		i++;
+	}
+	return 0;
+}
+
 void	ft_parser(t_vars *vars, char *line)
 {
 	char	*expanded_line;
@@ -66,6 +94,7 @@ void	ft_parser(t_vars *vars, char *line)
 	if (vars->tokens)
 		free_split(vars->tokens);
 	vars->tokens = quote_aware_split(expanded_line);
+	continus_pipe(vars->tokens);
 	parse_cmd(vars, vars->tokens, &i);
 	print_cmds(vars->cmds);
 	if (!vars->tokens)
