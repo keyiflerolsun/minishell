@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:26 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/27 08:46:10 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/27 08:48:15 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ char			*strip_quote(char *token);
 void			add_quoted_token(char **merged, char *tmp);
 void			handle_quoted_part(const char *input, int *i, char **merged);
 void			handle_unquoted_part(const char *input, int *i, char **merged);
+int				is_special_dollar(char c);
 
 #endif
