@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/27 08:47:10 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/27 12:30:53 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,30 +55,28 @@ void	print_cmds(t_list *cmd_list)
 
 int	continus_pipe(char **token)
 {
-	int i;
+	int		i;
 	t_vars	*vars;
 
 	i = 0;
 	vars = static_vars(NULL);
 	while (token[i])
 	{
-		if (token[i][0] == '|' && token[i + 1] == NULL )
+		if (token[i][0] == '|' && token[i + 1] == NULL)
 		{
 			vars->last_exit_code = 333;
 			ft_printf("NU");
-			return 1;
+			return (1);
 		}
 		else if (token[i][0] == '|' && token[i + 1][0] == '|')
 		{
 			vars->last_exit_code = 333;
 			ft_printf("BU");
-			return 1;
+			return (1);
 		}
-		
-		
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
 void	ft_parser(t_vars *vars, char *line)
