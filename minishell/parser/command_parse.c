@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_parse.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 14:45:21 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/28 18:23:26 by hyakici          ###   ########.fr       */
+/*   Updated: 2025/08/28 18:48:58 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,26 +80,6 @@ static t_cmd	*create_cmd(char **args, int *i)
 	if (cmd->args)
 		cmd->args[arg_i] = NULL;
 	return (cmd);
-}
-
-int	check_outfile(char **args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-	{
-		if (!strcmp(args[i], ">>") && args[i + 1] == NULL)
-			return (1);
-		else if (!strcmp(args[i], "<<") && args[i + 1] == NULL)
-			return (1);
-		else if (!strcmp(args[i], "<") && args[i + 1] == NULL)
-			return (1);
-		else if (!strcmp(args[i], ">") && args[i + 1] == NULL)
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 void	parse_cmd(t_vars *vars, char **args, int *i)

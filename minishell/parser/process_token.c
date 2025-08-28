@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:51:35 by hyakici           #+#    #+#             */
-/*   Updated: 2025/08/28 17:51:21 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/28 18:49:03 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,26 @@ int	ft_is_op(char c)
 {
 	if (c == '|' || c == '>' || c == '<')
 		return (1);
+	return (0);
+}
+
+int	check_outfile(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		if (!strcmp(args[i], ">>") && args[i + 1] == NULL)
+			return (1);
+		else if (!strcmp(args[i], "<<") && args[i + 1] == NULL)
+			return (1);
+		else if (!strcmp(args[i], "<") && args[i + 1] == NULL)
+			return (1);
+		else if (!strcmp(args[i], ">") && args[i + 1] == NULL)
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
