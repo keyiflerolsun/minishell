@@ -6,41 +6,33 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:41:18 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/11 15:23:40 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/28 17:50:30 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
 #include "executor.h"
 
-static void	exit_with_code(int exit_code)
+static void	ft_errno_manipulate(t_vars *vars, int ex)
 {
-	if (errno == -42)
-		exit_code = -42;
-	write(STDERR_FILENO, " : ", 3);
-	write(STDERR_FILENO, YELLOW, ft_strlen(YELLOW));
-	if (exit_code == -42)
-		write(STDERR_FILENO, "Command not found\n", 18);
-	else
-		perror("");
-	write(STDERR_FILENO, RESET, ft_strlen(RESET));
-	unlink("here_doc");
-	if (exit_code == -42)
-		exit(127);
-	if (exit_code != 42)
-		exit(errno);
+	if (ex == ENOTDIR || ex == EACCES)
+		vars->last_exit_code = 126;
+	if (ex == ENOENT)
+		vars->last_exit_code = 127;
 }
 
-void	error_exit(const char *msg, int exit_code)
+void	error_exit(char *left, char *right)
 {
-	write(STDERR_FILENO, RED, ft_strlen(RED));
-	write(STDERR_FILENO, BOLD, ft_strlen(BOLD));
-	write(STDERR_FILENO, "[!] ", 4);
-	write(STDERR_FILENO, msg, ft_strlen(msg));
-	if (!exit_code)
-	{
-		write(STDERR_FILENO, RESET, ft_strlen(RESET));
-		write(STDERR_FILENO, "\n", 1);
-		exit(EXIT_FAILURE);
-	}
-	exit_with_code(exit_code);
+	t_vars	*vars;
+
+	vars = static_vars(NULL);
+	vars->last_exit_code = errno;
+	ft_errno_manipulate(vars, vars->last_exit_code);
+	if (vars->last_exit_code == 127)
+		write_err(left, "Command not found\n");
+	else if (!right)
+		write_perr(left);
+	else
+		write_err(left, right);
+	exit(vars->last_exit_code);
 }

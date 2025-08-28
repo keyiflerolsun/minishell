@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 07:38:23 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/25 12:57:05 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/28 15:49:31 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	setup_pipe(t_pipes *pipes)
 	if (pipes->cmd_index < pipes->cmd_count - 1)
 	{
 		if (pipe(pipes->curr_pipe) == -1)
-			error_exit("pipe", 1);
+			error_exit("setup_pipe » pipe", NULL);
 	}
 	else
 	{

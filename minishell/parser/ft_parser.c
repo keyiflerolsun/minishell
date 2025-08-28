@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/27 12:30:53 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/28 17:45:51 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,14 @@ int	continus_pipe(char **token)
 	vars = static_vars(NULL);
 	while (token[i])
 	{
-		if (token[i][0] == '|' && token[i + 1] == NULL)
+		if (ft_is_op(token[i][0]) && token[i + 1] == NULL)
 		{
 			vars->last_exit_code = 333;
-			ft_printf("NU");
 			return (1);
 		}
-		else if (token[i][0] == '|' && token[i + 1][0] == '|')
+		else if (ft_is_op(token[i][0]) && ft_is_op(token[i + 1][0]))
 		{
 			vars->last_exit_code = 333;
-			ft_printf("BU");
 			return (1);
 		}
 		i++;

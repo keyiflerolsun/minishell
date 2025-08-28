@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 09:23:12 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 15:43:11 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/28 15:50:18 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	child_heredot(char *limiter)
 	signal(SIGQUIT, SIG_IGN);
 	fd = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
-		error_exit("here_doc", 1);
+		error_exit("child_heredot » open", NULL);
 	exit_code = get_input(fd, limiter);
 	close(fd);
 	ft_clear();
@@ -73,7 +73,7 @@ void	ft_heredot(t_vars *vars, char *limiter)
 	if (pid == 0)
 		child_heredot(limiter);
 	if (pid < 0)
-		error_exit("heredot", 1);
+		error_exit("ft_heredot » fork", NULL);
 	ft_wait_pid(vars, pid);
 	signal(SIGINT, prev_sigint);
 }

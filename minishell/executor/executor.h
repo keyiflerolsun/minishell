@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:19 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 13:29:34 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/28 15:42:19 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_pipes
 	int		cmd_index;
 }			t_pipes;
 
-void		error_exit(const char *msg, int exit_code);
+void		error_exit(char *left, char *right);
 int			builtin_exec(t_vars *vars, t_pipes *pipes, char **cmd);
 void		child_exec(t_vars *vars, t_pipes *pipes, char **cmd);
 void		pars_to_exec(t_vars *vars);

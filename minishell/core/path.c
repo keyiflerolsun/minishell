@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:34:53 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 14:14:26 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/28 17:50:55 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*get_path(char **path, char *command)
 		free(ex_path);
 		path++;
 	}
-	errno = -42;
+	errno = 127;
 	return (NULL);
 }
 

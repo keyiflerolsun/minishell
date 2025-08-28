@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 14:45:21 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/25 13:33:40 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/28 17:47:08 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	parse_cmd(t_vars *vars, char **args, int *i)
 {
 	t_cmd	*cmd;
 
+	if (ft_is_op(*args[0]) && !args[1])
+		return ;
 	cmd = create_cmd(args, i);
 	if (!cmd)
 		return ;
