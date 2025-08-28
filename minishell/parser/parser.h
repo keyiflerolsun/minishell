@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:26 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/28 17:42:22 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/28 18:53:00 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ void			handle_quoted_part(const char *input, int *i, char **merged);
 void			handle_unquoted_part(const char *input, int *i, char **merged);
 int				is_special_dollar(char c);
 int				ft_is_op(char c);
+int				check_outfile(char **args);
 
 #endif
