@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_parse.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 14:45:21 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/28 17:47:08 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/28 18:23:26 by hyakici          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,31 @@ static t_cmd	*create_cmd(char **args, int *i)
 	return (cmd);
 }
 
+int	check_outfile(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
+	{
+		if (!strcmp(args[i], ">>") && args[i + 1] == NULL)
+			return (1);
+		else if (!strcmp(args[i], "<<") && args[i + 1] == NULL)
+			return (1);
+		else if (!strcmp(args[i], "<") && args[i + 1] == NULL)
+			return (1);
+		else if (!strcmp(args[i], ">") && args[i + 1] == NULL)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	parse_cmd(t_vars *vars, char **args, int *i)
 {
 	t_cmd	*cmd;
 
-	if (ft_is_op(*args[0]) && !args[1])
+	if ((ft_is_op(*args[0]) && !args[1]) || check_outfile(args))
 		return ;
 	cmd = create_cmd(args, i);
 	if (!cmd)
