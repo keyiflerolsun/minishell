@@ -3,9 +3,9 @@ CFILES = main.c
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
-NAME    = minismet
+NAME    = minishell
 CC      = cc
-CFLAGS  = -Wall -Wextra -Werror -Icore -Iparser -Iexecutor -Ibuiltins -Iutils
+CFLAGS  = -Wall -Wextra -Werror -g3 -Icore -Iparser -Iexecutor -Ibuiltins -Iutils
 LDFLAGS = -lreadline
 
 MAKEFLAGS += --no-print-directory --silent
@@ -73,10 +73,11 @@ run: $(NAME)
 	valgrind \
 		--leak-check=full \
 		--show-leak-kinds=all \
+		--errors-for-leak-kinds=all \
 		--track-origins=yes \
 		-s \
 		--suppressions=readline.supp \
-		./minismet
+		./minishell
 
 FORCE:
 .PHONY: all clean fclean re FORCE run

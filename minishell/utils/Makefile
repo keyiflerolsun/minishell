@@ -22,7 +22,7 @@ OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 NAME   = utils.a
 CC     = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 
 GREEN   = \033[0;32m
 YELLOW  = \033[0;33m

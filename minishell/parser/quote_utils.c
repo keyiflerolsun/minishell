@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 13:29:13 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/25 13:34:05 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/28 12:52:45 by hyakici          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	handle_quoted_part(const char *input, int *i, char **merged)
 	if (input[*i] != quote)
 	{
 		vars->last_exit_code = 333;
-		free(*merged);
 		return ;
 	}
 	tmp = make_token(input, start, *i);
