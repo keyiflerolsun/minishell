@@ -75,7 +75,8 @@ run: $(NAME)
 		--show-leak-kinds=all \
 		--errors-for-leak-kinds=all \
 		--track-origins=yes \
-		-s \
+		--track-fds=yes \
+		--show-error-list=yes \
 		--suppressions=readline.supp \
 		./minishell
 

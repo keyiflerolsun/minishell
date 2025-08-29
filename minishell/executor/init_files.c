@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:04:29 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/29 14:43:20 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/29 16:31:43 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_infile(t_pipes *pp)
 	if (pp->infile < 0)
 	{
 		write_perr(cmd->infile);
-		vars->last_exit_code = 130;
+		vars->last_exit_code = EXIT_FAILURE;
 		pp->infile = open("/dev/null", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	}
 	pp->last_read = pp->infile;
@@ -45,7 +45,7 @@ void	init_outfile(t_pipes *pp)
 	if (pp->outfile < 0)
 	{
 		write_perr(cmd->outfile);
-		vars->last_exit_code = 130;
+		vars->last_exit_code = EXIT_FAILURE;
 		pp->outfile = open("/dev/null", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	}
 }

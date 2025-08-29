@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/29 14:07:37 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/29 16:32:16 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	ft_is_operator(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
 			init_infile(pipes);
 		if (cmd->outfile)
 			init_outfile(pipes);
-		if (vars->last_exit_code == 130)
+		if (vars->last_exit_code == 130 || vars->last_exit_code == EXIT_FAILURE)
 			return (res);
 		if (cmd->args && !builtin_exec(vars, pipes, cmd->args))
 			child_exec(vars, pipes, cmd->args);

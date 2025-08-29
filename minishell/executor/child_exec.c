@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:50:08 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/28 16:38:19 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/29 16:39:51 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void	execute_child(t_vars *vars, t_pipes *pipes, char **cmd)
 	char	name[1024];
 
 	exec_err = -1;
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	get_name(cmd[0], name);
 	fd_apply(pipes);
 	close_fd(*pipes);
