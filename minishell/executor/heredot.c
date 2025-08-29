@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 09:23:12 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/28 15:50:18 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/29 16:54:58 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	get_input(int fd, char *limiter)
 		if (line == NULL)
 		{
 			write_err("minismet", "heredoc delimited by end-of-file\n");
-			return (130);
+			return (EXIT_SUCCESS);
 		}
 		if (!ft_strcmp(line, limiter))
 		{
@@ -41,24 +41,29 @@ static int	get_input(int fd, char *limiter)
 
 static void	heredoc_sigint_handler(int sig)
 {
+	t_vars	*vars;
+
 	(void)sig;
+	vars = static_vars(NULL);
 	ft_printf("\n");
+	close(vars->last_exit_code);
 	ft_clear();
 	exit(130);
 }
 
 static void	child_heredot(char *limiter)
 {
-	int	fd;
-	int	exit_code;
+	int		exit_code;
+	t_vars	*vars;
 
 	signal(SIGINT, heredoc_sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
-	fd = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (fd < 0)
+	vars = static_vars(NULL);
+	vars->last_exit_code = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (vars->last_exit_code < 0)
 		error_exit("child_heredot » open", NULL);
-	exit_code = get_input(fd, limiter);
-	close(fd);
+	exit_code = get_input(vars->last_exit_code, limiter);
+	close(vars->last_exit_code);
 	ft_clear();
 	exit(exit_code);
 }
