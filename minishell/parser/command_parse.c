@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 14:45:21 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/29 10:45:08 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/29 14:37:45 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static int	create_or_truncate(char *filename, int append)
 static int	set_outfile(t_cmd *cmd, char *filename, int append)
 {
 	cmd->outfile = strip_quote(filename);
+	cmd->append = append;
 	if (!create_or_truncate(cmd->outfile, append))
 		return (0);
-	cmd->append = append;
 	return (1);
 }
 
