@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/27 11:35:45 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/29 14:07:37 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	pars_to_exec(t_vars *vars)
 			continue_pipes(vars, &pipes);
 			continue ;
 		}
-		if (!builtin_exec(vars, &pipes, cmd->args))
+		if (cmd->args && !builtin_exec(vars, &pipes, cmd->args))
 			child_exec(vars, &pipes, cmd->args);
 		continue_pipes(vars, &pipes);
 	}
