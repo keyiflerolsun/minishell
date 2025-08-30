@@ -58,6 +58,28 @@ static char	*handle_dollar(const char *line, size_t *i, t_vars vars)
 	return (val);
 }
 
+static int	is_heredot(const char *line, size_t d_i)
+{
+	int i;
+	int end;
+	int start;
+	int len;
+
+	i = d_i - 1;
+	while (i >= 0 && ft_isspace(line[i]))
+		i--;
+	end = i;
+	while (i >= 0 && !ft_isspace(line[i]))
+		i--;
+	start = i + 1;
+	len = end -start + 1;
+	if (len == 2 && line[start] == '<' && line[start + 1] == '<')
+	{
+		return 1;
+	}
+	return 0;
+}
+
 char	*expand_env(t_vars vars, const char *line)
 {
 	t_expander	expander;
@@ -76,7 +98,7 @@ char	*expand_env(t_vars vars, const char *line)
 			join_sstuuf(&expander.res, expander.tmp, &expander.i, line);
 			continue ;
 		}
-		else if (line[expander.i] == '$' && !expander.q[0])
+		else if (line[expander.i] == '$' && !expander.q[0] && !is_heredot(line, expander.i))
 		{
 			val = handle_dollar(line, &expander.i, vars);
 			expander.res = ft_strjoin(expander.res, val, 3);
