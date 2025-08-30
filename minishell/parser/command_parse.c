@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 14:45:21 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/29 14:37:45 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/30 12:19:30 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static t_cmd	*create_cmd(char **args, int *i)
 	{
 		result = handle_inout(cmd, args, i);
 		if (result == 2)
-			break;
+			break ;
 		else if (result == 1)
 			cmd->args[arg_i++] = strip_quote(args[*i]);
 		(*i)++;
@@ -108,8 +108,7 @@ void	parse_cmd(t_vars *vars, char **args, int *i)
 		}
 		parse_cmd(vars, args, i);
 	}
-	else if (args[*i] && !is_quoted_token(args[*i]) && !ft_strcmp(args[*i], "<<"))
-	{
+	else if (args[*i] && !is_quoted_token(args[*i])
+		&& !ft_strcmp(args[*i], "<<"))
 		parse_cmd(vars, args, i);
-	}
 }

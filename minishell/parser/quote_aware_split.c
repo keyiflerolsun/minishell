@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:15:43 by hyakici           #+#    #+#             */
-/*   Updated: 2025/08/17 09:28:21 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/30 12:12:40 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,26 @@ char	**quote_aware_split(const char *input)
 	}
 	add_token(&arr, NULL);
 	return (arr.tokens);
+}
+
+int	is_heredot(const char *line, size_t d_i)
+{
+	int	i;
+	int	end;
+	int	start;
+	int	len;
+
+	i = d_i - 1;
+	while (i >= 0 && ft_isspace(line[i]))
+		i--;
+	end = i;
+	while (i >= 0 && !ft_isspace(line[i]))
+		i--;
+	start = i + 1;
+	len = end - start + 1;
+	if (len == 2 && line[start] == '<' && line[start + 1] == '<')
+	{
+		return (1);
+	}
+	return (0);
 }
