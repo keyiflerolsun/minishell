@@ -51,6 +51,8 @@ static int	handle_inout(t_cmd *cmd, char **args, int *i)
 	}
 	else if (!is_quoted_token(args[*i]) && !ft_strcmp(args[*i], "<<"))
 	{
+		if (cmd->here_doc)
+			return (2);
 		cmd->infile = "here_doc";
 		cmd->here_doc = 1;
 		cmd->limiter = strip_quote(args[++(*i)]);
@@ -64,6 +66,7 @@ static t_cmd	*create_cmd(char **args, int *i)
 {
 	t_cmd	*cmd;
 	int		arg_i;
+	int		result;
 
 	cmd = init_cmd();
 	if (!cmd)
@@ -73,7 +76,10 @@ static t_cmd	*create_cmd(char **args, int *i)
 	arg_i = 0;
 	while (args[*i] && (is_quoted_token(args[*i]) || ft_strcmp(args[*i], "|")))
 	{
-		if (handle_inout(cmd, args, i))
+		result = handle_inout(cmd, args, i);
+		if (result == 2)
+			break;
+		else if (result == 1)
 			cmd->args[arg_i++] = strip_quote(args[*i]);
 		(*i)++;
 	}
@@ -100,6 +106,10 @@ void	parse_cmd(t_vars *vars, char **args, int *i)
 			vars->last_exit_code = 333;
 			return ;
 		}
+		parse_cmd(vars, args, i);
+	}
+	else if (args[*i] && !is_quoted_token(args[*i]) && !ft_strcmp(args[*i], "<<"))
+	{
 		parse_cmd(vars, args, i);
 	}
 }
