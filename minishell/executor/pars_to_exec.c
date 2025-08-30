@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/29 16:32:16 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/30 10:23:59 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	ft_is_operator(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
 	{
 		res = 1;
 		if (cmd->here_doc)
-			ft_heredot(vars, cmd->limiter);
+			ft_heredot(vars, pipes, cmd->limiter);
 		if (cmd->infile)
 			init_infile(pipes);
 		if (cmd->outfile)
