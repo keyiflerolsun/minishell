@@ -4,7 +4,8 @@ CFILES = utils.c \
 		 quote_aware_split.c \
 		 env_expand.c\
 		 command_parse.c \
-		 quote_utils.c
+		 quote_utils.c \
+		 idiot.c
 
 OBJDIR = obj
 OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))

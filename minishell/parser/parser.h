@@ -6,7 +6,7 @@
 /*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:26 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 12:05:03 by hyakici          ###   ########.fr       */
+/*   Updated: 2025/08/31 17:22:11 by hyakici          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ int				is_sd(char c);
 int				ft_is_op(char c);
 int				check_outfile(char **args);
 int				is_heredot(const char *line, size_t d_i);
+int				cont_meta(t_vars *vars, char **args);
 
 #endif
