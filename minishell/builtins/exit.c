@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 19:38:45 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 17:45:06 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 19:29:00 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_exit(char **tokens, int cmd_count)
 	if (tokens[2])
 	{
 		write_err(tokens[0], "too many arguments\n");
-		return (ft_clear(), exit(EXIT_FAILURE));
+		return ;
 	}
 	return (ft_clear(), exit(exit_code));
 }
