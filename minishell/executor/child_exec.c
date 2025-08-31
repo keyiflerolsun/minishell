@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:50:08 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/29 16:39:51 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 11:47:13 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	execute_child(t_vars *vars, t_pipes *pipes, char **cmd)
 	exit(EXIT_SUCCESS);
 }
 
-void	child_exec(t_vars *vars, t_pipes *pipes, char **cmd)
+pid_t	child_exec(t_vars *vars, t_pipes *pipes, char **cmd)
 {
 	pid_t			pid;
 	__sighandler_t	signals[2];
@@ -57,7 +57,7 @@ void	child_exec(t_vars *vars, t_pipes *pipes, char **cmd)
 		execute_child(vars, pipes, cmd);
 	if (pid < 0)
 		error_exit("child_exec » fork", NULL);
-	ft_wait_pid(vars, pid);
 	signal(SIGINT, signals[0]);
 	signal(SIGQUIT, signals[1]);
+	return (pid);
 }

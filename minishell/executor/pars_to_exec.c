@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/30 12:38:13 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 11:58:00 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	ft_is_operator(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
 		if (vars->last_exit_code == 130 || vars->last_exit_code == EXIT_FAILURE)
 			return (res);
 		if (cmd->args && !builtin_exec(vars, pipes, cmd->args))
-			child_exec(vars, pipes, cmd->args);
+			pipes->cmds[pipes->cmd_index] = child_exec(vars, pipes, cmd->args);
 	}
 	return (res);
 }
@@ -91,9 +91,12 @@ void	pars_to_exec(t_vars *vars)
 			continue ;
 		}
 		if (cmd->args && !builtin_exec(vars, &pipes, cmd->args))
-			child_exec(vars, &pipes, cmd->args);
+			pipes.cmds[pipes.cmd_index] = child_exec(vars, &pipes, cmd->args);
 		continue_pipes(vars, &pipes);
 	}
+	pipes.cmd_index = -1;
+	while (pipes.cmd_index++ < pipes.cmd_count - 1)
+		ft_wait_pid(vars, pipes.cmds[pipes.cmd_index]);
 	close_fd(pipes);
 	unlink("here_doc");
 }
