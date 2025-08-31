@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:52:41 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/24 17:02:41 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 17:03:14 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_vars	*static_vars(t_vars *vars)
 	return (s_vars);
 }
 
-void	sort_list(t_list *lst)
+static void	sort_list(t_list *lst)
 {
 	t_list	*ptr;
 	void	*tmp;
@@ -44,4 +44,32 @@ void	sort_list(t_list *lst)
 			ptr = ptr->next;
 		}
 	}
+}
+
+static void	env2p(t_vars *vars)
+{
+	t_list	*env;
+	char	**ep;
+	int		i;
+
+	free(vars->ep);
+	env = vars->env;
+	ep = ft_calloc(sizeof(char *), ft_lstsize(env) + 1);
+	i = -1;
+	while (env)
+	{
+		ep[++i] = env->data;
+		env = env->next;
+	}
+	vars->ep = ep;
+	set_path(vars);
+	vars->tmp = 0;
+	static_vars(vars);
+}
+
+void	update_vars(t_vars * vars)
+{
+	sort_list(vars->export);
+	sort_list(vars->env);
+	env2p(vars);
 }

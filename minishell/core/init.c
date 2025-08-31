@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:43:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 12:40:54 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 17:03:37 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,6 @@
 #include "executor.h"
 #include "parser.h"
 
-static void	env2p(t_vars *vars)
-{
-	t_list	*env;
-	char	**ep;
-	int		i;
-
-	free(vars->ep);
-	env = vars->env;
-	ep = ft_calloc(sizeof(char *), ft_lstsize(env) + 1);
-	i = -1;
-	while (env)
-	{
-		ep[++i] = env->data;
-		env = env->next;
-	}
-	vars->ep = ep;
-	set_path(vars);
-	vars->tmp = 0;
-	static_vars(vars);
-}
 
 static void	run_prog(t_vars *vars)
 {
@@ -41,9 +21,7 @@ static void	run_prog(t_vars *vars)
 
 	while (1)
 	{
-		sort_list(vars->export);
-		sort_list(vars->env);
-		env2p(vars);
+		update_vars(vars);
 		if (vars->tmp != -42)
 			line = readline(MAGENTA "minismet" CYAN " ¢ " RESET);
 		if (!line)

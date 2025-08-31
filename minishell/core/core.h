@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:15 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 12:32:26 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 17:04:16 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_vars
 	int		tmp;
 }			t_vars;
 
-void		sort_list(t_list *lst);
 void		setup_signals(void);
 void		set_path(t_vars *vars);
 char		*get_path(char **path, char *command);
@@ -35,5 +34,6 @@ void		free_split(char **split_data);
 void		init_shell(t_vars *vars, char **ep);
 void		ft_clear(void);
 t_vars		*static_vars(t_vars *vars);
+void		update_vars(t_vars *vars);
 
 #endif
