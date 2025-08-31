@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:51:35 by hyakici           #+#    #+#             */
-/*   Updated: 2025/08/31 19:25:47 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 19:34:29 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	handle_token(t_token_array *arr, const char *input, int *i)
 
 void	handle_metachar(t_token_array *arr, const char *input, int *i)
 {
-	if ((input[*i] == '<' && input[*i + 1] == '<') || (input[*i] == '>'
-			&& input[*i + 1] == '>'))
+	if ((input[*i] == '<' && input[*i + 1] == '<')
+		|| (input[*i] == '>' && input[*i + 1] == '>'))
 	{
 		add_token(arr, make_token(input, *i, *i + 2));
 		*i += 2;

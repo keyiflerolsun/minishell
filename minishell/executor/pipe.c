@@ -12,6 +12,15 @@
 
 #include "executor.h"
 
+void	close_if_open(int *fd)
+{
+	if (*fd > 2)
+	{
+		close(*fd);
+		*fd = -1;
+	}
+}
+
 void	setup_pipe(t_pipes *pipes)
 {
 	if (pipes->cmd_index < pipes->cmd_count - 1)
@@ -28,14 +37,14 @@ void	setup_pipe(t_pipes *pipes)
 
 int	get_pipe_in(t_pipes *pipes)
 {
-	if (pipes->infile != STDIN_FILENO)
+	if (pipes->infile != -1)
 		return (pipes->infile);
 	return (pipes->last_read);
 }
 
 int	get_pipe_out(t_pipes *pipes)
 {
-	if (pipes->outfile != STDOUT_FILENO)
+	if (pipes->outfile != -1)
 		return (pipes->outfile);
 	if (pipes->cmd_index == pipes->cmd_count - 1)
 		return (STDOUT_FILENO);
@@ -44,19 +53,10 @@ int	get_pipe_out(t_pipes *pipes)
 
 void	clean_pipe(t_pipes *pipes)
 {
-	if (pipes->last_read > 2)
-		close(pipes->last_read);
-	if (pipes->curr_pipe[1] > 2)
-		close(pipes->curr_pipe[1]);
-	if (pipes->infile > 2)
-	{
-		close(pipes->infile);
-		pipes->infile = STDIN_FILENO;
-	}
-	if (pipes->outfile > 2)
-	{
-		close(pipes->outfile);
-		pipes->outfile = STDOUT_FILENO;
-	}
+	close_if_open(&pipes->last_read);
+	close_if_open(&pipes->curr_pipe[1]);
+	close_if_open(&pipes->infile);
+	close_if_open(&pipes->outfile);
 	pipes->last_read = pipes->curr_pipe[0];
+	pipes->curr_pipe[0] = -1;
 }

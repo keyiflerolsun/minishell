@@ -65,6 +65,6 @@ void	pars_to_exec(t_vars *vars)
 	pipes.cmd_index = -1;
 	while (pipes.cmd_index++ < pipes.cmd_count - 1)
 		ft_wait_pid(vars, pipes.cmds[pipes.cmd_index]);
-	close_fd(pipes);
+	close_fd(&pipes);
 	unlink("here_doc");
 }

@@ -62,7 +62,7 @@ static void	child_heredot(t_vars *vars, t_pipes *pipes, char *limiter)
 		error_exit("child_heredot » open", NULL);
 	exit_code = get_input(vars->tmp, limiter);
 	close(vars->tmp);
-	close_fd(*pipes);
+	close_fd(pipes);
 	ft_clear();
 	exit(exit_code);
 }

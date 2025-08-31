@@ -34,7 +34,7 @@ static void	execute_child(t_vars *vars, t_pipes *pipes, char **cmd)
 	signal(SIGQUIT, SIG_DFL);
 	get_name(cmd[0], name);
 	fd_apply(pipes);
-	close_fd(*pipes);
+	close_fd(pipes);
 	ex_path = get_path(vars->path, cmd[0]);
 	if (ex_path)
 		exec_err = execve(ex_path, cmd, vars->ep);

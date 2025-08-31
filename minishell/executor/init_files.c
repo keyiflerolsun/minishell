@@ -28,7 +28,6 @@ void	init_infile(t_pipes *pp)
 		vars->last_exit_code = EXIT_FAILURE;
 		pp->infile = open("/dev/null", O_CREAT | O_RDWR | O_TRUNC, 0644);
 	}
-	pp->last_read = pp->infile;
 }
 
 void	init_outfile(t_pipes *pp)

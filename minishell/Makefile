@@ -73,10 +73,7 @@ run: $(NAME)
 	valgrind \
 		--leak-check=full \
 		--show-leak-kinds=all \
-		--errors-for-leak-kinds=all \
 		--track-origins=yes \
-		--track-fds=yes \
-		--show-error-list=yes \
 		--suppressions=readline.supp \
 		./minishell
 

@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 18:42:41 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/25 13:34:18 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 19:36:45 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ int	count_args(char **args, int i)
 		if (!is_quoted_token(args[i]) && ((!ft_strcmp(args[i], "<")
 					|| !ft_strcmp(args[i], ">") || !ft_strcmp(args[i], ">>")
 					|| !ft_strcmp(args[i], "<<"))) && args[i + 1])
-		{
 			i += 2;
-		}
 		else
 		{
 			count++;
