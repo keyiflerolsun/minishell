@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 15:27:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/25 14:26:18 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 15:17:21 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ft_export(char **tokens, t_vars *vars)
 	}
 	while (*++tokens)
 	{
-		if (ft_strchr(*tokens, '='))
+		if (ft_strchr(*tokens, '=') && ft_strlen(*tokens) > 1)
 			handle_key_value(*tokens, vars);
 		else
 			handle_no_equal(*tokens, vars);
