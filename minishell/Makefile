@@ -5,7 +5,7 @@ OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 NAME    = minishell
 CC      = cc
-CFLAGS  = -Wall -Wextra -Werror -g3 -Icore -Iparser -Iexecutor -Ibuiltins -Iutils
+CFLAGS  = -Wall -Wextra -Werror -Icore -Iparser -Iexecutor -Ibuiltins -Iutils
 LDFLAGS = -lreadline
 
 MAKEFLAGS += --no-print-directory --silent

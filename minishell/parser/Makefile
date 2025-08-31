@@ -12,7 +12,7 @@ OFILES = $(addprefix $(OBJDIR)/, $(CFILES:.c=.o))
 
 NAME   = parser.a
 CC     = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -I../utils -I../core -I../executor
+CFLAGS = -Wall -Wextra -Werror -I../utils -I../core -I../executor
 
 GREEN   = \033[0;32m
 YELLOW  = \033[0;33m
