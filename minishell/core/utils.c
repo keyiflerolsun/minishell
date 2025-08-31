@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/24 10:52:41 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 17:03:14 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 17:20:20 by hyakici          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	env2p(t_vars *vars)
 	static_vars(vars);
 }
 
-void	update_vars(t_vars * vars)
+void	update_vars(t_vars *vars)
 {
 	sort_list(vars->export);
 	sort_list(vars->env);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_parse.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 14:45:21 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/30 12:19:30 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 17:17:41 by hyakici          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ void	parse_cmd(t_vars *vars, char **args, int *i)
 {
 	t_cmd	*cmd;
 
-	if (*args && ((ft_is_op(*args[0]) && !args[1]) || check_outfile(args)))
+	if (*args && ((ft_is_op(*args[0]) && !args[1]) || cont_meta(vars, args)
+			|| check_outfile(args)))
 		return ;
 	cmd = create_cmd(args, i);
 	if (!cmd)
@@ -108,7 +109,7 @@ void	parse_cmd(t_vars *vars, char **args, int *i)
 		}
 		parse_cmd(vars, args, i);
 	}
-	else if (args[*i] && !is_quoted_token(args[*i])
-		&& !ft_strcmp(args[*i], "<<"))
+	else if (args[*i] && !is_quoted_token(args[*i]) && !ft_strcmp(args[*i],
+			"<<"))
 		parse_cmd(vars, args, i);
 }

@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:43:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 17:03:37 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 17:19:49 by hyakici          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "core.h"
 #include "executor.h"
 #include "parser.h"
-
 
 static void	run_prog(t_vars *vars)
 {
