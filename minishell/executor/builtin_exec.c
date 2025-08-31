@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 11:24:32 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 17:11:09 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 17:35:02 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,5 @@ int	builtin_exec(t_vars *vars, t_pipes *pipes, char **cmd)
 		ft_exit(cmd, pipes->cmd_count);
 	else
 		return (fds_restore_and_close(backup_fds), 0);
-	pipes->cmds[pipes->cmd_index] = 0;
 	return (fds_restore_and_close(backup_fds), 1);
 }

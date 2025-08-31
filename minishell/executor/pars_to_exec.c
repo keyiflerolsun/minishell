@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 17:03:47 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 17:35:35 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	pars_to_exec(t_vars *vars)
 	{
 		update_vars(vars);
 		cmd = (t_cmd *)pipes.cmd_list->data;
+		pipes.cmds[pipes.cmd_index] = 0;
 		setup_pipe(&pipes);
 		if (ft_is_operator(vars, &pipes, cmd))
 		{

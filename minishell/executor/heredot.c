@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 09:23:12 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 12:57:36 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 17:35:06 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,4 @@ void	ft_heredot(t_vars *vars, t_pipes *pipes, char *limiter)
 		error_exit("ft_heredot » fork", NULL);
 	ft_wait_pid(vars, pid);
 	signal(SIGINT, prev_sigint);
-	pipes->cmds[pipes->cmd_index] = 0;
 }
