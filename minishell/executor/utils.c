@@ -6,11 +6,12 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:38:58 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 12:30:31 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 14:12:04 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executor.h"
+#include "builtins.h"
 
 void	fd_apply(t_pipes *pipes)
 {
@@ -46,4 +47,28 @@ void	ft_wait_pid(t_vars *vars, pid_t pid)
 	waitpid(pid, &vars->last_exit_code, 0);
 	if (WIFEXITED(vars->last_exit_code))
 		vars->last_exit_code = WEXITSTATUS(vars->last_exit_code);
+}
+
+int	init_pipes(t_vars *vars, t_pipes *pipes)
+{
+	if (vars->last_exit_code == 333)
+	{
+		vars->last_exit_code = 2;
+		return (write_err("minismet", "syntax error\n"), 0);
+	}
+	pipes->cmd_list = vars->cmds;
+	pipes->cmd_count = ft_lstsize(pipes->cmd_list);
+	pipes->cmd_index = 0;
+	pipes->infile = STDIN_FILENO;
+	pipes->outfile = STDOUT_FILENO;
+	pipes->last_read = pipes->infile;
+	return (1);
+}
+
+void	continue_pipes(t_vars *vars, t_pipes *pipes)
+{
+	pipes->exit_codes[pipes->cmd_index] = vars->last_exit_code;
+	clean_pipe(pipes);
+	pipes->cmd_list = pipes->cmd_list->next;
+	pipes->cmd_index++;
 }
