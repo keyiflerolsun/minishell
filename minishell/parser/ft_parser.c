@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/29 16:28:24 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 12:05:03 by hyakici          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	is_quoted_token(char *token)
 	return (token && token[0] == ARG_PIPE_SEPARATOR);
 }
 
-int	is_special_dollar(char c)
+int	is_sd(char c)
 {
 	if (c == '\'' || c == '"' || c == '\0' || c == ' ')
 		return (1);

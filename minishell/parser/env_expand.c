@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_expand.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 14:54:47 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/30 12:11:30 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 12:05:03 by hyakici          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,28 +60,28 @@ static char	*handle_dollar(const char *line, size_t *i, t_vars vars)
 
 char	*expand_env(t_vars vars, const char *line)
 {
-	t_expander	expander;
+	t_expander	exp;
 	char		*val;
 
-	expand_init(&expander);
-	while (line[expander.i])
+	expand_init(&exp);
+	while (line[exp.i])
 	{
-		if (line[expander.i] == '\'' && !expander.q[1])
-			expander.q[0] = !expander.q[0];
-		else if (line[expander.i] == '"' && !expander.q[0])
-			expander.q[1] = !expander.q[1];
-		else if (line[expander.i] == '$' && is_special_dollar(line[expander.i + 1]) && !expander.q[0])
+		if (line[exp.i] == '\'' && !exp.q[1])
+			exp.q[0] = !exp.q[0];
+		else if (line[exp.i] == '"' && !exp.q[0])
+			exp.q[1] = !exp.q[1];
+		else if (line[exp.i] == '$' && is_sd(line[exp.i + 1]) && !exp.q[0])
 		{
-			join_sstuuf(&expander.res, expander.tmp, &expander.i, line);
+			join_sstuuf(&exp.res, exp.tmp, &exp.i, line);
 			continue ;
 		}
-		else if (line[expander.i] == '$' && !expander.q[0] && !is_heredot(line, expander.i))
+		else if (line[exp.i] == '$' && !exp.q[0] && !is_heredot(line, exp.i))
 		{
-			val = handle_dollar(line, &expander.i, vars);
-			expander.res = ft_strjoin(expander.res, val, 3);
+			val = handle_dollar(line, &exp.i, vars);
+			exp.res = ft_strjoin(exp.res, val, 3);
 			continue ;
 		}
-		join_sstuuf(&expander.res, expander.tmp, &expander.i, line);
+		join_sstuuf(&exp.res, exp.tmp, &exp.i, line);
 	}
-	return (expander.res);
+	return (exp.res);
 }
