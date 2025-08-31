@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:38:58 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 12:02:13 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 12:30:31 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	close_fd(t_pipes pipes)
 
 void	ft_wait_pid(t_vars *vars, pid_t pid)
 {
-	if (pid == -31)
+	if (!pid)
 		return ;
 	waitpid(pid, &vars->last_exit_code, 0);
 	if (WIFEXITED(vars->last_exit_code))

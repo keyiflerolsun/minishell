@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 09:23:12 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 12:00:33 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 12:57:36 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	heredoc_sigint_handler(int sig)
 	(void)sig;
 	vars = static_vars(NULL);
 	ft_printf("\n");
-	close(vars->last_exit_code);
+	close(vars->tmp);
 	ft_clear();
 	exit(130);
 }
@@ -57,11 +57,11 @@ static void	child_heredot(t_vars *vars, t_pipes *pipes, char *limiter)
 
 	signal(SIGINT, heredoc_sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
-	vars->last_exit_code = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	if (vars->last_exit_code < 0)
+	vars->tmp = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (vars->tmp < 0)
 		error_exit("child_heredot » open", NULL);
-	exit_code = get_input(vars->last_exit_code, limiter);
-	close(vars->last_exit_code);
+	exit_code = get_input(vars->tmp, limiter);
+	close(vars->tmp);
 	close_fd(*pipes);
 	ft_clear();
 	exit(exit_code);
@@ -80,5 +80,5 @@ void	ft_heredot(t_vars *vars, t_pipes *pipes, char *limiter)
 		error_exit("ft_heredot » fork", NULL);
 	ft_wait_pid(vars, pid);
 	signal(SIGINT, prev_sigint);
-	pipes->cmds[pipes->cmd_index++] = -31;
+	pipes->cmds[pipes->cmd_index] = 0;
 }

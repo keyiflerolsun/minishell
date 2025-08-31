@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 11:58:00 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 13:13:57 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ static int	ft_is_operator(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
 		if (cmd->outfile)
 			init_outfile(pipes);
 		if (vars->last_exit_code == 130 || vars->last_exit_code == EXIT_FAILURE)
-			return (res);
-		if (cmd->args && !builtin_exec(vars, pipes, cmd->args))
-			pipes->cmds[pipes->cmd_index] = child_exec(vars, pipes, cmd->args);
+		 	return (res);
+		if (cmd->args && cmd->args[0])
+			if (!builtin_exec(vars, pipes, cmd->args))
+				pipes->cmds[pipes->cmd_index] = child_exec(vars, pipes, cmd->args);
 	}
 	return (res);
 }
@@ -84,19 +85,25 @@ void	pars_to_exec(t_vars *vars)
 	while (pipes.cmd_list)
 	{
 		cmd = (t_cmd *)pipes.cmd_list->data;
+		if (cmd->args && cmd->args[0])
+			ft_printf(">> %s > cmd : %d\n", cmd->args[0], pipes.cmd_index);
 		setup_pipe(&pipes);
 		if (ft_is_operator(vars, &pipes, cmd))
 		{
 			continue_pipes(vars, &pipes);
 			continue ;
 		}
-		if (cmd->args && !builtin_exec(vars, &pipes, cmd->args))
-			pipes.cmds[pipes.cmd_index] = child_exec(vars, &pipes, cmd->args);
+		if (cmd->args && cmd->args[0])
+			if (!builtin_exec(vars, &pipes, cmd->args))
+				pipes.cmds[pipes.cmd_index] = child_exec(vars, &pipes, cmd->args);
 		continue_pipes(vars, &pipes);
 	}
 	pipes.cmd_index = -1;
 	while (pipes.cmd_index++ < pipes.cmd_count - 1)
+	{
+		ft_printf(">> cmd : %d\n", pipes.cmd_index);
 		ft_wait_pid(vars, pipes.cmds[pipes.cmd_index]);
+	}
 	close_fd(pipes);
 	unlink("here_doc");
 }

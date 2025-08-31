@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:43:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/27 10:21:26 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 12:40:54 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	env2p(t_vars *vars)
 	}
 	vars->ep = ep;
 	set_path(vars);
+	vars->tmp = 0;
 	static_vars(vars);
 }
 
@@ -43,7 +44,8 @@ static void	run_prog(t_vars *vars)
 		sort_list(vars->export);
 		sort_list(vars->env);
 		env2p(vars);
-		line = readline(MAGENTA "minismet" CYAN " ¢ " RESET);
+		if (vars->tmp != -42)
+			line = readline(MAGENTA "minismet" CYAN " ¢ " RESET);
 		if (!line)
 			break ;
 		if (*line)
@@ -59,6 +61,7 @@ static void	run_prog(t_vars *vars)
 void	init_shell(t_vars *vars, char **ep)
 {
 	setup_signals();
+	vars->tmp = 0;
 	vars->cmds = NULL;
 	vars->tokens = NULL;
 	vars->path = NULL;

@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:50:08 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 11:47:13 by osancak          ###   ########.fr       */
+/*   Updated: 2025/08/31 12:37:59 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ pid_t	child_exec(t_vars *vars, t_pipes *pipes, char **cmd)
 
 	signals[0] = signal(SIGINT, SIG_IGN);
 	signals[1] = signal(SIGQUIT, SIG_IGN);
+	vars->tmp = -42;
+	static_vars(vars);
 	pid = fork();
 	if (pid == 0)
 		execute_child(vars, pipes, cmd);
