@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 15:27:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 18:23:25 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 18:07:39 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,19 @@ static void	print_export(t_vars vars)
 
 static void	handle_no_equal(char *token, t_vars *vars)
 {
+	char	*tmp_env;
+
 	if (is_valid_key(token))
-		vars->last_exit_code = EXIT_SUCCESS;
+	{
+		tmp_env = get_env(vars->env, token);
+		if (!tmp_env)
+		{
+			update_env(&vars->export, token, "");
+			delete_env(&vars->env, token);
+			vars->last_exit_code = EXIT_SUCCESS;
+		}
+		free(tmp_env);
+	}
 	else
 	{
 		write_err(token, "invalid export identifier\n");
