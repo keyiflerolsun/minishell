@@ -37,14 +37,16 @@ void	close_fd(t_pipes *pipes)
 
 void	ft_wait_pid(t_vars *vars, pid_t pid)
 {
+	int	status;
+
 	if (!pid)
 		return ;
-	waitpid(pid, &vars->last_exit_code, 0);
-	if (WIFEXITED(vars->last_exit_code))
-		vars->last_exit_code = WEXITSTATUS(vars->last_exit_code);
-	if (WIFSIGNALED(vars->last_exit_code))
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		vars->last_exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
 	{
-		vars->last_exit_code = WTERMSIG(vars->last_exit_code);
+		vars->last_exit_code = WTERMSIG(status);
 		if (vars->last_exit_code == 2 || vars->last_exit_code == 3)
 			vars->last_exit_code += 128;
 	}

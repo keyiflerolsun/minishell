@@ -33,7 +33,11 @@ static void	ft_errno_manipulate(t_vars *vars, int ex, char *left)
 		exit(vars->last_exit_code);
 	}
 	if (ex == ENOTDIR)
+	{
 		vars->last_exit_code = 126;
+		write_err(left, "Not a directory\n");
+		exit(vars->last_exit_code);
+	}
 }
 
 void	error_exit(char *left, char *right)

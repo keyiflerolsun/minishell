@@ -12,28 +12,41 @@
 
 #include "builtins.h"
 
-void	ft_cd(char **tokens, t_vars *vars)
+static int	ft_cd_check(t_vars *vars, char **tokens, char *buff)
 {
-	char	*old;
-	char	buff[1024];
-
 	if (!tokens[1])
 	{
 		write_err(tokens[0], "RTFM! » with only a relative or absolute path\n");
 		vars->last_exit_code = 42;
-		return ;
+		return (0);
+	}
+	if (tokens[2])
+	{
+		write_err("cd", "too many arguments\n");
+		vars->last_exit_code = 2;
+		return (0);
 	}
 	if (chdir(tokens[1]) != 0)
 	{
 		write_perr(tokens[1]);
 		vars->last_exit_code = errno;
-		return ;
+		return (0);
 	}
 	if (!getcwd(buff, sizeof(buff)))
 	{
 		vars->last_exit_code = EXIT_FAILURE;
-		return ;
+		return (0);
 	}
+	return (1);
+}
+
+void	ft_cd(char **tokens, t_vars *vars)
+{
+	char	*old;
+	char	buff[1024];
+
+	if (!ft_cd_check(vars, tokens, buff))
+		return ;
 	old = get_env(vars->env, "PWD");
 	update_env(&vars->env, "OLDPWD", old);
 	free(old);
