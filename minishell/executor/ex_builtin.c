@@ -32,7 +32,7 @@ int	ft_is_builtin(char **cmd)
 	return (0);
 }
 
-static void	bi_exec(t_vars *vars, t_pipes *pipes, char **cmd)
+int	bi_exec(t_vars *vars, t_pipes *pipes, char **cmd)
 {
 	if (!ft_strcmp(cmd[0], "pwd"))
 		ft_pwd(cmd, vars);
@@ -48,9 +48,10 @@ static void	bi_exec(t_vars *vars, t_pipes *pipes, char **cmd)
 		ft_cd(cmd, vars);
 	else if (!ft_strcmp(cmd[0], "exit"))
 		ft_exit(vars, cmd, pipes->cmd_count);
+	return (0);
 }
 
-static void	bi_child_proc(t_vars *vars, t_pipes *pipes, char **cmd)
+void	ex_builtin(t_vars *vars, t_pipes *pipes, char **cmd)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -59,25 +60,4 @@ static void	bi_child_proc(t_vars *vars, t_pipes *pipes, char **cmd)
 	bi_exec(vars, pipes, cmd);
 	ft_clear();
 	exit(vars->last_exit_code);
-}
-
-pid_t	builtin_exec(t_vars *vars, t_pipes *pipes, char **cmd)
-{
-	pid_t			pid;
-	__sighandler_t	signals[2];
-
-	if (pipes->cmd_count == 1)
-		return (bi_exec(vars, pipes, cmd), 0);
-	signals[0] = signal(SIGINT, SIG_IGN);
-	signals[1] = signal(SIGQUIT, SIG_IGN);
-	vars->tmp = -42;
-	static_vars(vars);
-	pid = fork();
-	if (pid == 0)
-		bi_child_proc(vars, pipes, cmd);
-	if (pid < 0)
-		error_exit("builtin_exec » fork", NULL);
-	signal(SIGINT, signals[0]);
-	signal(SIGQUIT, signals[1]);
-	return (pid);
 }

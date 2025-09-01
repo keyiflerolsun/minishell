@@ -23,7 +23,7 @@ static void	get_name(char *cmd, char *name)
 	name[i] = '\0';
 }
 
-static void	execute_child(t_vars *vars, t_pipes *pipes, char **cmd)
+void	ex_execve(t_vars *vars, t_pipes *pipes, char **cmd)
 {
 	char	*ex_path;
 	int		exec_err;
@@ -43,23 +43,4 @@ static void	execute_child(t_vars *vars, t_pipes *pipes, char **cmd)
 	if (exec_err)
 		error_exit(name, NULL);
 	exit(EXIT_SUCCESS);
-}
-
-pid_t	child_exec(t_vars *vars, t_pipes *pipes, char **cmd)
-{
-	pid_t			pid;
-	__sighandler_t	signals[2];
-
-	signals[0] = signal(SIGINT, SIG_IGN);
-	signals[1] = signal(SIGQUIT, SIG_IGN);
-	vars->tmp = -42;
-	static_vars(vars);
-	pid = fork();
-	if (pid == 0)
-		execute_child(vars, pipes, cmd);
-	if (pid < 0)
-		error_exit("child_exec » fork", NULL);
-	signal(SIGINT, signals[0]);
-	signal(SIGQUIT, signals[1]);
-	return (pid);
 }

@@ -13,6 +13,26 @@
 #include "executor.h"
 #include "parser.h"
 
+static pid_t	fork_exec(t_vars *vars, t_pipes *pipes, char **cmd,
+		void (*child_func)(t_vars *, t_pipes *, char **))
+{
+	pid_t			pid;
+	__sighandler_t	signals[2];
+
+	signals[0] = signal(SIGINT, SIG_IGN);
+	signals[1] = signal(SIGQUIT, SIG_IGN);
+	vars->tmp = -42;
+	static_vars(vars);
+	pid = fork();
+	if (pid == 0)
+		child_func(vars, pipes, cmd);
+	if (pid < 0)
+		error_exit("fork_exec » fork", NULL);
+	signal(SIGINT, signals[0]);
+	signal(SIGQUIT, signals[1]);
+	return (pid);
+}
+
 static void	ft_exec(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
 {
 	int	i;
@@ -21,9 +41,14 @@ static void	ft_exec(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
 	if (cmd->args && cmd->args[0])
 	{
 		if (ft_is_builtin(cmd->args))
-			pipes->cmds[i] = builtin_exec(vars, pipes, cmd->args);
+		{
+			if (pipes->cmd_count == 1)
+				pipes->cmds[i] = bi_exec(vars, pipes, cmd->args);
+			else
+				pipes->cmds[i] = fork_exec(vars, pipes, cmd->args, ex_builtin);
+		}
 		else
-			pipes->cmds[i] = child_exec(vars, pipes, cmd->args);
+			pipes->cmds[i] = fork_exec(vars, pipes, cmd->args, ex_execve);
 	}
 }
 

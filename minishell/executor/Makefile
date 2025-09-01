@@ -1,6 +1,6 @@
 CFILES = err_exit.c \
-		 builtin_exec.c \
-		 child_exec.c \
+		 ex_builtin.c \
+		 ex_execve.c \
 		 pars_to_exec.c \
 		 init_files.c \
 		 pipe.c \

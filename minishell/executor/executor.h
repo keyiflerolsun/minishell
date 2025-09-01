@@ -34,8 +34,9 @@ typedef struct s_pipes
 
 void		error_exit(char *left, char *right);
 int			ft_is_builtin(char **cmd);
-pid_t		builtin_exec(t_vars *vars, t_pipes *pipes, char **cmd);
-pid_t		child_exec(t_vars *vars, t_pipes *pipes, char **cmd);
+int			bi_exec(t_vars *vars, t_pipes *pipes, char **cmd);
+void		ex_builtin(t_vars *vars, t_pipes *pipes, char **cmd);
+void		ex_execve(t_vars *vars, t_pipes *pipes, char **cmd);
 void		pars_to_exec(t_vars *vars);
 int			init_pipes(t_vars *vars, t_pipes *pipes);
 void		continue_pipes(t_vars *vars, t_pipes *pipes);
