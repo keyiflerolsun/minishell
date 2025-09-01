@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 14:38:58 by osancak           #+#    #+#             */
-/*   Updated: 2025/09/01 11:15:22 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 15:36:30 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ void	ft_wait_pid(t_vars *vars, pid_t pid)
 	if (WIFEXITED(vars->last_exit_code))
 		vars->last_exit_code = WEXITSTATUS(vars->last_exit_code);
 	if (WIFSIGNALED(vars->last_exit_code))
-		vars->last_exit_code = 128 + WTERMSIG(vars->last_exit_code);
+	{
+		vars->last_exit_code = WTERMSIG(vars->last_exit_code);
+		if (vars->last_exit_code == 2 || vars->last_exit_code == 3)
+			vars->last_exit_code += 128;
+	}
 }
 
 int	init_pipes(t_vars *vars, t_pipes *pipes)

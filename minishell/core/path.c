@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:34:53 by osancak           #+#    #+#             */
-/*   Updated: 2025/09/01 12:55:17 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 15:33:58 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,6 @@ void	set_path(t_vars *vars)
 	}
 }
 
-static int	ft_is_executable(const char *path)
-{
-	struct stat	sb;
-
-	if (access(path, X_OK) != 0)
-		return (0);
-	if (stat(path, &sb) != 0)
-		return (0);
-	if ((sb.st_mode & S_IFMT) != S_IFREG)
-		return (0);
-	return (1);
-}
-
 char	*get_path(char **path, char *command)
 {
 	char	*ex_path;
@@ -47,7 +34,7 @@ char	*get_path(char **path, char *command)
 
 	if (ft_strchr(command, '/'))
 	{
-		if (ft_is_executable(command))
+		if (access(command, F_OK) == 0)
 			return (ft_strdup(command));
 		else
 			return (NULL);
@@ -56,7 +43,7 @@ char	*get_path(char **path, char *command)
 	{
 		____tmp = ft_strjoin(*path, "/", 0);
 		ex_path = ft_strjoin(____tmp, command, 1);
-		if (ft_is_executable(ex_path))
+		if (access(ex_path, X_OK) == 0)
 			return (ex_path);
 		free(ex_path);
 		path++;

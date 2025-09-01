@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:41:18 by osancak           #+#    #+#             */
-/*   Updated: 2025/09/01 12:37:18 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 15:34:23 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,13 @@ static void	ft_errno_manipulate(t_vars *vars, int ex, char *left)
 		write_err(left, "No such file or directory\n");
 		exit(vars->last_exit_code);
 	}
-	if (ex == ENOTDIR || ex == EACCES)
+	if (ex == EACCES)
+	{
+		vars->last_exit_code = 126;
+		write_err(left, "Is a directory\n");
+		exit(vars->last_exit_code);
+	}
+	if (ex == ENOTDIR)
 		vars->last_exit_code = 126;
 }
 
