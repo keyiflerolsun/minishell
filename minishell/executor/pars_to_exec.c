@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/09/01 12:40:09 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 17:07:54 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@
 static void	ft_exec(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
 {
 	if (cmd->args && cmd->args[0])
-		if (!builtin_exec(vars, pipes, cmd->args))
+	{
+		if (ft_is_builtin(cmd->args))
+			pipes->cmds[pipes->cmd_index] = builtin_exec(vars, pipes, cmd->args);
+		else
 			pipes->cmds[pipes->cmd_index] = child_exec(vars, pipes, cmd->args);
+	}
 }
 
 static int	ft_is_operator(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
