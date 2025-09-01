@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 16:44:32 by osancak           #+#    #+#             */
-/*   Updated: 2025/09/01 16:12:46 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 16:17:54 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	ft_cd_check(t_vars *vars, char **tokens)
 	else if (chdir(tokens[1]) != 0)
 	{
 		write_perr(tokens[1]);
-		vars->last_exit_code = errno;
+		vars->last_exit_code = EXIT_FAILURE;
 		return (0);
 	}
 	return (1);
