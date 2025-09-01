@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 16:24:09 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/09 14:51:53 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 11:00:46 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@ int	main(int ac, char **av, char **ep)
 
 	(void)ac, (void)av;
 	init_shell(&vars, ep);
-	return (EXIT_SUCCESS);
+	return (vars.last_exit_code);
 }

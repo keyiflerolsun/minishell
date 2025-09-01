@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 17:35:35 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 12:40:09 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_is_operator(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
 			ft_heredot(vars, pipes, cmd->limiters);
 		if (cmd->infile)
 			init_infile(pipes);
-		if (cmd->outfile)
+		if (vars->last_exit_code != 130 && cmd->outfile)
 			init_outfile(pipes);
 		if (vars->last_exit_code == 130 || vars->last_exit_code == EXIT_FAILURE)
 			return (res);

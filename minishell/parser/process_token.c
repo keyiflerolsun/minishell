@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:51:35 by hyakici           #+#    #+#             */
-/*   Updated: 2025/08/31 19:34:29 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 11:08:45 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ int	check_outfile(char **args)
 	i = 0;
 	while (args[i])
 	{
-		if (!strcmp(args[i], ">>") && args[i + 1] == NULL)
+		if (!ft_strcmp(args[i], ">>") && args[i + 1] == NULL)
 			return (1);
-		else if (!strcmp(args[i], "<<") && args[i + 1] == NULL)
+		else if (!ft_strcmp(args[i], "<<") && args[i + 1] == NULL)
 			return (1);
-		else if (!strcmp(args[i], "<") && args[i + 1] == NULL)
+		else if (!ft_strcmp(args[i], "<") && args[i + 1] == NULL)
 			return (1);
-		else if (!strcmp(args[i], ">") && args[i + 1] == NULL)
+		else if (!ft_strcmp(args[i], ">") && args[i + 1] == NULL)
 			return (1);
 		i++;
 	}

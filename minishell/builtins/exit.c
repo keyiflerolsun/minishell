@@ -6,21 +6,22 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 19:38:45 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 19:29:00 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 10:59:39 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "executor.h"
 
-void	ft_exit(char **tokens, int cmd_count)
+void	ft_exit(t_vars *vars, char **tokens, int cmd_count)
 {
 	int	exit_code;
 
 	if (cmd_count > 1)
 		return ;
+	ft_printf("%sexit%s\n", BOLD_RED, RESET);
 	if (!tokens[1])
-		return (ft_clear(), exit(EXIT_SUCCESS));
+		return (ft_clear(), exit(vars->last_exit_code));
 	if (!ft_atoi(tokens[1], &exit_code))
 	{
 		write_err(tokens[1], "numeric argument required\n");

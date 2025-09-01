@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 18:42:41 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 19:36:45 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 11:08:35 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_env_value(char **envp, char *key)
 	i = 0;
 	while (envp && envp[i])
 	{
-		if (!strncmp(envp[i], key, len) && envp[i][len] == '=')
+		if (!ft_strncmp(envp[i], key, len) && envp[i][len] == '=')
 			return (ft_strdup(envp[i] + len + 1));
 		i++;
 	}

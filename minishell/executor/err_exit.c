@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 14:41:18 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 18:32:32 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 12:37:18 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 
 static void	ft_errno_manipulate(t_vars *vars, int ex, char *left)
 {
-	if (ex == 127 || ex == EACCES)
+	if (ex == 127)
 	{
-		if (ex == EACCES)
-			ex = 126;
 		write_err(left, "Command not found\n");
 		exit(ex);
 	}
@@ -28,7 +26,7 @@ static void	ft_errno_manipulate(t_vars *vars, int ex, char *left)
 		write_err(left, "No such file or directory\n");
 		exit(vars->last_exit_code);
 	}
-	if (ex == ENOTDIR)
+	if (ex == ENOTDIR || ex == EACCES)
 		vars->last_exit_code = 126;
 }
 

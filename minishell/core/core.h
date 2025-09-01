@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:15 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 17:04:16 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 10:31:31 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_vars
 	t_list	*cmds;
 	int		last_exit_code;
 	int		tmp;
+	char	**_tmp;
 }			t_vars;
 
 void		setup_signals(void);

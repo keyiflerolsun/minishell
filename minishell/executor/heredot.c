@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 09:23:12 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 17:35:06 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 10:41:28 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include "core.h"
 #include "executor.h"
 
-static int	process_line(int *fd, char *line, char **limiters, int *curr)
+static int	process_line(int *fd, char *line, char **limiters, int curr)
 {
-	if (!ft_strcmp(line, limiters[*curr]))
+	if (!ft_strcmp(line, limiters[curr]))
 	{
 		free(line);
 		return (1);
@@ -42,7 +42,7 @@ static int	get_input(int *fd, char **limiters)
 			curr++;
 			continue ;
 		}
-		if (process_line(fd, line, limiters, &curr))
+		if (process_line(fd, line, limiters, curr))
 		{
 			if (limiters[++curr])
 			{
@@ -64,6 +64,8 @@ static void	heredoc_sigint_handler(int sig)
 	vars = static_vars(NULL);
 	ft_printf("\n");
 	close(vars->tmp);
+	while (*vars->_tmp)
+		unlink(*vars->_tmp++);
 	ft_clear();
 	exit(130);
 }
@@ -75,6 +77,8 @@ static void	child_heredot(t_vars *vars, t_pipes *pipes, char **limiters)
 	signal(SIGINT, heredoc_sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 	vars->tmp = open("here_doc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	vars->_tmp = limiters;
+	static_vars(vars);
 	if (vars->tmp < 0)
 		error_exit("child_heredot » open", NULL);
 	exit_code = get_input(&vars->tmp, limiters);
