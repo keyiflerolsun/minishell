@@ -32,7 +32,8 @@ typedef struct s_cmd
 	char		*outfile;
 	int			append;
 	int			here_doc;
-	char		*limiter;
+	char		**limiters;
+	int			heredoc_count;
 }				t_cmd;
 
 typedef struct s_token_array
@@ -66,5 +67,6 @@ int				ft_is_op(char c);
 int				check_outfile(char **args);
 int				is_heredot(const char *line, size_t d_i);
 int				cont_meta(t_vars *vars, char **args);
+int				add_heredoc_limiter(t_cmd *cmd, char *limiter);
 
 #endif

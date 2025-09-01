@@ -46,7 +46,7 @@ int			get_pipe_out(t_pipes *pipes);
 void		clean_pipe(t_pipes *pipes);
 void		fd_apply(t_pipes *pipes);
 void		close_fd(t_pipes *pipes);
-void		ft_heredot(t_vars *vars, t_pipes *pipes, char *limiter);
+void		ft_heredot(t_vars *vars, t_pipes *pipes, char **limiters);
 void		ft_wait_pid(t_vars *vars, pid_t pid);
 void		close_if_open(int *fd);
 

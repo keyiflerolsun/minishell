@@ -43,3 +43,22 @@ int	cont_meta(t_vars *vars, char **args)
 	}
 	return (0);
 }
+
+int	add_heredoc_limiter(t_cmd *cmd, char *limiter)
+{
+	char	**new_limiters;
+	int		i;
+
+	new_limiters = ft_calloc(cmd->heredoc_count + 2, sizeof(char *));
+	if (!new_limiters)
+		return (0);
+	i = -1;
+	while (++i < cmd->heredoc_count)
+		new_limiters[i] = cmd->limiters[i];
+	new_limiters[cmd->heredoc_count] = ft_strdup(strip_quote(limiter));
+	if (cmd->limiters)
+		free(cmd->limiters);
+	cmd->limiters = new_limiters;
+	cmd->heredoc_count++;
+	return (1);
+}

@@ -38,9 +38,10 @@ t_cmd	*init_cmd(void)
 	cmd->args = NULL;
 	cmd->infile = NULL;
 	cmd->outfile = NULL;
-	cmd->limiter = NULL;
+	cmd->limiters = NULL;
 	cmd->append = 0;
 	cmd->here_doc = 0;
+	cmd->heredoc_count = 0;
 	return (cmd);
 }
 
@@ -53,6 +54,8 @@ static void	free_single_cmd(void *data)
 	cmd = (t_cmd *)data;
 	if (cmd->args)
 		free(cmd->args);
+	if (cmd->limiters)
+		free_split(cmd->limiters);
 	free(cmd);
 }
 

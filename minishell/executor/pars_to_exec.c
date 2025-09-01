@@ -29,7 +29,7 @@ static int	ft_is_operator(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
 	{
 		res = 1;
 		if (cmd->here_doc)
-			ft_heredot(vars, pipes, cmd->limiter);
+			ft_heredot(vars, pipes, cmd->limiters);
 		if (cmd->infile)
 			init_infile(pipes);
 		if (cmd->outfile)

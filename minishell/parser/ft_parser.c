@@ -47,7 +47,12 @@ void	print_cmds(t_list *cmd_list)
 		if (cmd->outfile)
 			ft_printf("  outfile: %s (append=%d)\n", cmd->outfile, cmd->append);
 		if (cmd->here_doc)
-			ft_printf("  here_doc with limiter: %s\n", cmd->limiter);
+		{
+			j = -1;
+			while (cmd->limiters[++j])
+				ft_printf("  here_doc with limiter[%d]: %s\n", j,
+					cmd->limiters[j]);
+		}
 		ft_printf("----\n");
 		current = current->next;
 	}
