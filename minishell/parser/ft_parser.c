@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyakici <hyakici@student.42istanbul.com    +#+  +:+       +#+        */
+/*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:22:16 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 12:05:03 by hyakici          ###   ########.fr       */
+/*   Updated: 2025/09/01 18:52:08 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	ft_parser(t_vars *vars, char *line)
 	i = 0;
 	if (!line || !*line)
 		return (free(line));
+	if (*line == '|')
+		vars->last_exit_code = 333;
 	expanded_line = expand_env(*vars, line);
 	free(line);
 	if (vars->tokens)
