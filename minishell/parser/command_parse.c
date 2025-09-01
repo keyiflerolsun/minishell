@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 14:45:21 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/31 19:32:22 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 14:52:46 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,7 @@ static t_cmd	*create_cmd(char **args, int *i)
 	while (args[*i] && (is_quoted_token(args[*i]) || ft_strcmp(args[*i], "|")))
 	{
 		result = handle_inout(cmd, args, i);
-		if (result == 0 && !cmd->here_doc)
-			break ;
-		else if (result == 1)
+		if (result == 1)
 			cmd->args[arg_i++] = strip_quote(args[*i]);
 		(*i)++;
 	}
