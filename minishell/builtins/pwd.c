@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:20:39 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/27 10:39:02 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 18:41:46 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_pwd(char **tokens, t_vars *vars)
 	if (tokens[1] && *tokens[1] == '-')
 	{
 		write_err(tokens[0], "options are not supported\n");
-		vars->last_exit_code = 42;
+		vars->last_exit_code = 2;
 		return ;
 	}
 	if (getcwd(buff, sizeof(buff)))

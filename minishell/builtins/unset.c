@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 16:37:07 by osancak           #+#    #+#             */
-/*   Updated: 2025/08/17 12:56:06 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 18:41:56 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_unset(char **tokens, t_vars *vars)
 	if (*tokens[1] == '-')
 	{
 		write_err(tokens[0], "options are not supported\n");
-		vars->last_exit_code = 42;
+		vars->last_exit_code = 2;
 		return ;
 	}
 	delete_env(&vars->env, tokens[1]);

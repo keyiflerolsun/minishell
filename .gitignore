@@ -3,5 +3,6 @@
 **/*.a
 **/a.out
 kurek*
+here_doc
 minismet
-minishell
+minishell/minishell

@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 15:27:11 by osancak           #+#    #+#             */
-/*   Updated: 2025/09/01 18:07:39 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/01 18:41:36 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	ft_export(char **tokens, t_vars *vars)
 	if (*tokens[1] == '-')
 	{
 		write_err("export", "options are not supported\n");
-		vars->last_exit_code = 42;
+		vars->last_exit_code = 2;
 		return ;
 	}
 	while (*++tokens)
