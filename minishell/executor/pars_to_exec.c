@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 15:28:55 by osancak           #+#    #+#             */
-/*   Updated: 2025/09/01 18:31:12 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/02 11:00:53 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static pid_t	fork_exec(t_vars *vars, t_pipes *pipes, char **cmd,
 static void	ft_exec(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
 {
 	int	i;
+	int	backup_fds[2];
 
 	i = pipes->cmd_index;
 	if (cmd->args && cmd->args[0])
@@ -43,7 +44,11 @@ static void	ft_exec(t_vars *vars, t_pipes *pipes, t_cmd *cmd)
 		if (ft_is_builtin(cmd->args))
 		{
 			if (pipes->cmd_count == 1)
+			{
+				fds_backup_and_apply(pipes, backup_fds);
 				pipes->cmds[i] = bi_exec(vars, pipes, cmd->args);
+				fds_restore_and_close(backup_fds);
+			}
 			else
 				pipes->cmds[i] = fork_exec(vars, pipes, cmd->args, ex_builtin);
 		}

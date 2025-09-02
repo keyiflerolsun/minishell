@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_exec.c                                     :+:      :+:    :+:   */
+/*   ex_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 11:24:32 by osancak           #+#    #+#             */
-/*   Updated: 2025/09/01 17:22:07 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/02 11:01:03 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,41 @@ int	ft_is_builtin(char **cmd)
 	else if (!ft_strcmp(cmd[0], "exit"))
 		return (1);
 	return (0);
+}
+
+void	fds_backup_and_apply(t_pipes *pipes, int *backup_fds)
+{
+	int	pipe_in;
+	int	pipe_out;
+
+	backup_fds[0] = -1;
+	backup_fds[1] = -1;
+	pipe_in = get_pipe_in(pipes);
+	pipe_out = get_pipe_out(pipes);
+	if (pipe_in != STDIN_FILENO)
+	{
+		backup_fds[0] = dup(STDIN_FILENO);
+		dup2(pipe_in, STDIN_FILENO);
+	}
+	if (pipe_out != STDOUT_FILENO)
+	{
+		backup_fds[1] = dup(STDOUT_FILENO);
+		dup2(pipe_out, STDOUT_FILENO);
+	}
+}
+
+void	fds_restore_and_close(int *backup_fds)
+{
+	if (backup_fds[0] != -1)
+	{
+		dup2(backup_fds[0], STDIN_FILENO);
+		close(backup_fds[0]);
+	}
+	if (backup_fds[1] != -1)
+	{
+		dup2(backup_fds[1], STDOUT_FILENO);
+		close(backup_fds[1]);
+	}
 }
 
 int	bi_exec(t_vars *vars, t_pipes *pipes, char **cmd)

@@ -6,7 +6,7 @@
 /*   By: osancak <osancak@student.42istanbul.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 13:08:19 by osancak           #+#    #+#             */
-/*   Updated: 2025/09/01 17:01:36 by osancak          ###   ########.fr       */
+/*   Updated: 2025/09/02 11:00:48 by osancak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_pipes
 
 void		error_exit(char *left, char *right);
 int			ft_is_builtin(char **cmd);
+void		fds_backup_and_apply(t_pipes *pipes, int *backup_fds);
+void		fds_restore_and_close(int *backup_fds);
 int			bi_exec(t_vars *vars, t_pipes *pipes, char **cmd);
 void		ex_builtin(t_vars *vars, t_pipes *pipes, char **cmd);
 void		ex_execve(t_vars *vars, t_pipes *pipes, char **cmd);
